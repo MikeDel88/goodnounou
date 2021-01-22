@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Roboto:wght@300&display=swap");
+.inactive {
+  display: none !important;
+}
+
+.active {
+  display: block !important;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.couleur-de-fond {
+  background-color: #D7E0FC;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+a {
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  #en-tete img {
+    width: 100%;
+    height: auto;
+  }
+  #en-tete h2 {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 600px) {
+  #en-tete img {
+    width: 60%;
+    height: auto;
+  }
+  #en-tete h2 {
+    font-size: 35px;
+  }
+}
+
+#en-tete {
+  margin-top: 20px;
+}
+
+#en-tete img:hover {
+  cursor: pointer !important;
+}
+
+#en-tete .img-selected {
+  border: 1px solid #265D87;
+  -webkit-box-shadow: #265d875a 0px 3px 6px 0px;
+          box-shadow: #265d875a 0px 3px 6px 0px;
+}
+
+#formulaire label {
+  color: black !important;
+}
+
+#formulaire a {
+  color: #265D87;
+}
+
+#formulaire a:hover {
+  color: #D7E0FC;
+}
+
+#formulaire .btn {
+  background-color: #265D87;
+  border: 2px solid #265D87;
+  width: 100px;
+  font-family: "Roboto", sans-serif;
+}
+
+#formulaire .btn:hover {
+  background-color: white;
+  color: #265D87;
+}
+
+.feedback {
+  color: #dc3545;
+}
+/*# sourceMappingURL=inscription.css.map */

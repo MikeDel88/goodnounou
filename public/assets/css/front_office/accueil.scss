@@ -1,0 +1,25 @@
+@import '_base.scss';
+@import '_animations.scss';
+
+@media (max-width: 600px){
+    @import '_accueil-mobile.scss';
+}
+
+@media (min-width: 600px){
+    @import '_accueil-desktop.scss';
+}
+
+section{
+    article{
+        text-align:center;
+    }
+}
+
+
+
+
+
+
+
+
+

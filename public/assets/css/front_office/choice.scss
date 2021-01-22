@@ -1,0 +1,33 @@
+@import '_base.scss';
+
+@media (max-width: 600px){
+    @import '_choice-mobile.scss';
+}
+
+@media (min-width: 600px){
+    @import '_choice-desktop.scss';
+}
+
+#assistante-maternelle{
+    margin-top: 50px;
+}
+
+.btn-parents{
+    border: 2px solid $color-secondary;
+}
+.btn-ass-mat{
+    border: 2px solid $color-primary;
+}
+.btn:hover{
+    background-color: $color-white;
+    color:$color-primary;
+}
+#parents  .btn{
+    left: 44%;
+    bottom: -14px;
+}
+
+#assistante-maternelle  .btn{
+    right: 37%;
+    bottom: -20px;
+}

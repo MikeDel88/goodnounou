@@ -1,0 +1,48 @@
+header{
+        padding-top: 30px;
+        justify-content: space-around;
+        .menu-burger{
+            display:none;
+        }
+        h1{
+            font-size: 45px;
+        }
+        ul{
+            display:flex;
+            list-style-type: none;
+
+
+            li:last-child{
+                a{
+                    border-right: none;
+                }
+            }
+            a{
+                font-size: 16px;
+                text-decoration: none;
+                color: $color-primary;
+                padding: 5px 10px;
+                border-right: 1px solid $color-primary;
+                transition: background-color 300ms, color 400ms;
+                &:hover{
+                    background-color: $color-primary;
+                    color: $color-white;
+                }
+            }
+        }
+    
+}
+
+footer{
+    .menu{
+        width: 70%;
+        margin: 0 auto;
+    }
+    a{
+        font-size:18px;
+        margin: 5px 0;
+        &:hover{
+            color: $color-secondary !important;
+        }
+    }
+}

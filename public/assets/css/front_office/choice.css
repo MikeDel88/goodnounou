@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Roboto:wght@300&display=swap");
+.inactive {
+  display: none !important;
+}
+
+.active {
+  display: block !important;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.couleur-de-fond {
+  background-color: #D7E0FC;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+a {
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .btn {
+    border-radius: 2rem;
+    padding: 6px 20px;
+    font-size: 12px;
+    font-weight: 300;
+  }
+  figure img {
+    width: 200px;
+    height: auto;
+  }
+  section {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 600px) {
+  .btn {
+    border-radius: 2rem;
+    padding: 6px 20px;
+    font-size: 25px;
+    font-weight: 300;
+  }
+  figure img {
+    min-width: 40%;
+    max-width: 60%;
+    height: auto;
+  }
+  section {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+  h2 {
+    font-size: 40px;
+    padding: 20px 0;
+  }
+}
+
+#assistante-maternelle {
+  margin-top: 50px;
+}
+
+.btn-parents {
+  border: 2px solid #D7E0FC;
+}
+
+.btn-ass-mat {
+  border: 2px solid #265D87;
+}
+
+.btn:hover {
+  background-color: #ffffff;
+  color: #265D87;
+}
+
+#parents .btn {
+  left: 44%;
+  bottom: -14px;
+}
+
+#assistante-maternelle .btn {
+  right: 37%;
+  bottom: -20px;
+}
+/*# sourceMappingURL=choice.css.map */

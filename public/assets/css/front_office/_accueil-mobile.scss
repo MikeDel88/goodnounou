@@ -1,0 +1,79 @@
+@mixin image-parents{
+    width: 194px;
+    height: 145px;
+}
+@mixin image-assistante{
+    width: 182px;
+    height: 137px;
+}
+@mixin button{
+    border-radius: 2rem;
+    padding: 6px 20px;
+    font-size: 16px;
+    font-weight: 300;
+}
+@mixin contenu{
+    margin-top: 40px;
+    font-size: 10px;
+}
+
+main{
+    padding-top: 35px;
+    h2{
+        font-size: 18px;
+    }
+    .btn{
+        @include button;
+    }
+}
+section{
+    width:90%;
+    margin: 0 auto;
+    figure{
+        margin: 0;
+    }
+    article{
+        @include contenu;
+        text-align: center;
+
+        p{
+            line-height: 10px;
+        }
+    }
+    .lien{
+        margin: 36px auto;
+        display:block;
+        width: 160px;
+    }
+}
+#parents{
+    h2{
+        margin: 0;
+    }
+
+    img{
+        @include image-parents;
+    }
+}
+
+#assistante-maternelle{
+    
+    h2{
+        padding-top: 10px;
+        margin: 0;
+    }
+    img{
+        @include image-assistante;
+    }
+}
+
+.description{
+    margin-top: 30px;
+    .contenu{
+        @include contenu;
+    }
+}
+
+
+
+
