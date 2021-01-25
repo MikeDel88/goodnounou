@@ -16,10 +16,7 @@ use App\Http\Controllers\FrontOffice\ControllerAccueil;
 
 Route::get('/', [ControllerAccueil::class, 'index']);
 
-Route::get('home', function () {
-  return view('home');
-})->middleware('auth');
-
-Route::get('test', function () {
-  return 'Vue de test';
-})->middleware(['verified'])->name('test');
+Route::get('profile', function () {
+    $data['title'] = 'profile';
+    return view('profil', $data);
+})->middleware(['verified'])->name('profile');

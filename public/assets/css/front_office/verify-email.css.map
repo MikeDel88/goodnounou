@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,MAAM,CAAA;EACF,QAAQ,EAAC,KAAK;EACd,MAAM,EAAC,CAAC;EACR,IAAI,EAAC,CAAC;EACN,KAAK,EAAC,CAAC;CACV",
+    "sources": [
+        "verify-email.scss"
+    ],
+    "names": [],
+    "file": "verify-email.css"
+}

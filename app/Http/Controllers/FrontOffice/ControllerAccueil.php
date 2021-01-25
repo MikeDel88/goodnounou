@@ -28,7 +28,6 @@ class ControllerAccueil extends Controller
     public function index()
     {
         $this->data['metadescription'] = "Site de recherche d'assistantes maternelles par géolocalisation, gestion et suivi personnalisé des enfants à travers un planning et un carnet de bord";
-
         return view('accueil', $this->data);
     }
 }

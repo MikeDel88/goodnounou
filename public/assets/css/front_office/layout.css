@@ -177,6 +177,10 @@ body ul {
   padding: 0;
 }
 
+body h1 {
+  margin: 0;
+}
+
 body h2 {
   font-family: "Indie Flower", cursive;
   margin: 0;

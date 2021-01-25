@@ -21,10 +21,10 @@
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/19f71f9368.js" crossorigin="anonymous"></script>
 
-    <title>GoodNounou | {{ ucFirst($title) }}</title>
+    <title>GoodNounou | {{ $title ?? '' }}</title>
 
     <!-- Styles -->
-    @isset($boostrap)
+    @isset($bootstrap)
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     @endisset
@@ -53,6 +53,18 @@
                                 <li><a href="{{ route('login') }}" class="connexion"><i
                                             class="fas fa-user"></i>Connexion</a></li>
                             @endif
+                        @else
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                                                        document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt"></i> revenir à l'accueil
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
                         @endguest
                     </ul>
                 </div>
@@ -74,8 +86,8 @@
                         <li>
                             <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                                                            document.getElementById('logout-form').submit();">
+                                revenir à l'accueil
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -85,8 +97,6 @@
                 </ul>
             </nav>
         </header>
-
-
         <main class="py-4">
             @yield('content')
         </main>
@@ -115,8 +125,8 @@
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                                                                    document.getElementById('logout-form').submit();">
+                                    revenir à l'accueil
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
@@ -131,7 +141,7 @@
         <div id="to-top" class="inactive"><i class="fas fa-arrow-up fa-2x"></i></div>
     </div>
     <!-- Scripts -->
-    @isset($boostrap)
+    @isset($bootstrap)
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
         </script>

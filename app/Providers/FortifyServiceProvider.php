@@ -47,14 +47,11 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::registerView(function () {
-
             $data['categories'] = Category::all();
-            
             $data['metadescription'] = "Inscription au site de GoodNounou en tant qu'assistante maternelle ou parents afin de se mettre en relation et profiter de l'ensemble des fonctionnalités !";
             $data['title'] = 'inscription';
-            $data['boostrap'] = '';
-            $data['css'][] = 'layout';
-            $data['css'][] = 'inscription';
+            $data['bootstrap'] = '';
+            $data['css'] = ['layout', 'inscription'];
             $data['js'] = ['app-mobile', 'app', 'app-form-bs'];
             return view('auth.register', $data);
         });
@@ -62,15 +59,18 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             $data['metadescription'] = "Connectez-vous à votre espace personnalisé pour gérer votre profil sur le site GoodNounou !";
             $data['title'] = 'connexion';
-            $data['boostrap'] = '';
-            $data['css'][] = 'layout';
-            $data['css'][] = 'connexion';
+            $data['bootstrap'] = '';
+            $data['css'] = ['layout', 'connexion'];
             $data['js'] = ['app-mobile', 'app', 'app-form-bs'];
             return view('auth.login', $data);
         });
 
         Fortify::requestPasswordResetLinkView(function () {
-            return view('auth.passwords.email');
+            $data['title'] = 'Envoi nouveau mot de passe';
+            $data['bootstrap'] = '';
+            $data['css'] = ['layout', 'reset-password'];
+            $data['js'] = ['app-mobile', 'app'];
+            return view('auth.passwords.email', $data);
         });
 
         Fortify::resetPasswordView(function ($request) {
@@ -79,8 +79,8 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::verifyEmailView(function () {
             $data['title'] = 'confirmation';
-            $data['css'][] = 'layout';
-            $data['js'] = ['app-mobile', 'app', 'app-form-bs'];
+            $data['css'] = ['layout', 'verify-email'];
+            $data['bootstrap'] = '';
             return view('auth.verify', $data);
         });
     }

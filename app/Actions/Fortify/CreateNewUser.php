@@ -21,7 +21,7 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'category_id' => ['bail','filled','required', 'integer', Rule::in([1,2])],
+            'categorie' => ['bail','filled','required', 'integer', Rule::in([1,2])],
             'email' => 'bail|filled|required|email|unique:users',
             'password' => 'bail|filled|required|confirmed|min:8|max:16',
             'password_confirmation' => 'bail|filled|required',
@@ -29,7 +29,7 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         return User::create([
-            'category_id' => $input['category_id'],
+            'category_id' => $input['categorie'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);

@@ -4,7 +4,7 @@
         <div class="row d-flex text-center align-items-center">
             <div class="col-12">
                 <h2 class="mb-3 text-center">Inscription</h2>
-                <h3 class="my-3">Qui êtes-vous ? </h3>
+                <h3 class="my-3">Selectionnez une catégorie</h3>
             </div>
             @foreach ($categories as $categorie)
                 <div class="col-6 order-1">
@@ -12,16 +12,19 @@
                         alt="{{ $categorie->name }}" title="{{ $categorie->name }}" data-id="{{ $categorie->id }}">
                 </div>
             @endforeach
+            @error('categorie')
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ $message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
         </div>
     </section>
     <section id="formulaire" class="container-fluid">
         <form action="{{ url('register') }}" method="POST" class="g-3 needs-validation" novalidate
             oninput='password_confirmation.setCustomValidity(password_confirmation.value != password.value ? "Passwords do not match." : "")'>
             @csrf
-            <input class="categorie" type="hidden" name="category_id" required>
-            @error('category_id')
-                <div class="response">{{ $message }}</div>
-            @enderror
+            <input class="categorie" type="hidden" name="categorie" required>
             <div class="row">
                 <div class="col-md-6 offset-md-3 my-3">
                     <label for="email" class="form-label">Email</label>
