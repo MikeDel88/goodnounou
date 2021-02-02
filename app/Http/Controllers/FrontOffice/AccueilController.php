@@ -4,7 +4,7 @@ namespace App\Http\Controllers\FrontOffice;
 
 use App\Http\Controllers\Controller;
 
-class ControllerAccueil extends Controller
+class AccueilController extends Controller
 {
     private array $data = [];
 

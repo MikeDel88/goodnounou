@@ -1,0 +1,38 @@
+@media (max-width: 845px) {
+  .menu-mobile {
+    display: block;
+  }
+  aside {
+    display: none;
+  }
+  main {
+    min-width: 100%;
+  }
+  main header h2 {
+    font-size: 18px;
+  }
+  main header nav {
+    display: none;
+  }
+  main section article {
+    margin: 20px 0 0 0;
+  }
+  main section .box-lg, main section .box-sm, main section .box-md {
+    min-width: 100%;
+  }
+  main section .box-lg .contenu ul {
+    border-right: 0 !important;
+  }
+  main section .box-lg footer {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 10px;
+  }
+  main section .box-lg footer button {
+    margin: 10px 0;
+  }
+}
+/*# sourceMappingURL=mobile.css.map */

@@ -3,6 +3,8 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\Parents;
+use App\Models\AssistantesMaternelles;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -21,17 +23,29 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'categorie' => ['bail','filled','required', 'integer', Rule::in([1,2])],
+            'categorie' => ['bail','filled','required', Rule::in(['parents','assistante-maternelle'])],
             'email' => 'bail|filled|required|email|unique:users',
             'password' => 'bail|filled|required|confirmed|min:8|max:16',
             'password_confirmation' => 'bail|filled|required',
             'acceptCG' => 'accepted'
         ])->validate();
 
-        return User::create([
-            'category_id' => $input['categorie'],
+        if($input['categorie'] === 'parents'){
+            $model = 'App\Models\Parents';
+            $cat = Parents::create([]);
+        }elseif($input['categorie'] === 'assistante-maternelle'){
+            $model = 'App\Models\AssistantesMaternelles';
+            $cat = AssistantesMaternelles::create([]);
+        }
+
+        $user = User::create([
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'categorie_type' => $model,
+            'categorie_id' => $cat->id,
         ]);
+
+
+        return $user;
     }
 }

@@ -36,8 +36,8 @@ selectionCategorie.forEach(image => {
         selectionCategorie.forEach(selection => {
             selection.classList.remove('img-selected');
         })
-        let id = image.getAttribute('data-id');
-        document.querySelector('.categorie').setAttribute('value', id);
+        let categorie = image.getAttribute('data-name');
+        document.querySelector('.categorie').setAttribute('value', categorie);
         image.classList.add('img-selected');
     })
 });

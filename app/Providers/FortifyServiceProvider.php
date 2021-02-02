@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\Category as Category;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -47,7 +46,6 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::registerView(function () {
-            $data['categories'] = Category::all();
             $data['metadescription'] = "Inscription au site de GoodNounou en tant qu'assistante maternelle ou parents afin de se mettre en relation et profiter de l'ensemble des fonctionnalités !";
             $data['title'] = 'inscription';
             $data['bootstrap'] = '';
@@ -74,13 +72,19 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::resetPasswordView(function ($request) {
-            return view('auth.passwords.reset', ['token' => $request->token]);
+            $data['title'] = 'Réinitialisation mot de passe';
+            $data['bootstrap'] = '';
+            $data['css'] = ['layout', 'reset-password'];
+            $data['js'] = ['app-mobile', 'app'];
+            $data['token'] = $request->token;
+            return view('auth.passwords.reset', $data);
         });
 
         Fortify::verifyEmailView(function () {
             $data['title'] = 'confirmation';
             $data['css'] = ['layout', 'verify-email'];
             $data['bootstrap'] = '';
+            $data['js'] = ['app-mobile', 'app'];
             return view('auth.verify', $data);
         });
     }

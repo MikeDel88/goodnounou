@@ -1,0 +1,45 @@
+@media (max-width: 845px) {
+  .menu-mobile{
+    display: block;
+  }
+  aside{
+      display:none;
+      
+  }
+  main{
+    min-width: 100%;
+      header{
+        h2{
+          font-size:18px;
+        }
+        nav{
+          display:none;
+        }
+      }
+      section{
+        article{
+          margin: 20px 0 0 0;
+        }
+        .box-lg, .box-sm, .box-md{
+          min-width:100%;
+        }
+        .box-lg{
+          .contenu{
+            ul{
+              border-right: 0 !important;
+            }
+          }
+          footer{
+            flex-wrap: wrap;
+            justify-content: center;
+            padding:10px;
+            button{
+              margin: 10px 0;
+            }
+          }
+        }
+  }
+  }
+
+
+}

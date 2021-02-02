@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FrontOffice\ControllerAccueil;
+use App\Http\Controllers\FrontOffice\AccueilController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,22 @@ use App\Http\Controllers\FrontOffice\ControllerAccueil;
 |
 */
 
-Route::get('/', [ControllerAccueil::class, 'index']);
+// Route général du homepage
+Route::get('/', [AccueilController::class, 'index'])->name('home');
 
-Route::get('profile', function () {
-    $data['title'] = 'profile';
-    return view('profil', $data);
-})->middleware(['verified'])->name('profile');
+// Menu général si l'utilisateur est authentifié et vérifier par email
+Route::get('profile', [UserController::class, 'index'])->middleware(['auth','verified'])->name('profile');
+
+// Cela crée des routes prédéfinies CRUD pour les utilisateurs
+Route::resource('users', UserController::Class)->middleware(['auth', 'verified']);
+
+
+// Route accessible si l'utilisateur est authentifié et appartient à la catégorie parents
+Route::middleware(['verified', 'parents'])->group(function () {
+//
+});
+
+// Route accessible si l'utilisateur est authentifié et appartient à la catégorie assistante-maternelle
+Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
+//
+});

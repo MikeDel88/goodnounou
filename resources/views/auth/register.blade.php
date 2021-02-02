@@ -6,12 +6,14 @@
                 <h2 class="mb-3 text-center">Inscription</h2>
                 <h3 class="my-3">Selectionnez une catégorie</h3>
             </div>
-            @foreach ($categories as $categorie)
-                <div class="col-6 order-1">
-                    <img src="{{ URL::asset("assets/images/$categorie->name.png") }}" loading="lazy"
-                        alt="{{ $categorie->name }}" title="{{ $categorie->name }}" data-id="{{ $categorie->id }}">
-                </div>
-            @endforeach
+            <div class="col-6 order-1">
+                <img src="{{ URL::asset('assets/images/parents.png') }}" loading="lazy" alt="parents" title="parents"
+                    data-name="parents">
+            </div>
+            <div class="col-6 order-1">
+                <img src="{{ URL::asset('assets/images/assistante-maternelle.png') }}" loading="lazy"
+                    alt="assistante-maternelle" title="assistante-maternelle" data-name="assistante-maternelle">
+            </div>
             @error('categorie')
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     {{ $message }}

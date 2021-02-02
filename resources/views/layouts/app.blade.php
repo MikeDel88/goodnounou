@@ -38,6 +38,7 @@
 <body>
     <div id="app">
         <header>
+            {{-- Menu pour le mobile --}}
             <nav class="menu-burger">
                 <div id="burger"><i class="fas fa-bars"></i></div>
                 <div id="nav-mobile" class="inactive">
@@ -57,7 +58,7 @@
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                                                                document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt"></i> revenir à l'accueil
                                 </a>
 
@@ -70,6 +71,7 @@
                 </div>
             </nav>
             <h1 class="titre">Good Nounou</h1>
+            {{-- Menu pour l'ecran de bureau --}}
             <nav class="menu-desktop">
                 <ul>
                     @guest
@@ -84,9 +86,8 @@
                         @endif
                     @else
                         <li>
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                                            document.getElementById('logout-form').submit();">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                        document.getElementById('logout-form').submit();">
                                 revenir à l'accueil
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -98,6 +99,11 @@
             </nav>
         </header>
         <main class="py-4">
+            {{-- Affiche une erreur sur la page demandé est interdite d'accès
+            --}}
+            @if (session('error403'))
+                <div class="response">{{ session('error403') }}</div>
+            @endif
             @yield('content')
         </main>
         <footer>
@@ -125,7 +131,7 @@
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                                                                                    document.getElementById('logout-form').submit();">
+                                                                                                                                            document.getElementById('logout-form').submit();">
                                     revenir à l'accueil
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

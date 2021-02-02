@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Events\Registered;
+use App\Models\AssistanteMaternelle;
+use App\Models\Parents;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -19,9 +21,10 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'category_id',
         'email',
         'password',
+        'categorie_type',
+        'categorie_id'
     ];
 
     /**
@@ -42,14 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-    /**
-     * category
-     * Un utilisateur appartient à une catégorie
-     * @return void
-     */
-    public function category()
-    { 
-        return $this->belongsTo(Category::class); 
+
+
+    public function categorie()
+    {
+        return $this->morphTo();
     }
+
+
 }
