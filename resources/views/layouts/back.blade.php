@@ -61,7 +61,10 @@
                         <li><a href="#"><i class="fas fa-users"></i><span>Famille</span></a></li>
                         <li><a href="#"><i class="fas fa-book"></i><span>Carnet de bord</span></a></li>
                     @else
-                        <li><a href="#"><i class="fas fa-inbox"></i><span>Ma fiche</span></a></li>
+                        <li><a
+                                href="{{ route('assistante-maternelle.fiche', ['id' => Auth::user()->categorie_id]) }}"><i
+                                    class="fas fa-inbox"></i><span>Ma
+                                    fiche</span></a></li>
                         <li><a href="#"><i class="far fa-folder-open"></i><span>Mes contrats</span></a></li>
                         <li><a href="#"><i class="fas fa-star-half-alt"></i><span>Recommandations</span></a></li>
                         <li><a href="#"><i class="fas fa-book"></i><span>Carnet de bord</span></a></li>

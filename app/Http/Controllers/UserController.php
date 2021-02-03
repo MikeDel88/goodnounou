@@ -162,6 +162,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(intval($id) === Auth::user()->id){
+            AssistantesMaternelles::find(Auth::user()->categorie_id)->delete();
+            User::find(Auth::user()->id)->delete();
+            return "ok";
+            exit();
+        }else{
+            return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
+        }
     }
 }

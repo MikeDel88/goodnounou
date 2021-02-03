@@ -17,11 +17,17 @@
   main section article {
     margin: 20px 0 0 0;
   }
+  main section .box h4 {
+    padding: 0 10px !important;
+  }
   main section .box-lg, main section .box-sm, main section .box-md {
     min-width: 100%;
   }
   main section .box-lg .contenu ul {
     border-right: 0 !important;
+  }
+  main section .box-lg .contenu ul li span:nth-child(1) {
+    width: 100% !important;
   }
   main section .box-lg footer {
     -ms-flex-wrap: wrap;
@@ -31,8 +37,8 @@
             justify-content: center;
     padding: 10px;
   }
-  main section .box-lg footer button {
-    margin: 10px 0;
+  main section .box-lg footer a {
+    margin: 10px;
   }
 }
 /*# sourceMappingURL=mobile.css.map */

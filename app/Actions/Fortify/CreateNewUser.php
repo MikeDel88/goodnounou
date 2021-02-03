@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Models\User;
 use App\Models\Parents;
 use App\Models\AssistantesMaternelles;
+use App\Models\Critere;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -36,6 +37,7 @@ class CreateNewUser implements CreatesNewUsers
         }elseif($input['categorie'] === 'assistante-maternelle'){
             $model = 'App\Models\AssistantesMaternelles';
             $cat = AssistantesMaternelles::create([]);
+            Critere::create(['assistante_maternelle_id' => $cat->id]);
         }
 
         $user = User::create([

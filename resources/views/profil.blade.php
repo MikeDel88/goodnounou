@@ -19,7 +19,7 @@
                     </li>
                     <li><span>Adresse</span><span>{{ Auth::user()->adresse ?? 'non renseigné' }}
                             {{ Auth::user()->code_postal }} {{ ucFirst(Auth::user()->ville) ?? '' }} </span></li>
-                    <li><span>Téléphone</span><span>{{ wordwrap(Auth::user()->telephone, 2, '.', 1) ?? 'non renseigné' }}</span>
+                    <li><span>Téléphone</span><span>{{ Auth::user()->telephone ?? 'non renseigné' }}</span>
                     </li>
                     <li><span>Email</span><span>{{ Auth::user()->email_contact ?? 'non renseigné' }}</span>
                     </li>
@@ -33,7 +33,14 @@
         </div>
         <footer>
             <a href="/users/{{ Auth::user()->id }}/edit" class="modifier">Modifier mes informations</a>
-            <a href="#" class="supprimer">Supprimer mon compte</a>
+            <a class="supprimer" href="/users/{{ Auth::user()->id }}" onclick="event.preventDefault();
+                                        document.getElementById('delete-form').submit();">
+                Supprimer mon compte
+            </a>
+            <form id="delete-form" action="/users/{{ Auth::user()->id }}" method="POST" class="d-none">
+                @csrf
+                @method('DELETE')
+            </form>
         </footer>
     </article>
     <div class="flex">

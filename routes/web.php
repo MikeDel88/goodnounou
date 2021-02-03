@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontOffice\AccueilController;
+use App\Http\Controllers\AssistantesMaternelleController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -32,5 +33,10 @@ Route::middleware(['verified', 'parents'])->group(function () {
 
 // Route accessible si l'utilisateur est authentifié et appartient à la catégorie assistante-maternelle
 Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
-//
+    Route::name('assistante-maternelle.')->group(function(){
+        Route::get('fiche/{id}', [AssistantesMaternelleController::class, 'showCard'])->name('fiche');
+        Route::post('fiche/{id}', [AssistantesMaternelleController::class, 'updateCard']);
+    });
+    
 });
+
