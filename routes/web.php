@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontOffice\AccueilController;
 use App\Http\Controllers\AssistantesMaternelleController;
+use App\Http\Controllers\EnfantController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -28,7 +29,10 @@ Route::resource('users', UserController::Class)->middleware(['auth', 'verified']
 
 // Route accessible si l'utilisateur est authentifié et appartient à la catégorie parents
 Route::middleware(['verified', 'parents'])->group(function () {
-//
+    Route::name('parent.')->group(function(){
+        Route::get('liste/enfants', [EnfantController::class, 'index'])->name('enfants');
+        Route::post('liste/enfants', [EnfantController::class, 'store']);
+    });   
 });
 
 // Route accessible si l'utilisateur est authentifié et appartient à la catégorie assistante-maternelle

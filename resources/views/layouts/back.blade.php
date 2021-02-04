@@ -62,7 +62,8 @@
                     @if ($role === 'parents')
                         <li><a href="#"><i class="fas fa-map-marker-alt"></i><span>Rechercher</span></a></li>
                         <li><a href="#"><i class="far fa-folder-open"></i><span>Mes contrats</span></a></li>
-                        <li><a href="#"><i class="fas fa-users"></i><span>Famille</span></a></li>
+                        <li><a href="{{ route('parent.enfants') }}"><i
+                                    class="fas fa-users"></i><span>Famille</span></a></li>
                         <li><a href="#"><i class="fas fa-book"></i><span>Carnet de bord</span></a></li>
                     @else
                         <li><a

@@ -100,7 +100,7 @@
                         <div class="mb-3 col-md-6">
                             <label for="date_prochaine_disponibilite" class="form-label">Prochaine disponibilité</label>
                             <input type="date" class="form-control" id="date_prochaine_disponibilite"
-                                value="{{ Auth::user()->categorie->date_prochaine_disponibilite ?? old('date_prochaine_disponibilite') }}"
+                                value="{{ Auth::user()->categorie->prochaine_disponibilite ?? old('date_prochaine_disponibilite') }}"
                                 min="{{ date('Y-m-d') }}" name="date_prochaine_disponibilite">
                         </div>
                     </div>
