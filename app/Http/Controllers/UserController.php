@@ -110,15 +110,15 @@ class UserController extends Controller
         if(intval($user) === Auth::user()->id){
   
             Validator::make($request->input(), [
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|size:360',
-            'nom' => 'bail|required',
-            'prenom' => 'bail|required',
-            'date_naissance' => 'date_format:"Y-m-d"|before_or_equal:today',
-            'adresse' => 'required',
-            'ville' => 'required',
-            'code_postal' => 'min:5|max:5',
-            'telephone' => 'nullable|max:10',
-            'email_contact' => 'nullable|email'
+                'photo'             => 'nullable|image|mimes:jpeg,png,jpg|size:360',
+                'nom'               => 'bail|required',
+                'prenom'            => 'bail|required',
+                'date_naissance'    => 'date_format:"Y-m-d"|before_or_equal:today',
+                'adresse'           => 'required',
+                'ville'             => 'required',
+                'code_postal'       => 'min:5|max:5',
+                'telephone'         => 'nullable|max:10',
+                'email_contact'     => 'nullable|email'
             ])->validate();
 
             
@@ -137,14 +137,14 @@ class UserController extends Controller
                 
             User::where('id', $user)
               ->update([
-                  'nom' =>  ucFirst($request->input('nom')),
-                  'prenom' =>  ucFirst($request->input('prenom')),
-                  'date_naissance' =>  $request->input('date_naissance'),
-                  'adresse' => $request->input('adresse'),
-                  'ville' => ucFirst($request->input('ville')),
-                  'code_postal' => $request->input('code_postal'),
-                  'telephone' => $request->input('telephone'),
-                  'email_contact' => $request->input('email_contact'),
+                  'nom'             =>  ucFirst($request->input('nom')),
+                  'prenom'          =>  ucFirst($request->input('prenom')),
+                  'date_naissance'  =>  $request->input('date_naissance'),
+                  'adresse'         => $request->input('adresse'),
+                  'ville'           => ucFirst($request->input('ville')),
+                  'code_postal'     => $request->input('code_postal'),
+                  'telephone'       => $request->input('telephone'),
+                  'email_contact'   => $request->input('email_contact'),
               ]);
    
             
@@ -165,8 +165,8 @@ class UserController extends Controller
         if(intval($id) === Auth::user()->id){
             AssistantesMaternelles::find(Auth::user()->categorie_id)->delete();
             User::find(Auth::user()->id)->delete();
-            return "ok";
-            exit();
+            return redirec('home')->with('message', "Votre compte a bien été supprimé");
+
         }else{
             return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
         }

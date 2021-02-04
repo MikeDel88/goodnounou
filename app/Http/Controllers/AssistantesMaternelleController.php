@@ -49,43 +49,42 @@ class AssistantesMaternelleController extends Controller
         if(intval($user) === Auth::user()->categorie->id){
 
             Validator::make($request->input(), [
-                'date_debut' => 'date_format:"Y-m-d"|before_or_equal:today|required',
-                'formation' => 'string|bail|required',
-                'nombre_place' => 'integer|required|min:0',
-                'adresse_pro' => 'string|required',
-                'ville_pro' => 'string|required',
-                'code_postal_pro' => 'min:5|max:5',
-                'taux_horaire' => 'numeric|min:0|required',
-                'taux_entretien' => 'numeric|min:0|required',
-                'frais_repas' => 'numeric|min:0|required',
-                'description' => 'string|nullable',
-                'date_prochaine_disponibilite' => 'date_format:"Y-m-d"|after_or_equal:today|nullable'
+                'date_debut'                    => 'date_format:"Y-m-d"|before_or_equal:today|required',
+                'formation'                     => 'string|bail|required',
+                'nombre_place'                  => 'integer|required|min:0',
+                'adresse_pro'                   => 'string|required',
+                'ville_pro'                     => 'string|required',
+                'code_postal_pro'               => 'min:5|max:5',
+                'taux_horaire'                  => 'numeric|min:0|required',
+                'taux_entretien'                => 'numeric|min:0|required',
+                'frais_repas'                   => 'numeric|min:0|required',
+                'description'                   => 'string|nullable',
+                'date_prochaine_disponibilite'  => 'date_format:"Y-m-d"|after_or_equal:today|nullable'
             ])->validate();
 
             $coordonnees = $this->coordonnees($request, $request->input('adresse_pro'), $request->input('code_postal_pro'), $request->input('ville_pro'));
 
-            if($coordonnees['lat'] !== null && $coordonnees['lng'] !== null){
-                AssistantesMaternelles::where('id', $user)
+            AssistantesMaternelles::where('id', $user)
                 ->update([
-                'lat' => $coordonnees['lat'] ?? null,
-                'lng' => $coordonnees['lng'] ?? null,
-                'date_debut' => $request->input('date_debut'),
-                'formation' => $request->input('formation'),
-                'nombre_place' => $request->input('nombre_place'),
-                'adresse_pro' => $request->input('adresse_pro'),
-                'ville_pro' => ucFirst($request->input('ville_pro')),
-                'code_postal_pro' => $request->input('code_postal_pro'),
-                'taux_horaire' => $request->input('taux_horaire'),
-                'taux_entretien' => $request->input('taux_entretien'),
-                'frais_repas' => $request->input('frais_repas'),
-                'description' => $request->input('description'),
+                'lat'                     => $coordonnees['lat'],
+                'lng'                     => $coordonnees['lng'],
+                'date_debut'              => $request->input('date_debut'),
+                'formation'               => $request->input('formation'),
+                'nombre_place'            => $request->input('nombre_place'),
+                'adresse_pro'             => $request->input('adresse_pro'),
+                'ville_pro'               => ucFirst($request->input('ville_pro')),
+                'code_postal_pro'         => $request->input('code_postal_pro'),
+                'taux_horaire'            => $request->input('taux_horaire'),
+                'taux_entretien'          => $request->input('taux_entretien'),
+                'frais_repas'             => $request->input('frais_repas'),
+                'description'             => $request->input('description'),
                 'prochaine_disponibilite' => $request->input('date_prochaine_disponibilite')           
-                ]);
+            ]);
 
+            if($coordonnees['lat'] !== null && $coordonnees['lng'] !== null){
                 return back()->with('success', 'Vos informations ont bien été enregistrées');
-
             }else{
-                return back()->with('message', "Attention, l'adresse que vous avez renseigné n'est pas bonne");
+                return back()->with('message', "Attention, Les informations sont enregistrées mais l'adresse que vous avez renseigné ne permet pas la géolocalisation");
             }
             
         }else{
@@ -106,7 +105,7 @@ class AssistantesMaternelleController extends Controller
         $adresse = array(
                   'street'     => $adresse,
                   'postalcode' => $code_postal,
-                  'ville'       => $ville,
+                  'ville'      => $ville,
                   'country'    => 'france',
                   'format'     => 'json',
                 );

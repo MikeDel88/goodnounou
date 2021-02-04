@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="row px-2 d-flex d-flex justify-content-end">
-                    <button class="col-md-4 col-lg-2" type="submit">Enregistrer les modifications</button>
+                    <button class="col-md-4" type="submit">Enregistrer les modifications</button>
                 </div>
             </form>
             @if ($errors->any())

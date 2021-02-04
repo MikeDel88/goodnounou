@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AssistantesMaternellesAPI;
+use App\Http\Controllers\CritereAPI;
+
 
 
 /*
@@ -15,8 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->post('/user', function () {
-    return "ok";
-    exit();
+Route::middleware('auth:api')->get('/user', function () {
+    return response()->json([
+        'status' => 'ok'
+    ]);
 });
+
+Route::get('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'show']);
+Route::put('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'update']);
+Route::delete('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'update']);
+
+Route::put('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
+Route::delete('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
 

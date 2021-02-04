@@ -24,11 +24,11 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'categorie' => ['bail','filled','required', Rule::in(['parents','assistante-maternelle'])],
-            'email' => 'bail|filled|required|email|unique:users',
-            'password' => 'bail|filled|required|confirmed|min:8|max:16',
+            'categorie'             => ['bail','filled','required', Rule::in(['parents','assistante-maternelle'])],
+            'email'                 => 'bail|filled|required|email|unique:users',
+            'password'              => 'bail|filled|required|confirmed|min:8|max:16',
             'password_confirmation' => 'bail|filled|required',
-            'acceptCG' => 'accepted'
+            'acceptCG'              => 'accepted'
         ])->validate();
 
         if($input['categorie'] === 'parents'){
@@ -41,10 +41,10 @@ class CreateNewUser implements CreatesNewUsers
         }
 
         $user = User::create([
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
-            'categorie_type' => $model,
-            'categorie_id' => $cat->id,
+            'email'             => $input['email'],
+            'password'          => Hash::make($input['password']),
+            'categorie_type'    => $model,
+            'categorie_id'      => $cat->id,
         ]);
 
 

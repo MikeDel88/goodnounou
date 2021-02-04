@@ -28,7 +28,8 @@
             <header>
                 <h4>Mes informations professionnelles</h4>
                 <div class="form-check form-switch">
-                    <input class="form-check-input disponible" type="checkbox" id="flexSwitchCheckChecked" @if (Auth::user()->categorie->disponible === 1) checked="checked" @endif>
+                    <input class="form-check-input disponible" type="checkbox"
+                        data-client-id="{{ Auth::user()->categorie->id }}" id="flexSwitchCheckChecked" @if (Auth::user()->categorie->disponible === 1) checked="checked" @endif>
                     <label class="form-check-label" for="flexSwitchCheckChecked">Disponible</label>
                 </div>
             </header>
@@ -116,8 +117,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="sybmit">Enregistrer mes informations</button>
+                    <div class="row px-2 d-flex justify-content-end">
+                        <button class="col-md-4" type="sybmit">Enregistrer mes informations</button>
                     </div>
                 </form>
                 @if ($errors->any())
@@ -138,38 +139,39 @@
             <div class="contenu p-4">
                 <div class="row">
                     <div class="col-6">
+                        <input type="hidden" class="user" value="{{ Auth::user()->categorie->id }}">
                         <div class="form-check">
                             <input class="form-check-input critere" type="checkbox" value="{{ old('week_end') }}"
-                                id="flexCheckDefault" name="week_end" @if ($critere->week_end === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                                id="week_end" name="week_end" @if ($critere->week_end === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="week_end">
                                 Week-end
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('ferie') }}"
-                                id="flexCheckDefault" name="ferie" @if ($critere->ferie === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('ferie') }}" id="ferie"
+                                name="ferie" @if ($critere->ferie === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="ferie">
                                 Jours férié
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input critere" type="checkbox"
-                                value="{{ old('horaires_atypique') }}" id="flexCheckDefault" name="horaires_atypique" @if ($critere->horaires_atypique === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                                value="{{ old('horaires_atypique') }}" id="horaires" name="horaires_atypique" @if ($critere->horaires_atypique === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="horaires">
                                 Horaires atypiques
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input critere" type="checkbox" value="{{ old('periscolaire') }}"
-                                id="flexCheckDefault" name="periscolaire" @if ($critere->periscolaire === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                                id="periscolaire" name="periscolaire" @if ($critere->periscolaire === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="periscolaire">
                                 Périscolaire
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('repas') }}"
-                                id="flexCheckDefault" name="repas" @if ($critere->repas === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('repas') }}" id="repas"
+                                name="repas" @if ($critere->repas === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="repas">
                                 Prise en charge des repas
                             </label>
                         </div>
@@ -177,36 +179,36 @@
                     <div class="col-6">
                         <div class="form-check">
                             <input class="form-check-input critere" type="checkbox" value="{{ old('animaux') }}"
-                                id="flexCheckDefault" name="animaux" @if ($critere->animaux === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                                id="animaux" name="animaux" @if ($critere->animaux === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="animaux">
                                 Animaux
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input critere" type="checkbox" value="{{ old('lait_maternelle') }}"
-                                id="flexCheckDefault" name="lait_maternelle" @if ($critere->lait_maternelle === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                                id="lait" name="lait_maternelle" @if ($critere->lait_maternelle === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="lait">
                                 Lait maternelle
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input critere" type="checkbox" value="{{ old('couches_lavable') }}"
-                                id="flexCheckDefault" name="couches_lavable" @if ($critere->couches_lavable === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                                id="couches" name="couches_lavable" @if ($critere->couches_lavable === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="couches">
                                 Couches lavables
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input critere" type="checkbox" value="{{ old('fumeur') }}"
-                                id="flexCheckDefault" name="fumeur" @if ($critere->fumeur === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                                id="fumeur" name="fumeur" @if ($critere->fumeur === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="fumeur">
                                 Fumeur
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input critere" type="checkbox" value="{{ old('deplacements') }}"
-                                id="flexCheckDefault" name="deplacements" @if ($critere->deplacements === 1) checked="checked" @endif>
-                            <label class="form-check-label" for="flexCheckDefault">
+                                id="deplacements" name="deplacements" @if ($critere->deplacements === 1) checked="checked" @endif>
+                            <label class="form-check-label" for="deplacements">
                                 Déplacements
                             </label>
                         </div>
@@ -226,51 +228,115 @@
             nextDispo.style.display = 'none'
             nextDispo.value = null;
         }
-        checkNextDispo.addEventListener('change', function() {
-            if (checkNextDispo.getAttribute('checked') === 'checked') {
+
+        // Permet de saisir si le champ visible est vrai ou faux 
+        let inputVisibilite = document.querySelector('.visibilite');
+        inputVisibilite.addEventListener('change', async function() {
+
+            let clientId = this.getAttribute('data-client-id');
+            let method;
+            let visible;
+            if (this.getAttribute('checked') === 'checked') {
                 this.removeAttribute('checked');
-                nextDispo.style.display = 'block'
+                method = 'DELETE';
+                visible = false
             } else {
-                nextDispo.style.display = 'none';
-                nextDispo.value = null;
+                method = 'PUT';
                 this.setAttribute('checked', 'checked');
+                visible = true;
             }
+
+            let response = await fetch(
+
+                `${window.origin}/api/assistante-maternelle/fiche/${clientId}`, {
+                    method: method,
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: clientId,
+                        visible: visible
+                    }),
+                }
+            );
+
         })
 
+        // Permet de saisir si le champ disponible est vrai ou faux
+        let inputDisponible = document.querySelector('.disponible');
+        inputDisponible.addEventListener('change', async function() {
 
+            let nextDispo = document.querySelector('.prochaine_disponibilite');
+            let clientId = this.getAttribute('data-client-id');
+            let method;
+            let disponible;
+            if (this.getAttribute('checked') === 'checked') {
+                this.removeAttribute('checked');
+                method = 'DELETE';
+                disponible = false;
+                nextDispo.style.display = 'block'
+            } else {
+                method = 'PUT';
+                this.setAttribute('checked', 'checked');
+                disponible = true;
+                nextDispo.style.display = 'none';
+                nextDispo.value = null;
+            }
 
+            let response = await fetch(
 
-        // let inputVisibilite = document.querySelector('.visibilite');
+                `${window.origin}/api/assistante-maternelle/fiche/${clientId}`, {
+                    method: method,
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: clientId,
+                        disponible: disponible
+                    }),
+                }
+            );
 
-        // inputVisibilite.addEventListener('change', async function() {
+        })
 
-        //     let clientId = this.getAttribute('data-client-id');
-        //     let method;
-        //     if (this.getAttribute('checked') === 'checked') {
-        //         this.removeAttribute('checked');
-        //         method = 'DELETE';
-        //     } else {
-        //         method = 'POST';
-        //         this.setAttribute('checked', 'checked');
-        //     }
+        let criteres = document.querySelectorAll('.critere');
+        criteres.forEach(critere => {
+            critere.addEventListener('change', async function() {
+                let clientId = document.querySelector('.user').value;
+                let name = this.getAttribute('name');
+                let method;
+                let value;
+                if (this.getAttribute('checked') === 'checked') {
+                    this.removeAttribute('checked');
+                    method = 'DELETE';
+                    value = false;
+                } else {
+                    method = 'PUT';
+                    this.setAttribute('checked', 'checked');
+                    value = true;
+                }
 
-        //     let response = await fetch(
+                let response = await fetch(
 
-        //         `${window.origin}/api/user`, {
-        //             method: method,
-        //             headers: {
-        //                 "Accept": "application/json",
-        //                 "Content-Type": "application/json",
-        //             },
-        //             body: JSON.stringify({
-        //                 id: clientId
-        //             }),
-        //         }
-        //     );
-        // let msg = await response.json();
-        // console.log(msg.status);
-
-        // })
+                    `${window.origin}/api/assistante-maternelle/critere/${clientId}`, {
+                        method: method,
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            id: clientId,
+                            critere: name,
+                            value: value
+                        }),
+                    }
+                );
+                // let msg = await response.json();
+                // console.log(msg.status)
+            })
+        })
 
     </script>
 
