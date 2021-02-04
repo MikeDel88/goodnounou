@@ -32,6 +32,7 @@ class AssistantesMaternelleController extends Controller
 
             $critere = DB::table('criteres')->where('assistante_maternelle_id', Auth::user()->categorie->id)->get();
             $this->data['critere'] = $critere[0];
+            $this->data['js'][] = 'fiche';
             return view('fiche', $this->data);
         }
         return redirect('/profile')->with('message', "Cette page n'est pas autorisé");

@@ -165,7 +165,7 @@ class UserController extends Controller
         if(intval($id) === Auth::user()->id){
             AssistantesMaternelles::find(Auth::user()->categorie_id)->delete();
             User::find(Auth::user()->id)->delete();
-            return redirec('home')->with('message', "Votre compte a bien été supprimé");
+            return redirect('/')->with('message', "Votre compte a bien été supprimé");
 
         }else{
             return redirect('/profile')->with('message', "Cette page n'est pas autorisé");

@@ -58,7 +58,7 @@
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                        document.getElementById('logout-form').submit();">
                                     <i class="fas fa-sign-out-alt"></i> revenir à l'accueil
                                 </a>
 
@@ -86,8 +86,9 @@
                         @endif
                     @else
                         <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                        document.getElementById('logout-form').submit();">
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                                                document.getElementById('logout-form').submit();">
                                 revenir à l'accueil
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -99,10 +100,12 @@
             </nav>
         </header>
         <main class="py-4">
-            {{-- Affiche une erreur sur la page demandé est interdite d'accès
-            --}}
+            {{-- Affiche une erreur sur la page demandé est interdite d'accès --}}
             @if (session('error403'))
                 <div class="response">{{ session('error403') }}</div>
+            @endif
+            @if (session('message'))
+                <div class="response">{{ session('message') }}</div>
             @endif
             @yield('content')
         </main>
@@ -131,7 +134,7 @@
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                    document.getElementById('logout-form').submit();">
                                     revenir à l'accueil
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -33,14 +33,8 @@
         </div>
         <footer>
             <a href="/users/{{ Auth::user()->id }}/edit" class="modifier">Modifier mes informations</a>
-            <a class="supprimer" href="/users/{{ Auth::user()->id }}" onclick="event.preventDefault();
-                                        document.getElementById('delete-form').submit();">
-                Supprimer mon compte
-            </a>
-            <form id="delete-form" action="/users/{{ Auth::user()->id }}" method="POST" class="d-none">
-                @csrf
-                @method('DELETE')
-            </form>
+            <a href="#supprimer_compte" class="supprimer" data-bs-toggle="modal">Supprimer mon compte</a>
+
         </footer>
     </article>
     <div class="flex">
@@ -56,6 +50,30 @@
                 <div class="close"><i class="fas fa-times"></i></div>
             </header>
         </article>
+    </div>
+
+    <div class="modal fade show" id="supprimer_compte" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression du compte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+                    <p>Cette action est irreversible...</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non Merci</button>
+                    <form id="delete-form" action="/users/{{ Auth::user()->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Confirmer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

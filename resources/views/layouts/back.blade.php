@@ -35,8 +35,10 @@
 </head>
 
 <body>
+    <div class="fond"></div>
     <!-- Bandeau du côté version parents -->
-    <aside>
+    <aside style="z-index:100">
+
         <div class="menu-one">
             <h1 aria-label="menu">GoodNounou</h1>
         </div>
@@ -76,8 +78,9 @@
     <main>
         <!-- Bannière du haut layout version parents -->
         <header>
+            {{-- Accès vers le menu général --}}
             <div class="menu-mobile">
-                <a href="#" aria-label="menu"><i class="fas fa-bars"></i></a>
+                <a href="#" class="menu_principal_mobile" aria-label="menu"><i class="fas fa-bars"></i></a>
             </div>
             @if ($role === 'parents')
                 <h2>Espace Parents</h2>
@@ -97,8 +100,9 @@
                     @csrf
                 </form>
             </nav>
+            {{-- Accès vers le menu secondaire --}}
             <div class="menu-mobile">
-                <a href="#" aria-label="menu"><i class="fas fa-ellipsis-v"></i></a>
+                <a href="#" class="menu_secondaire_mobile" aria-label="menu"><i class="fas fa-ellipsis-v"></i></a>
             </div>
         </header>
         <!-- Parties section informations personnelles parents -->
@@ -118,8 +122,17 @@
             @yield('content')
         </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+    </script>
     <script src="{{ URL::asset('assets/js/back_office/box.js') }}"></script>
     <script src="{{ URL::asset('assets/js/back_office/form.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/back_office/mobile.js') }}"></script>
+    @isset($js)
+        @foreach ($js as $file)
+            <script src="{{ URL::asset("assets/js/back_office/$file.js") }}"></script>
+        @endforeach
+    @endisset
 </body>
 
 </html>

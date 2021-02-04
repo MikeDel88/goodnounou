@@ -23,6 +23,16 @@ body{
         display:flex;
         flex-wrap: wrap-reverse;
     }
+
+    .fond{
+        display:none;
+        background-color: rgba(0, 0, 0, 0.427); 
+        position: fixed; 
+        top: 0; 
+        bottom:0; 
+        width: 100%; 
+        z-index:1;
+    }
 }
 h1,h2,h3,h4, figure{
     margin: 0;
