@@ -49,13 +49,9 @@ class CritereAPI extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->value === true){
-            Critere::where('assistante_maternelle_id', intval($id))
-            ->update([$request->critere => true]);  
-        }elseif($request->value === false){
-            Critere::where('assistante_maternelle_id', intval($id))
-            ->update([$request->critere => false]); 
-        }
+        $reponse = ($request->value === true) ? true : false;
+        Critere::where('assistante_maternelle_id', intval($id))
+        ->update([$request->critere => $reponse]);  
     }
 
     /**

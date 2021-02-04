@@ -53,22 +53,14 @@ class AssistantesMaternellesAPI extends Controller
     {
 
         if(isset($request->visible)){
-            if($request->visible === true){
-                AssistantesMaternelles::where('id', intval($id))
-                ->update(['visible' => true]);  
-            }elseif($request->visible === false){
-                AssistantesMaternelles::where('id', intval($id))
-                ->update(['visible' => false]); 
-            }
+            $value = ($request->visible === true) ? true : false;
+            AssistantesMaternelles::where('id', intval($id))
+            ->update(['visible' => $value]);  
         }
         if(isset($request->disponible)){
-            if($request->disponible === true){
-                AssistantesMaternelles::where('id', intval($id))
-                ->update(['disponible' => true]);  
-            }elseif($request->disponible === false){
-                AssistantesMaternelles::where('id', intval($id))
-                ->update(['disponible' => false]); 
-            }
+            $value = ($request->disponible === true) ? true : false;
+            AssistantesMaternelles::where('id', intval($id))
+            ->update(['disponible' => $value]);  
         }
     }
 
