@@ -169,6 +169,9 @@ main{
                 .form-check-input:checked{
                     background-color: $color-main !important;
                 }
+                input:required{
+                    border: 1px solid $color-main-more;
+                }
                 button{
                     background-color
                     : $color-main-more;

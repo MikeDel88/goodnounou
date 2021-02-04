@@ -35,7 +35,9 @@
 </head>
 
 <body>
+    {{-- DIV qui permet d'afficher un fond style modal pour l'apparation des menus en mode mobile --}}
     <div class="fond"></div>
+
     <!-- Bandeau du côté version parents -->
     <aside style="z-index:100">
 

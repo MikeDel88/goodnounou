@@ -6,7 +6,7 @@
             <div class="form-check form-switch">
                 <input class="form-check-input visibilite" data-client-id="{{ Auth::user()->categorie->id }}"
                     type="checkbox" id="flexSwitchCheckDefault" name="visible" @if (Auth::user()->categorie->visible === 1) checked="checked" @endif>
-                <label class="form-check-label" for="flexSwitchCheckDefault">visible</label>
+                <label class="form-check-label" for="flexSwitchCheckDefault">Visible</label>
             </div>
         </header>
         <div class="contenu">

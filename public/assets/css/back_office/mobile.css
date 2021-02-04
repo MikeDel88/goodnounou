@@ -18,7 +18,11 @@
     margin: 20px 0 0 0;
   }
   main section .box h4 {
+    font-size: 15px !important;
     padding: 0 10px !important;
+  }
+  main section .box h4 + div {
+    padding: 0 5px;
   }
   main section .box-lg, main section .box-sm, main section .box-md {
     min-width: 100%;

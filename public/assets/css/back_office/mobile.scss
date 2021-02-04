@@ -22,7 +22,11 @@
         }
         .box{
           h4{
+            font-size:15px !important;
             padding: 0 10px !important;
+          }
+          h4 + div{
+            padding: 0 5px;
           }
         }
         .box-lg, .box-sm, .box-md{
