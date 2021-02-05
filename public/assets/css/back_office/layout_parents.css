@@ -211,6 +211,29 @@ main section article form button:hover {
   color: #0D4671;
 }
 
+main section article .liste_enfants ul {
+  margin: 15px;
+}
+
+main section article .liste_enfants ul li a {
+  display: block;
+  background-color: #265D87;
+  margin: 10px 0;
+  padding: 10px 5px;
+  color: #FFFF;
+  font-weight: 500;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+main section article .liste_enfants ul li a:hover {
+  background-color: #0D4671;
+  -webkit-box-shadow: 3px 4px 3px #D6D2D2;
+          box-shadow: 3px 4px 3px #D6D2D2;
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+}
+
 main section .box {
   overflow: hidden;
 }
@@ -350,6 +373,6 @@ main section .box-md {
   max-height: 345px;
   -ms-flex-item-align: end;
       align-self: flex-end;
-  overflow: hidden;
+  overflow: auto;
 }
 /*# sourceMappingURL=layout_parents.css.map */

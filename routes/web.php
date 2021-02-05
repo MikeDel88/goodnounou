@@ -32,6 +32,9 @@ Route::middleware(['verified', 'parents'])->group(function () {
     Route::name('parent.')->group(function(){
         Route::get('liste/enfants', [EnfantController::class, 'index'])->name('enfants');
         Route::post('liste/enfants', [EnfantController::class, 'store']);
+        Route::get('/fiche/enfant/{id}', [EnfantController::class, 'edit']);
+        Route::delete('/fiche/enfant/{id}', [EnfantController::class, 'destroy']);
+        Route::put('/fiche/enfant/{id}', [EnfantController::class, 'update']);
     });   
 });
 

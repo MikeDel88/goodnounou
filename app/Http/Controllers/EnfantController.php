@@ -68,7 +68,14 @@ class EnfantController extends Controller
      */
     public function edit($id)
     {
-        //
+        $enfant = Enfant::findOrFail(intval($id));
+
+        if($enfant->parent_id === Auth::user()->categorie->id){
+            $this->data['enfant'] = $enfant;
+            return view('fiche_enfant', $this->data);
+        }else{
+            return back()->with('error403', "Désolé cette enfant n'est pas accessible");
+        }
     }
 
     /**
@@ -80,7 +87,20 @@ class EnfantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->input(), [
+            'nom'               => 'string|bail|required',
+            'prenom'            => 'string|bail|required',
+            'date_naissance'    => 'date_format:"Y-m-d"|before_or_equal:today',
+        ])->validate();
+
+        Enfant::where('id', intval($id))
+        ->update([
+            'nom'             =>  ucFirst($request->input('nom')),
+            'prenom'          =>  ucFirst($request->input('prenom')),
+            'date_naissance'  =>  $request->input('date_naissance'),
+        ]);
+
+        return back()->with('success', "Votre enfant a bien été modifié");
     }
 
     /**
@@ -91,6 +111,17 @@ class EnfantController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $enfant = Enfant::findOrFail(intval($id));
+        if($enfant->parent_id === Auth::user()->categorie->id){
+
+            Enfant::where('id', $enfant->id)->delete();
+            return redirect('/liste/enfants')->with('success', "L'enfant a bien été supprimé");
+
+        }else{
+
+            return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
+
+        }
     }
 }

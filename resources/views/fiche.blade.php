@@ -12,7 +12,7 @@
         <div class="contenu">
             <ul>
                 <li>Identité : {{ Auth::user()->nom }} {{ Auth::user()->prenom }}
-                    ({{ Carbon\Carbon::parse(Auth::user()->date_naissance)->age }} ans) </li>
+                    ({{ Carbon\Carbon::parse(Auth::user()->date_naissance)->age }} ans)</li>
                 <li>Téléphone : {{ Auth::user()->telephone ?? 'non renseigné' }}</li>
                 <li>Email : {{ Auth::user()->email_contact ?? 'non renseigné ' }}</li>
                 <li>Membre depuis le : {{ Auth::user()->created_at->translatedFormat('j F Y') }}</li>

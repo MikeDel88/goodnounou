@@ -34,7 +34,6 @@
         <footer>
             <a href="/users/{{ Auth::user()->id }}/edit" class="modifier">Modifier mes informations</a>
             <a href="#supprimer_compte" class="supprimer" data-bs-toggle="modal">Supprimer mon compte</a>
-
         </footer>
     </article>
     <div class="flex">

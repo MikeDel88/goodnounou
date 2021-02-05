@@ -184,6 +184,29 @@ main{
                     }   
                 }
             }
+
+            .liste_enfants{
+                ul{
+                    margin:15px;
+                    li{
+                        a{
+                            display:block;
+                            background-color: $color-main;
+                            margin: 10px 0;
+                            padding: 10px 5px;
+                            color: $color-white;
+                            font-weight: 500;
+                            transition: all 500ms ease;
+
+                            &:hover{
+                                background-color:$color-main-more;
+                                box-shadow: 3px 4px 3px $color-shadow;
+                                transform: scale(1.03);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         .box{
@@ -291,7 +314,7 @@ main{
             min-width: 845px;
             max-height:345px;
             align-self: flex-end;
-            overflow: hidden;
+            overflow: auto;
         }
     }
 }

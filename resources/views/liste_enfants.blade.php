@@ -42,11 +42,11 @@
         <header>
             <h4>Liste de mes enfants</h4>
         </header>
-        <div class="contenu">
+        <div class="contenu liste_enfants">
             <ul>
                 @foreach ($enfants as $enfant)
                     <li>
-                        <a href="fiche/enfant/{{ $enfant->id }}">
+                        <a href="/fiche/enfant/{{ $enfant->id }}">
                             {{ $enfant->nom }}
                             {{ $enfant->prenom }}
                             ({{ Carbon\Carbon::parse($enfant->date_naissance)->age }} ans)
