@@ -42,7 +42,7 @@
                 </ul>
             </div>
         </article>
-        <div id="detailsMap" style="width:700px; height:500px; margin: 15px auto;"></div>
+        <div id="detailsMap" style="width:700px; height:500px; margin: 15px auto; z-index:1"></div>
     </div>
 
 @endsection

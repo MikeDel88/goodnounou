@@ -40,7 +40,7 @@ class RechercheAPI extends Controller
         $sql = "SELECT assistantes_maternelles.id, users.nom, users.prenom, lat, lng, ( 6371 * acos( cos( radians(".$request->lat.") ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(".$request->lng.") ) + sin( radians(".$request->lat.") ) * sin( radians( lat ) ) ) ) AS distance 
         FROM assistantes_maternelles, users, criteres 
         WHERE users.categorie_id = assistantes_maternelles.id 
-        AND criteres.assistante_maternelle_id = assistantes_maternelles.id ";
+        AND criteres.assistante_maternelle_id = assistantes_maternelles.id AND assistantes_maternelles.visible = 1 ";
 
         
         if(!empty($request->criteres)){
