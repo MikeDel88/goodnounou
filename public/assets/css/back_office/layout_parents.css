@@ -40,6 +40,18 @@ ul {
   padding: 0;
 }
 
+ol {
+  list-style-type: none;
+}
+
+ol > li::before {
+  content: ' ';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background-color: #4B4B4B;
+}
+
 a {
   text-decoration: none;
 }
@@ -362,6 +374,7 @@ main section .box-lg footer .supprimer {
 main section .box-sm {
   max-height: 345px;
   min-width: 477px;
+  max-width: 30%;
   -ms-flex-item-align: end;
       align-self: flex-end;
   overflow: hidden;

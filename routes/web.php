@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontOffice\AccueilController;
 use App\Http\Controllers\AssistantesMaternelleController;
+use App\Http\Controllers\RechercheController;
 use App\Http\Controllers\EnfantController;
 use App\Http\Controllers\UserController;
 
@@ -35,6 +36,7 @@ Route::middleware(['verified', 'parents'])->group(function () {
         Route::get('/fiche/enfant/{id}', [EnfantController::class, 'edit']);
         Route::delete('/fiche/enfant/{id}', [EnfantController::class, 'destroy']);
         Route::put('/fiche/enfant/{id}', [EnfantController::class, 'update']);
+        Route::get('recherche', [RechercheController::class, 'index'])->name('recherche');
     });   
 });
 
@@ -44,6 +46,10 @@ Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
         Route::get('fiche/{id}', [AssistantesMaternelleController::class, 'showCard'])->name('fiche');
         Route::post('fiche/{id}', [AssistantesMaternelleController::class, 'updateCard']);
     });
-    
+});
+
+// Route accessible pour un utilisateur vérifié
+Route::middleware(['verified'])->group(function () {
+    Route::get('fiche/assistante-maternelle/{id}', [AssistantesMaternelleController::class, 'test']);
 });
 

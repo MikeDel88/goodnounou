@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AssistantesMaternellesAPI;
+use App\Http\Controllers\RechercheAPI;
 use App\Http\Controllers\CritereAPI;
 
 
@@ -30,4 +31,8 @@ Route::delete('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::c
 
 Route::put('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
 Route::delete('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
+
+Route::post('/recherche', [RechercheAPI::class, 'show']);
+
+
 

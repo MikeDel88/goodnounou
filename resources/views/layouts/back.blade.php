@@ -32,6 +32,12 @@
 
     <link rel="stylesheet" href="{{ URL::asset('assets/css/back_office/mobile.css') }}">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+        integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+
 </head>
 
 <body>
@@ -60,7 +66,8 @@
                 <ul>
                     <li><a href="{{ route('profile') }}"><i class="fas fa-home"></i><span>Accueil</span></a></li>
                     @if ($role === 'parents')
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i><span>Rechercher</span></a></li>
+                        <li><a href="{{ route('parent.recherche') }}"><i
+                                    class="fas fa-map-marker-alt"></i><span>Rechercher</span></a></li>
                         <li><a href="#"><i class="far fa-folder-open"></i><span>Mes contrats</span></a></li>
                         <li><a href="{{ route('parent.enfants') }}"><i
                                     class="fas fa-users"></i><span>Famille</span></a></li>
@@ -128,6 +135,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
     </script>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+        integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+        crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     <script src="{{ URL::asset('assets/js/back_office/box.js') }}"></script>
     <script src="{{ URL::asset('assets/js/back_office/form.js') }}"></script>
     <script src="{{ URL::asset('assets/js/back_office/mobile.js') }}"></script>
@@ -136,6 +147,7 @@
             <script src="{{ URL::asset("assets/js/back_office/$file.js") }}"></script>
         @endforeach
     @endisset
+
 </body>
 
 </html>

@@ -26,7 +26,15 @@
                 </ul>
                 @if ($role === 'parents')
                     <div>
-                        Mes enfants:
+                        <span>Mes enfants:</span>
+                        <ol>
+                            @foreach ($enfants as $enfant)
+                                <li>
+                                    {{ $enfant->nom }}
+                                    {{ $enfant->prenom }}
+                                </li>
+                            @endforeach
+                        </ol>
                     </div>
                 @endif
             </div>

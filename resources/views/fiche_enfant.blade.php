@@ -9,11 +9,10 @@
             <div>
                 <a href="#supprimer_enfant" class="col-md-2 text-danger" data-bs-toggle="modal"><i
                         class="fas fa-trash"></i></a>
-
             </div>
         </header>
         <div class="contenu row">
-            <div class="col-md-6">
+            <div class="col-md-6 my-3">
                 <form action="/fiche/enfant/{{ $enfant->id }}" method="POST">
                     @csrf
                     @method('PUT')
@@ -47,7 +46,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 my-3">
                 <ul>
                     <li>Crée le : {{ $enfant->created_at->translatedFormat('j F Y') }}</li>
                     <li>Dernière modification le : {{ $enfant->updated_at->translatedFormat('j F Y à H:i') }}</li>

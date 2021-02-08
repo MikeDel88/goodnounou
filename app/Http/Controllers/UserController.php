@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Enfant;
 use Illuminate\Support\Collection;
 use App\Models\AssistantesMaternelles;
 use Illuminate\Support\Facades\Validator;
@@ -25,7 +26,6 @@ class UserController extends Controller
      */
     public function __construct(){
         $this->middleware('auth');
-        
     }
     
     /**
@@ -46,6 +46,7 @@ class UserController extends Controller
     public function index()
     {
         $this->data['role'] = $this->role();
+        $this->data['enfants'] = Enfant::where('parent_id', Auth::user()->categorie->id)->get();
         $this->data['title'] = 'Profile utilisateur';
         return view('profil', $this->data);
     }

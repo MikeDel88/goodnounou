@@ -128,4 +128,10 @@ class AssistantesMaternelleController extends Controller
         return $data;
     }
 
+    public function test($id)
+    {
+        echo "$id";
+        exit();
+    }
+
 }

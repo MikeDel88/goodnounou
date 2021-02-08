@@ -27,6 +27,10 @@
   main section .box-lg, main section .box-sm, main section .box-md {
     min-width: 100%;
   }
+  main section .box-lg .contenu {
+    padding: 0 !important;
+    margin: 5px !important;
+  }
   main section .box-lg .contenu ul {
     border-right: 0 !important;
   }

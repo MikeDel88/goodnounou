@@ -42,6 +42,16 @@ ul{
     margin: 0;
     padding: 0;
 }
+ol{
+    list-style-type: none;
+}
+ol > li::before{
+    content:' ';
+    display:inline-block;
+    width:5px;
+    height:5px;
+    background-color: $color-grey;
+}
 a{
     text-decoration: none;
 }
@@ -305,6 +315,7 @@ main{
         .box-sm{
             max-height: 345px;
             min-width: 477px;
+            max-width:30%;
             align-self: flex-end;
             overflow: hidden;
         }
