@@ -21,6 +21,8 @@ class ParentsFactory extends Factory
      */
     public function definition()
     {
+        return [
 
+        ];
     }
 }

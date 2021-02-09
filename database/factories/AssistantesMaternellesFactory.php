@@ -22,7 +22,7 @@ class AssistantesMaternellesFactory extends Factory
     public function definition()
     {
         return [
-            //
+            
         ];
     }
 }
