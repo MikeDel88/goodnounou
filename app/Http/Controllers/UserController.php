@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Enfant;
 use Illuminate\Support\Collection;
 use App\Models\AssistantesMaternelles;
+use App\Models\Parents;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -144,7 +145,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         if(intval($id) === Auth::user()->id){
-            AssistantesMaternelles::find(Auth::user()->categorie_id)->delete();
+            $role = $this->role();
+            if($role === 'parents'){
+                Parents::find(Auth::user()->categorie_id)->delete();
+            }elseif($role === 'assistante-maternelle'){
+                AssistantesMaternelles::find(Auth::user()->categorie_id)->delete();
+            }
+            
             User::find(Auth::user()->id)->delete();
             return redirect('/')->with('message', "Votre compte a bien été supprimé");
 
