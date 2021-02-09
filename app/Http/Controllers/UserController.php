@@ -36,6 +36,7 @@ class UserController extends Controller
      */
     private function role()
     {
+        // Vérifie si la catégorie à laquelle appartient l'utilisateur connecté
         return (get_class(Auth::user()->categorie) === 'App\Models\Parents') ? 'parents' : 'assistante-maternelle';
     }
     
@@ -46,6 +47,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        /**
+         * Récupère la liste des enfants de l'utilisateur connecté
+         */
         $this->data['role'] = $this->role();
         $this->data['enfants'] = Enfant::where('parent_id', Auth::user()->categorie->id)->get();
         $this->data['title'] = 'Profile utilisateur';
@@ -72,6 +76,9 @@ class UserController extends Controller
      */
     public function edit($user)
     {
+        /**
+         * Vérifie si l'utilisateur demandé est bien celui connecté
+         */
         if(intval($user) === Auth::user()->id){
             $this->data['role'] = $this->role();
             return view('profil_edit', $this->data);
@@ -89,6 +96,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $user)
     {
+        /**
+         * Vérifie si l'utilisateur demandé est bien celui connecté
+         */
         if(intval($user) === Auth::user()->id){
   
             Validator::make($request->input(), [
@@ -103,7 +113,9 @@ class UserController extends Controller
                 'email_contact'     => 'nullable|email'
             ])->validate();
 
-            
+            /**
+             * Si l'utilisateur a renseigné une photo, alors on stocke l'image dans un dossier images et un dossier avec le numéro de l'utilisateur
+             */
             if($request->file('photo') !== null){
 
                 $extension = $request->file('photo')->extension();
@@ -144,8 +156,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        /**
+         * Vérifie si l'utilisateur demandé est bien celui connecté
+         */
         if(intval($id) === Auth::user()->id){
-            $role = $this->role();
+            $role = $this->role(); // On récupère la catégorie à laquelle appartient l'utilisateur
+
+            /**
+             * Traitement de suppression de la catégorie de rattachement
+             */
             if($role === 'parents'){
                 Parents::find(Auth::user()->categorie_id)->delete();
             }elseif($role === 'assistante-maternelle'){

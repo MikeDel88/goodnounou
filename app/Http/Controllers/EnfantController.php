@@ -19,8 +19,10 @@ class EnfantController extends Controller
      * @return void
      */
     public function __construct(){
+
         $this->middleware('auth');
         $this->data['role'] = 'parents';
+
     }
 
     /**
@@ -68,8 +70,12 @@ class EnfantController extends Controller
      */
     public function edit($id)
     {
-        $enfant = Enfant::findOrFail(intval($id));
+        
+        $enfant = Enfant::findOrFail(intval($id)); // Récupère l'enfant dont l'id a été demandé par l'utilisateur
 
+        /**
+         * Vérifie si le parent de l'enfant est bien l'utilisateur connecté
+         */
         if($enfant->parent_id === Auth::user()->categorie->id){
             $this->data['enfant'] = $enfant;
             return view('fiche_enfant', $this->data);
@@ -113,6 +119,10 @@ class EnfantController extends Controller
     {
 
         $enfant = Enfant::findOrFail(intval($id));
+        
+        /**
+         * Vérifie si le parent de l'enfant est bien l'utilisateur connecté
+         */
         if($enfant->parent_id === Auth::user()->categorie->id){
 
             Enfant::where('id', $enfant->id)->delete();

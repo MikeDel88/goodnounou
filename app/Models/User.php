@@ -46,7 +46,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
+    
+    /**
+     * categorie
+     * Relation polymorphe d'un objet utilisateur en deux catégories (parent ou assistante-maternelle)
+     * @return void
+     */
     public function categorie()
     {
         return $this->morphTo();

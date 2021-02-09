@@ -28,7 +28,12 @@ class Enfant extends Model
         'parent_id'
     ];
 
-
+    
+    /**
+     * parents
+     * Relation un enfant appartient à un parent
+     * @return void
+     */
     public function parents()
     {
         return $this->belongTo(Parents::class, 'foreign_key');

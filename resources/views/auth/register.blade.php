@@ -73,7 +73,7 @@
                 <div class="form-check my-3 d-flex justify-content-center flex-wrap">
                     <input class="form-check-input" type="checkbox" id="Check" required name="acceptCG"
                         aria-describedby="inputAcceptCG" @error('acceptCG') is-invalid @enderror>
-                    <label class="form-check-label pl-3" for="Check">
+                    <label class="form-check-label" for="Check">
                         <a href="#modalConditionsGenerales" data-bs-toggle="modal">J'ai lu et j'accepte les
                             conditions
                             générales</a>

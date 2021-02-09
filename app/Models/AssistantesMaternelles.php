@@ -22,7 +22,12 @@ class AssistantesMaternelles extends Model
     ];
 
     protected $table = 'assistantes_maternelles';
-
+    
+    /**
+     * categorie
+     * Relation polymorphe avec l'objet utilisateur
+     * @return void
+     */
     public function categorie()
     {
         return $this->morphToMany(User::class, 'categorie');

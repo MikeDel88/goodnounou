@@ -19,16 +19,23 @@ class AssistantesMaternelleController extends Controller
     {
         $this->data['role'] = 'assistante-maternelle';
     }
-
+    
+    /**
+     * showCard
+     * Affiche la fiche de renseigments d'une assistante maternelle pour les parents
+     * @param  mixed $userId
+     * @return void
+     */
     public function showCard($userId)
     {
-        $id = intval($userId);
-        $this->data['role'] = 'parents';
-        $this->data['renseignements'] = User::findOrfail($id);
+        
+        $id = intval($userId); // Transforme la données en entier
+        $this->data['role'] = 'parents'; // Je défini que le rôle de l'utilisateur doit être un parent.
+        $this->data['renseignements'] = User::findOrfail($id); // Récupère la liste des informations ou redirige vers la page 404
         $criteres = DB::table('criteres')->select('*')
-            ->where('assistante_maternelle_id', $id)->get();
-        $this->data['criteres'] = (array) $criteres[0];
-        return view('presentation', $this->data);
+            ->where('assistante_maternelle_id', $id)->get(); // Récupère l'ensemble des critères associé à l'assistante maternelle
+        $this->data['criteres'] = (array) $criteres[0]; // Transforme l'objet en tableau pour l'exploiter dans la vue
+        return view('presentation', $this->data); // retourne la vue
     }
     
     /**
@@ -39,11 +46,12 @@ class AssistantesMaternelleController extends Controller
      */
     public function editCard($user)
     {
+        // Vérifie que l'utilisateur demandé est bien celui qui est connecté
         if(intval($user) === Auth::user()->categorie->id){
 
-            $critere = DB::table('criteres')->where('assistante_maternelle_id', Auth::user()->categorie->id)->get();
-            $this->data['critere'] = $critere[0];
-            $this->data['js'][] = 'fiche';
+            $critere = DB::table('criteres')->where('assistante_maternelle_id', Auth::user()->categorie->id)->get(); // Sélectionne l'ensemble des critères de l'utilisateur connecté
+            $this->data['critere'] = $critere[0]; // Prépare l'objet pour la vue
+            $this->data['js'][] = 'fiche'; // Ajout d'un fichier asset spécifique à la vue
             return view('fiche', $this->data);
         }
         return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
@@ -58,8 +66,12 @@ class AssistantesMaternelleController extends Controller
      */
     public function updateCard(Request $request, $user)
     {
+        // Vérifie que l'utilisateur demandé est bien celui qui est connecté
         if(intval($user) === Auth::user()->categorie->id){
 
+            /**
+             * Validation des données
+             */
             Validator::make($request->input(), [
                 'date_debut'                    => 'date_format:"Y-m-d"|before_or_equal:today|required',
                 'formation'                     => 'string|bail|required',
@@ -74,8 +86,14 @@ class AssistantesMaternelleController extends Controller
                 'date_prochaine_disponibilite'  => 'date_format:"Y-m-d"|after_or_equal:today|nullable'
             ])->validate();
 
+            /**
+             * Récupère les coordonnées géographique de l'adresse pour permettre les recherches
+             */
             $coordonnees = $this->coordonnees($request, $request->input('adresse_pro'), $request->input('code_postal_pro'), $request->input('ville_pro'));
 
+            /**
+             * Mise à jour de l'utilisateur
+             */
             AssistantesMaternelles::where('id', $user)
                 ->update([
                 'lat'                     => $coordonnees['lat'],
@@ -93,6 +111,9 @@ class AssistantesMaternelleController extends Controller
                 'prochaine_disponibilite' => $request->input('date_prochaine_disponibilite')           
             ]);
 
+            /**
+             * Condition si les coordonnées géographique n'ont pas été trouvé pour permettre la géolocalisation
+             */
             if($coordonnees['lat'] !== null && $coordonnees['lng'] !== null){
                 return back()->with('success', 'Vos informations ont bien été enregistrées');
             }else{
@@ -114,6 +135,9 @@ class AssistantesMaternelleController extends Controller
      */
     public function coordonnees(Request $request, string $adresse, string $code_postal, string $ville) :array
     {
+        /**
+         * Récupère l'adresse sur l'API Openstreetmap de façon asynchrone avec Curl
+         */
         $adresse = array(
                   'street'     => $adresse,
                   'postalcode' => $code_postal,
@@ -131,7 +155,6 @@ class AssistantesMaternelleController extends Controller
         curl_close($ch);
         $json_data = json_decode($geopos, true);
 
-        // Mettre une alerte si l'adresse n'est pas reconnu
         $data = [];
         $data['lat'] = $json_data[0]['lat'] ?? null;
         $data['lng'] = $json_data[0]['lon'] ?? null;

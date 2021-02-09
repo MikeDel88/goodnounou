@@ -23,6 +23,9 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+        /** 
+         * Validation des données renseignées pour l'inscription de l'utilisateur
+         */
         Validator::make($input, [
             'categorie'             => ['bail','filled','required', Rule::in(['parents','assistante-maternelle'])],
             'email'                 => 'bail|filled|required|email|unique:users',
@@ -31,6 +34,9 @@ class CreateNewUser implements CreatesNewUsers
             'acceptCG'              => 'accepted'
         ])->validate();
 
+        /**
+         * Enregistrement dans la catégorie selectionné par l'utilisateur
+         */
         if($input['categorie'] === 'parents'){
             $model = 'App\Models\Parents';
             $cat = Parents::create([]);
@@ -40,6 +46,9 @@ class CreateNewUser implements CreatesNewUsers
             Critere::create(['assistante_maternelle_id' => $cat->id]);
         }
 
+        /**
+         * Création de l'utilisateur
+         */
         $user = User::create([
             'email'             => $input['email'],
             'password'          => Hash::make($input['password']),

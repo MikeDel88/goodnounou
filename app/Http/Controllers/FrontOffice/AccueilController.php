@@ -10,7 +10,7 @@ class AccueilController extends Controller
 
     /**
      * __construct
-     *
+     * Chargement des fichiers assets pour l'affichage de la page accueil
      * @return void
      */
     public function __construct()
@@ -22,7 +22,7 @@ class AccueilController extends Controller
 
     /**
      * index
-     *
+     * Ajout de la metadescription pour le référencement et chargement de la vue
      * @return void
      */
     public function index()

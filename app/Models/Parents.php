@@ -19,7 +19,12 @@ class Parents extends Model
     ];
     
     protected $table = 'parents';
-
+    
+    /**
+     * categorie
+     * Relation polymorphe avec l'objet utilisateur
+     * @return void
+     */
     public function categorie()
     {
         return $this->morphToMany(User::class, 'categorie');
