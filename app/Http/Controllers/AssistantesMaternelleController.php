@@ -19,14 +19,25 @@ class AssistantesMaternelleController extends Controller
     {
         $this->data['role'] = 'assistante-maternelle';
     }
+
+    public function showCard($userId)
+    {
+        $id = intval($userId);
+        $this->data['role'] = 'parents';
+        $this->data['renseignements'] = User::findOrfail($id);
+        $this->data['criteres'] = Critere::select('*')
+            ->where('assistante_maternelle_id', $id)->get();
+        // retourne un tableau d'objet...
+        return view('presentation', $this->data);
+    }
     
     /**
-     * showCard
+     * editCard
      * Montre la fiche d'une assistante maternelle
      * @param  mixed $user
      * @return void
      */
-    public function showCard($user)
+    public function editCard($user)
     {
         if(intval($user) === Auth::user()->categorie->id){
 
@@ -128,10 +139,5 @@ class AssistantesMaternelleController extends Controller
         return $data;
     }
 
-    public function test($id)
-    {
-        echo "$id";
-        exit();
-    }
 
 }

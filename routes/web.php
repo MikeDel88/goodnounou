@@ -43,13 +43,13 @@ Route::middleware(['verified', 'parents'])->group(function () {
 // Route accessible si l'utilisateur est authentifié et appartient à la catégorie assistante-maternelle
 Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
     Route::name('assistante-maternelle.')->group(function(){
-        Route::get('fiche/{id}', [AssistantesMaternelleController::class, 'showCard'])->name('fiche');
+        Route::get('fiche/{id}', [AssistantesMaternelleController::class, 'editCard'])->name('fiche');
         Route::post('fiche/{id}', [AssistantesMaternelleController::class, 'updateCard']);
     });
 });
 
 // Route accessible pour un utilisateur vérifié
 Route::middleware(['verified'])->group(function () {
-    Route::get('fiche/assistante-maternelle/{id}', [AssistantesMaternelleController::class, 'test']);
+    Route::get('fiche/assistante-maternelle/{id}', [AssistantesMaternelleController::class, 'showCard']);
 });
 
