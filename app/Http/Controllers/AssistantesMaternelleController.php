@@ -25,9 +25,9 @@ class AssistantesMaternelleController extends Controller
         $id = intval($userId);
         $this->data['role'] = 'parents';
         $this->data['renseignements'] = User::findOrfail($id);
-        $this->data['criteres'] = Critere::select('*')
+        $criteres = DB::table('criteres')->select('*')
             ->where('assistante_maternelle_id', $id)->get();
-        // retourne un tableau d'objet...
+        $this->data['criteres'] = (array) $criteres[0];
         return view('presentation', $this->data);
     }
     

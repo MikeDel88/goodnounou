@@ -65,7 +65,16 @@
         </header>
         <div class="contenu">
             <ul>
-                {{-- Afficher les critères --}}
+                @foreach ($criteres as $critere => $valeur)
+                    @if ($critere !== 'id' && $critere !== 'assistante_maternelle_id' && $critere !== 'created_at' && $criteres !== 'updated_at')
+                        @if ($valeur === 1)
+                            <li>
+                                <i
+                                    class="fas fa-check-square text-success mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
+                            </li>
+                        @endif
+                    @endif
+                @endforeach
             </ul>
 
         </div>

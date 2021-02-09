@@ -28,4 +28,9 @@ class AssistantesMaternelles extends Model
         return $this->morphToMany(User::class, 'categorie');
     }
 
+    public function criteres()
+    { 
+        return $this->belongsTo(Critere::class); 
+    }
+
 }

@@ -156,6 +156,9 @@ main{
                 font-size: 20px;
                 color:$color-main;
                 padding: 8px 15px;
+                &:hover{
+                    color: $color-main-more;
+                }
             }
             a:nth-child(2){
                 border-right: 1px solid $color-main;

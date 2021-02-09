@@ -26,7 +26,7 @@ class Critere extends Model
     ];
 
     public function assistanteMaternelle()
-    {
-        return $this->belongTo(AssistantesMaternelles::class, 'foreign_key');
+    { 
+        return $this->hasMany(AssistantesMaternelles::class); 
     }
 }
