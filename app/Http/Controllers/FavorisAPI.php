@@ -22,9 +22,8 @@ class FavorisAPI extends Controller
         if(intval($request->nounou) && intval($request->parent)){
             if($request->favoris === true){
                 DB::table('favoris')
-                ->updateOrInsert(
-                    ['parent_id' => $request->parent],
-                    ['assistante_maternelle_id' => $request->nounou]
+                ->insert(
+                    ['parent_id' => $request->parent, 'assistante_maternelle_id' => $request->nounou],
                 );
             }elseif($request->favoris === false){
                 DB::table('favoris')

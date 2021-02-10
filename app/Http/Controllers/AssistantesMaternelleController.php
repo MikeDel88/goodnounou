@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\AssistantesMaternelles;
 use App\Models\Critere;
+use App\Models\Favoris;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -28,13 +29,18 @@ class AssistantesMaternelleController extends Controller
      */
     public function showCard($userId)
     {
-        
         $id = intval($userId); // Transforme la données en entier
         $this->data['role'] = 'parents'; // Je défini que le rôle de l'utilisateur doit être un parent.
-        $this->data['renseignements'] = User::findOrfail($id); // Récupère la liste des informations ou redirige vers la page 404
-        $criteres = DB::table('criteres')->select('*')
-            ->where('assistante_maternelle_id', $id)->get(); // Récupère l'ensemble des critères associé à l'assistante maternelle
+        $this->data['js'][] = 'favoris'; // Chargement du script spécifique pour gérer les favoris en asynchrone
+        
+        $criteres = DB::table('criteres')->select('*')->where('assistante_maternelle_id', $id)->get(); // Récupère l'ensemble des critères associé à l'assistante maternelle
+        $renseignements = User::where('categorie_id', $id)->where('categorie_type', 'App\Models\AssistantesMaternelles')->get(); // Récupère la liste des informations ou redirige vers la page 404
+        $favoris = Favoris::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->get(); // Cela doit retourner un seul résultat maximum
+        
+        $this->data['favoris'] = (isset($favoris[0])) ? true : false; // Si la requête à renvoyé un objet dans le tableau, alors il existe un favoris   
+        $this->data['renseignements'] = $renseignements[0]; // Récupère la seule ligne sur la base de données doit retourner
         $this->data['criteres'] = (array) $criteres[0]; // Transforme l'objet en tableau pour l'exploiter dans la vue
+        
         return view('presentation', $this->data); // retourne la vue
     }
     
