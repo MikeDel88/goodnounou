@@ -34,7 +34,7 @@ class AssistantesMaternelleController extends Controller
         $this->data['js'][] = 'favoris'; // Chargement du script spécifique pour gérer les favoris en asynchrone
         
         $criteres = DB::table('criteres')->select('*')->where('assistante_maternelle_id', $id)->get(); // Récupère l'ensemble des critères associé à l'assistante maternelle
-        $renseignements = User::where('categorie_id', $id)->where('categorie_type', 'App\Models\AssistantesMaternelles')->get(); // Récupère la liste des informations ou redirige vers la page 404
+        $renseignements = User::where('categorie_id', $id)->where('categorie_type', 'App\Models\AssistantesMaternelles')->get(); // Récupère la liste des informations de l'utilisateur nounou
         $favoris = Favoris::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->get(); // Cela doit retourner un seul résultat maximum
         
         $this->data['favoris'] = (isset($favoris[0])) ? true : false; // Si la requête à renvoyé un objet dans le tableau, alors il existe un favoris   

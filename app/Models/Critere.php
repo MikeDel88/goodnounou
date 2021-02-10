@@ -30,4 +30,5 @@ class Critere extends Model
     { 
         return $this->hasMany(AssistantesMaternelles::class); 
     }
+
 }

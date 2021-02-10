@@ -17,7 +17,7 @@
         <div class="contenu">
             <div class="favoris d-flex justify-content-end">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><i class="@if ($favoris===true) fas @else far @endif fa-heart text-danger "></i></label>
-                                        <input data-nounou-id=" {{ $renseignements->categorie_id }}"
+                            <input data-nounou-id=" {{ $renseignements->categorie_id }}"
                         data-parent-id="{{ Auth::user()->categorie->id }}" type="hidden" id="flexSwitchCheckDefault"
                         name="favoris">
             </div>
@@ -82,7 +82,6 @@
                     @endif
                 @endforeach
             </ul>
-
         </div>
     </article>
     <article class="box box-lg">
