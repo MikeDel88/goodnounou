@@ -3,16 +3,17 @@
 namespace Database\Factories;
 
 use App\Models\AssistantesMaternelles;
+use App\Models\Critere;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class AssistantesMaternellesFactory extends Factory
+class CritereFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = AssistantesMaternelles::class;
+    protected $model = Critere::class;
 
     /**
      * Define the model's default state.
@@ -21,9 +22,10 @@ class AssistantesMaternellesFactory extends Factory
      */
     public function definition()
     {
+        static $order = 1;
+         
         return [
-           
+            'assistante_maternelle_id' => $order++,
         ];
     }
-
 }

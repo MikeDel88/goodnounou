@@ -10,20 +10,15 @@ use App\Models\User;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
+    
+
     /**
-        * @return void
-        */
+     * Test le nombre d'entrées après le seed
+    * @return void
+    */
     public function test_return_user()
     {
-        
-        $user = User::first();
-        $categorie = $user->categorie;
-
-        $this->assertDatabaseCount('users', 1);
-        $this->assertEquals( $user->email, 'goodnounou@yopmail.com');
-        $this->assertEquals( get_class($categorie), 'App\Models\Parents');
-        $this->assertEquals( $user->categorie_id, $categorie->id);
-
+       $this->assertDatabaseCount('users', 30);
     }
+    
 }

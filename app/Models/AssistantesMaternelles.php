@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User as User;
 use App\Models\Critere as Critere;
+use App\Models\Favoris as Favoris;
+
 
 class AssistantesMaternelles extends Model
 {
@@ -36,6 +38,11 @@ class AssistantesMaternelles extends Model
     public function criteres()
     { 
         return $this->belongsTo(Critere::class); 
+    }
+
+    public function favoris()
+    { 
+        return $this->belongsToMany(Favoris::class); 
     }
 
 }

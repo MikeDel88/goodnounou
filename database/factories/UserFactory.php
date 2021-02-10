@@ -26,6 +26,7 @@ class UserFactory extends Factory
     {
         $array = ['App\Models\AssistantesMaternelles', 'App\Models\Parents'];
         $categorie = Arr::random($array);
+        
         return [
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),

@@ -15,6 +15,12 @@
             </div>
         </header>
         <div class="contenu">
+            <div class="favoris d-flex justify-content-end">
+                <label class="form-check-label" for="flexSwitchCheckDefault"><i
+                        class="far fa-heart text-danger"></i></label>
+                <input data-nounou-id="{{ $renseignements->id }}" data-parent-id="{{ Auth::user()->id }}" type="hidden"
+                    id="flexSwitchCheckDefault" name="favoris">
+            </div>
             <ul id="renseignements">
                 <li><span class="fw-bold">Nom :</span> {{ $renseignements->nom ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Prénom :</span> {{ $renseignements->prenom ?? 'non renseigné' }}</li>
@@ -100,4 +106,44 @@
             </ul>
         </div>
     </article>
+
+    <script>
+        let favoris = document.querySelector('.fa-heart')
+        let nounou = document.querySelector('input[name="favoris"]').getAttribute('data-nounou-id')
+        let parent = document.querySelector('input[name="favoris"]').getAttribute('data-parent-id')
+        let hearth;
+
+        favoris.addEventListener('click', async function() {
+
+            if (this.classList.contains('far')) {
+                this.classList.remove('far');
+                this.classList.add('fas');
+                hearth = true
+            } else if (this.classList.contains('fas')) {
+                this.classList.remove('fas');
+                this.classList.add('far');
+                hearth = false
+            }
+
+            let response = await fetch(
+
+                `${window.origin}/api/favoris`, {
+                    method: 'POST',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        nounou: nounou,
+                        parent: parent,
+                        favoris: hearth
+                    }),
+                }
+            );
+            let msg = await response.json();
+            console.log(msg.status)
+
+        })
+
+    </script>
 @endsection

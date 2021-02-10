@@ -338,6 +338,19 @@ main section .box-lg .contenu .informations div {
   margin-left: 10px;
 }
 
+main section .box-lg .contenu .fa-heart {
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 300ms ease;
+  transition: -webkit-transform 300ms ease;
+  transition: transform 300ms ease;
+  transition: transform 300ms ease, -webkit-transform 300ms ease;
+}
+
+main section .box-lg .contenu .fa-heart:hover {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
 main section .box-lg footer {
   display: -webkit-box;
   display: -ms-flexbox;

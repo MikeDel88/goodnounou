@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Parents;
+use App\Models\Critere;
 use App\Models\AssistantesMaternelles;
 
 
@@ -23,5 +24,6 @@ class DatabaseSeeder extends Seeder
         //     Parents::factory(), 'categorie'
         // )->create();
         User::factory()->count(30)->create();
+        Critere::factory()->count(15)->create();
     }
 }

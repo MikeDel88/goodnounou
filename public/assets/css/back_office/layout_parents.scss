@@ -281,6 +281,14 @@ main{
                         margin-left: 10px;
                     }
                 }
+                .fa-heart{
+                    cursor: pointer;
+                    transition: transform 300ms ease;
+
+                    &:hover{
+                        transform:scale(1.3);
+                    }
+                }
             }
 
             footer{

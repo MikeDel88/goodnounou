@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Parents as Parents;
 use App\Models\AssistantesMaternelles as AssistantesMaternelles;
 
-class Critere extends Model
+class Favoris extends Model
 {
     use HasFactory;
 
@@ -15,7 +16,7 @@ class Critere extends Model
      *
      * @var string
      */
-    protected $table = 'criteres';
+    protected $table = 'favoris';
 
     /**
      * The attributes that are mass assignable.
@@ -23,11 +24,17 @@ class Critere extends Model
      * @var array
      */
     protected $fillable = [
+        'parent_id',
         'assistante_maternelle_id'
     ];
 
     public function assistanteMaternelle()
     { 
         return $this->hasMany(AssistantesMaternelles::class); 
+    }
+
+    public function parents()
+    { 
+        return $this->hasMany(Parents::class); 
     }
 }

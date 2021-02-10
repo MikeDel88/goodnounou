@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User as User;
+use App\Models\Favoris as Favoris;
 
 class Parents extends Model
 {
@@ -28,5 +29,10 @@ class Parents extends Model
     public function categorie()
     {
         return $this->morphToMany(User::class, 'categorie');
+    }
+
+    public function favoris()
+    { 
+        return $this->belongsToMany(Favoris::class); 
     }
 }

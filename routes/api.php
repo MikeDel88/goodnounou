@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AssistantesMaternellesAPI;
 use App\Http\Controllers\RechercheAPI;
 use App\Http\Controllers\CritereAPI;
+use App\Http\Controllers\FavorisAPI;
 
 
 
@@ -33,6 +34,8 @@ Route::put('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update'])
 Route::delete('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
 
 Route::post('/recherche', [RechercheAPI::class, 'show']);
+
+Route::post('/favoris', [FavorisAPI::class, 'update']);
 
 
 
