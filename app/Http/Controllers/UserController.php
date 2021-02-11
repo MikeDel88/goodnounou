@@ -30,17 +30,6 @@ class UserController extends Controller
     }
     
     /**
-     * role
-     * Permet de connaitre la catégorie à laquelle appartient l'utisateur en cours
-     * @return void
-     */
-    private function role()
-    {
-        // Vérifie si la catégorie à laquelle appartient l'utilisateur connecté
-        return (get_class(Auth::user()->categorie) === 'App\Models\Parents') ? 'parents' : 'assistante-maternelle';
-    }
-    
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -51,7 +40,11 @@ class UserController extends Controller
          * Récupère la liste des enfants de l'utilisateur connecté
          */
         $this->data['role'] = $this->role();
-        $this->data['enfants'] = Enfant::where('parent_id', Auth::user()->categorie->id)->get();
+
+        if($this->data['role'] === 'parents'){
+            $this->data['enfants'] = Enfant::where('parent_id', Auth::user()->categorie->id)->get();
+        }
+        
         $this->data['title'] = 'Profile utilisateur';
         return view('profil', $this->data);
     }

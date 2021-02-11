@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User as User;
 use App\Models\Critere as Critere;
 use App\Models\Favoris as Favoris;
+use App\Models\Contrats as Contrats;
 
 
 class AssistantesMaternelles extends Model
@@ -32,17 +33,22 @@ class AssistantesMaternelles extends Model
      */
     public function categorie()
     {
-        return $this->morphToMany(User::class, 'categorie');
+        return $this->morphOne(User::class, 'categorie');
     }
 
     public function criteres()
     { 
-        return $this->belongsTo(Critere::class); 
+        return $this->hasOne(Critere::class, 'assistante_maternelle_id', 'id'); 
     }
 
     public function favoris()
     { 
-        return $this->belongsToMany(Favoris::class); 
+        return $this->hasMany(Favoris::class, 'assistante_maternelle_id'); 
+    }
+
+    public function contrats()
+    { 
+        return $this->hasMany(Contrats::class, 'assistante_maternelle_id'); 
     }
 
 }

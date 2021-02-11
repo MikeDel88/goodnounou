@@ -46,7 +46,7 @@ class RechercheAPI extends Controller
         AND criteres.assistante_maternelle_id = assistantes_maternelles.id 
         AND assistantes_maternelles.visible = 1 ";
 
-        // Si des critères ont été sélectionné par l'utilisateur, on complète la requête
+        // Si des critères ont été sélectionnés par l'utilisateur, on complète la requête
         if(!empty($request->criteres)){
             foreach($request->criteres as $key => $critere){
                 $sql = $sql . " AND criteres.$critere = 1 ";

@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Parents as Parents;
 use App\Models\AssistantesMaternelles as AssistantesMaternelles;
+use App\Models\Enfants as Enfants;
 
-class Favoris extends Model
+class Contrats extends Model
 {
     use HasFactory;
 
@@ -16,7 +17,7 @@ class Favoris extends Model
      *
      * @var string
      */
-    protected $table = 'favoris';
+    protected $table = 'contrats';
 
     /**
      * The attributes that are mass assignable.
@@ -24,8 +25,12 @@ class Favoris extends Model
      * @var array
      */
     protected $fillable = [
+        'date_debut',
         'parent_id',
-        'assistante_maternelle_id'
+        'assistante_maternelle_id',
+        'enfant_id',
+        'nombre_heures',
+        'nombre_semaines'
     ];
 
     public function assistanteMaternelle()
@@ -33,8 +38,13 @@ class Favoris extends Model
         return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id'); 
     }
 
-    public function parents()
+    public function parent()
     { 
         return $this->belongsTo(Parents::class, 'parent_id'); 
+    }
+
+    public function enfant()
+    { 
+        return $this->belongsTo(Enfant::class, 'enfant_id'); 
     }
 }

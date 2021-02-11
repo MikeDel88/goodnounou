@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Enfant;
+use App\Models\Parents as Parents;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 
@@ -32,7 +33,8 @@ class EnfantController extends Controller
      */
     public function index()
     {
-        $this->data['enfants'] = Enfant::where('parent_id', Auth::user()->categorie->id)->get();
+
+        $this->data['enfants'] = Parents::find(Auth::user()->categorie->id)->enfants()->get();
         return view('liste_enfants', $this->data);
     }
 

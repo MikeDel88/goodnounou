@@ -6,6 +6,8 @@ use App\Http\Controllers\AssistantesMaternelleController;
 use App\Http\Controllers\RechercheController;
 use App\Http\Controllers\EnfantController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContratController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,6 @@ Route::get('profile', [UserController::class, 'index'])->middleware(['auth','ver
 // Cela crée des routes prédéfinies CRUD pour les utilisateurs
 Route::resource('users', UserController::Class)->middleware(['auth', 'verified']);
 
-
 // Route accessible si l'utilisateur est authentifié et appartient à la catégorie parents
 Route::middleware(['verified', 'parents'])->group(function () {
     Route::name('parent.')->group(function(){
@@ -37,6 +38,7 @@ Route::middleware(['verified', 'parents'])->group(function () {
         Route::delete('/fiche/enfant/{id}', [EnfantController::class, 'destroy']);
         Route::put('/fiche/enfant/{id}', [EnfantController::class, 'update']);
         Route::get('recherche', [RechercheController::class, 'index'])->name('recherche');
+        Route::post('/contrats/creation', [ContratController::class, 'store'])->name('contrat_creation');
     });   
 });
 
@@ -51,5 +53,6 @@ Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
 // Route accessible pour un utilisateur vérifié
 Route::middleware(['verified'])->group(function () {
     Route::get('fiche/assistante-maternelle/{id}', [AssistantesMaternelleController::class, 'showCard']);
+    Route::get('contrats', [ContratController::class, 'index'])->name('contrats');
 });
 

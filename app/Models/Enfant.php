@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Parents as Parents;
+use App\Models\Contrats as Contrats;
 
 class Enfant extends Model
 {
@@ -36,6 +38,11 @@ class Enfant extends Model
      */
     public function parents()
     {
-        return $this->belongTo(Parents::class, 'foreign_key');
+        return $this->belongTo(Parents::class, 'parent_id');
+    }
+
+    public function contrats()
+    { 
+        return $this->hasMany(Contrats::class, 'enfant_id'); 
     }
 }

@@ -28,7 +28,7 @@ class Critere extends Model
 
     public function assistanteMaternelle()
     { 
-        return $this->hasMany(AssistantesMaternelles::class); 
+        return $this->belongTo(AssistantesMaternelles::class, 'assistante_maternelle_id', 'id'); 
     }
 
 }

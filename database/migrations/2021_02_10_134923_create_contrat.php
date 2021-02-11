@@ -36,6 +36,8 @@ class CreateContrat extends Migration
             $table->date('date_debut');
             $table->date('date_fin')->nullable();
             $table->string('status')->default('En attente');
+            $table->unsignedTinyInteger('nombre_heures');
+            $table->unsignedTinyInteger('nombre_semaines');
             $table->timestamps();
         });
     }

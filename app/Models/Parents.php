@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User as User;
 use App\Models\Favoris as Favoris;
+use App\Models\Contrats as Contrats;
+use App\Models\Enfant as Enfant;
+
 
 class Parents extends Model
 {
@@ -28,11 +31,21 @@ class Parents extends Model
      */
     public function categorie()
     {
-        return $this->morphToMany(User::class, 'categorie');
+        return $this->morphOne(User::class, 'categorie');
+    }
+
+    public function enfants()
+    {
+        return $this->hasMany(Enfant::class, 'parent_id'); 
     }
 
     public function favoris()
     { 
-        return $this->belongsToMany(Favoris::class); 
+        return $this->hasMany(Favoris::class, 'parent_id'); 
+    }
+
+    public function contrats()
+    { 
+        return $this->hasMany(Contrats::class, 'parent_id'); 
     }
 }
