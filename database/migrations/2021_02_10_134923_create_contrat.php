@@ -38,6 +38,9 @@ class CreateContrat extends Migration
             $table->string('status')->default('En attente');
             $table->unsignedTinyInteger('nombre_heures');
             $table->unsignedTinyInteger('nombre_semaines');
+            $table->decimal('taux_horaire', 5,2)->nullable();
+            $table->decimal('taux_entretien', 5,2)->nullable();
+            $table->decimal('frais_repas', 5,2)->nullable();
             $table->timestamps();
         });
     }

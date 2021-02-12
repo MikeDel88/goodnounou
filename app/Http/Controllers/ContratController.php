@@ -34,11 +34,7 @@ class ContratController extends Controller
      */
     public function index()
     {
-        /**
-         * Faire apparaître la liste des nounous en favoris si role = parent
-         * Faire le lien vers la fiche du contrat
-         * Faire la bulle dans le menu avec le nombre de contrat en cours
-         */
+        
         $this->data['role'] = $this->role(); // Détermine s'il s'agit d'un parent ou d'une nounou qui est connecté
 
         if($this->data['role'] === 'parents'){
@@ -51,15 +47,6 @@ class ContratController extends Controller
         return view('contrats', $this->data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -70,8 +57,8 @@ class ContratController extends Controller
     public function store(Request $request)
     {
 
-        $liste_enfants = Parents::find(Auth::user()->categorie_id)->enfants; // Récupère la liste des enfants de l'utilisateur connecté
-        $liste_favoris = Parents::find(Auth::user()->categorie_id)->favoris; // Récupère la liste des favoris de l'utilisateur connecté
+        $liste_enfants = Parents::findOrFail(Auth::user()->categorie_id)->enfants; // Récupère la liste des enfants de l'utilisateur connecté
+        $liste_favoris = Parents::findOrFail(Auth::user()->categorie_id)->favoris; // Récupère la liste des favoris de l'utilisateur connecté
         
         // Pour chaque enfant de la liste, on vérifie si l'id correspond à la valeur de l'enfant renseigné
         foreach($liste_enfants as $enfant){
@@ -81,7 +68,7 @@ class ContratController extends Controller
             $checkFavoris = ($favoris->assistante_maternelle_id === intval($request->input('assistante_maternelle'))) ? true : false;
         }
 
-        if($checkEnfant === true && $checkFavoris === true){
+        if(isset($checkEnfant) && $checkEnfant === true && isset($checkFavoris) && $checkFavoris === true){
 
             /**
              * Validation des données
@@ -94,16 +81,22 @@ class ContratController extends Controller
                 'nombre_semaines'               => 'required|integer|min:0|max:48',
             ])->validate();
 
+
+            $assistanteMaternelle = AssistantesMaternelles::findOrFail($request->input('assistante_maternelle')); // Récupère l'assistante maternelle concerné au contrat pour enregistrer ses frais afin de les conserver si toutefois l'assistante maternelle change ses taux sur son profil
+           
             /**
              * Création du contrat
              */
             Contrat::create([
                 'date_debut'                    => $request->input('date_debut'),
                 'enfant_id'                     => $request->input('enfant'),
-                'assistante_maternelle_id'      => $request->input('assistante_maternelle'),
+                'assistante_maternelle_id'      => $assistanteMaternelle->id,
                 'parent_id'                     => Auth::user()->categorie->id,
                 'nombre_heures'                 => $request->input('nombre_heures'),
                 'nombre_semaines'               => $request->input('nombre_semaines'),
+                'taux_horaire'                  => $assistanteMaternelle->taux_horaire,
+                'taux_entretien'                => $assistanteMaternelle->taux_entretien,
+                'frais_repas'                   => $assistanteMaternelle->frais_repas,
             ]);
 
             return back()->with('success', 'Contrat enregistré');
@@ -116,24 +109,41 @@ class ContratController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     * Fiche du contrat pour l'assistante maternelle
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $contrat = Contrat::findOrFail(intval($id));
+        $this->data['role'] = $this->role();
+
+        if($this->data['role'] === 'assistante-maternelle' && Auth::user()->categorie->id === $contrat->assistante_maternelle_id){
+            
+            $this->data['contrat'] = $contrat;
+            $this->data['salaire_mensuel'] = round((($contrat->taux_horaire * $contrat->nombre_heures * $contrat->nombre_semaines) / 12), 2); // Calcul du salaire mensuel estimé 
+            $this->data['nombre_heures_mois'] = ceil((($contrat->nombre_heures * $contrat->nombre_semaines) / 12));
+            return view('fiche_contrat_ass_mat', $this->data);
+
+       }else{
+           return back()->with('message', "Désolé mais ce contrat n'est pas disponible");
+       }
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * Fiche du contrat pour les parents qui peuvent supprimer le contrat
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+       $contrat = Contrat::findOrFail(intval($id));
+        if($this->role() === 'parents' && Auth::user()->categorie->id === $contrat->parent_id){
+            echo "parent ok";
+       }else{
+           return back()->with('message', "Désolé mais ce contrat n'est pas disponible");
+       }
     }
 
     /**
@@ -156,6 +166,51 @@ class ContratController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contrat = Contrat::findOrFail(intval($id));
+        if(Auth::user()->categorie->id === $contrat->parent_id && $contrat->status === 'Refus' || Auth::user()->categorie->id === $contrat->parent_id && $contrat->status === 'En attente'){
+            Contrat::where('id', $id)->delete();
+            return back()->with('success', 'Le contrat a bien été supprimé');
+        }else{
+            return back()->with('message', "Désolé mais ce contrat n'existe pas");
+        }
+    }
+
+    
+    /**
+     * validation
+     * Validation d'un contrat par une assistante maternelle connecté
+     * @param  mixed $id
+     * @return void
+     */
+    public function validation($id)
+    {
+        $contrat = Contrat::findOrFail(intval($id));
+        if(Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status === 'En attente'){
+            Contrat::where('id', $id)->update([
+                'status' => 'En cours'
+            ]);
+            return back()->with('success', 'Le contrat a bien été validé');
+        }else{
+            return back()->with('message', "Désolé mais ce contrat n'existe pas");
+        }
+    }
+    
+    /**
+     * refus
+     *  Refus d'un contrat par une assistante maternelle connecté
+     * @param  mixed $id
+     * @return void
+     */
+    public function refus($id)
+    {
+        $contrat = Contrat::findOrFail(intval($id));
+        if(Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status === 'En attente'){
+            Contrat::where('id', $id)->update([
+                'status' => 'Refus'
+            ]);
+            return back()->with('success', 'Le contrat a bien été refusé');
+        }else{
+            return back()->with('message', "Désolé mais ce contrat n'existe pas");
+        }
     }
 }

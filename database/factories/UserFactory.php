@@ -34,6 +34,8 @@ class UserFactory extends Factory
             'categorie_id' => $categorie::factory(),
             'password' => Hash::make('test1988'), // password
             'remember_token' => Str::random(10),
+            'nom' => Str::random(10),
+            'prenom' => Str::random(10),
         ];
     }
 }

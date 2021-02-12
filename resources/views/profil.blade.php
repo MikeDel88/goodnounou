@@ -50,6 +50,19 @@
                 <h4>Mes contrats en cours</h4>
                 <div class="close"><i class="fas fa-times"></i></div>
             </header>
+            @if (!empty($contrats))
+                <div class="contenu">
+                    <ul class="m-3">
+                        @foreach ($contrats as $contrat)
+                            <li>
+                                {{ "{$contrat->enfant->nom} {$contrat->enfant->prenom}" }}
+                                depuis le
+                                {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </article>
         <article class="box box-md">
             <header>

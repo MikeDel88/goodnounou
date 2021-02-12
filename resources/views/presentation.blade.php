@@ -17,9 +17,9 @@
         <div class="contenu">
             <div class="favoris d-flex justify-content-end">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><i class="@if ($favoris===true) fas @else far @endif fa-heart text-danger "></i></label>
-                            <input data-nounou-id=" {{ $renseignements->categorie_id }}"
-                        data-parent-id="{{ Auth::user()->categorie->id }}" type="hidden" id="flexSwitchCheckDefault"
-                        name="favoris">
+                                                                    <input data-nounou-id="
+                        {{ $renseignements->categorie_id }}" data-parent-id="{{ Auth::user()->categorie->id }}"
+                        type="hidden" id="flexSwitchCheckDefault" name="favoris">
             </div>
             <ul id="renseignements">
                 <li><span class="fw-bold">Nom :</span> {{ $renseignements->nom ?? 'non renseigné' }}</li>
@@ -72,11 +72,16 @@
         <div class="contenu">
             <ul>
                 @foreach ($criteres as $critere => $valeur)
-                    @if ($critere !== 'id' && $critere !== 'assistante_maternelle_id' && $critere !== 'created_at' && $criteres !== 'updated_at')
+                    @if ($critere !== 'id' && $critere !== 'assistante_maternelle_id' && $critere !== 'created_at' && $critere !== 'updated_at')
                         @if ($valeur === 1)
                             <li>
                                 <i
                                     class="fas fa-check-square text-success mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
+                            </li>
+                        @else
+                            <li>
+                                <i
+                                    class="fas fa-window-close text-danger mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
                             </li>
                         @endif
                     @endif

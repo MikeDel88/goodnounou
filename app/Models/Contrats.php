@@ -30,7 +30,10 @@ class Contrats extends Model
         'assistante_maternelle_id',
         'enfant_id',
         'nombre_heures',
-        'nombre_semaines'
+        'nombre_semaines',
+        'taux_horaire',
+        'taux_entretien',
+        'frais_repas'
     ];
 
     public function assistanteMaternelle()

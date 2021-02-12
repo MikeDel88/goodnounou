@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Enfant;
+use App\Models\Contrats;
 use Illuminate\Support\Collection;
 use App\Models\AssistantesMaternelles;
 use App\Models\Parents;
@@ -44,6 +45,7 @@ class UserController extends Controller
         if($this->data['role'] === 'parents'){
             $this->data['enfants'] = Enfant::where('parent_id', Auth::user()->categorie->id)->get();
         }
+        $this->data['contrats'] = ($this->data['role'] === 'parents') ? Contrats::where('parent_id', Auth::user()->categorie->id)->get() : Contrats::where('assistante_maternelle_id', Auth::user()->categorie->id)->get();
         
         $this->data['title'] = 'Profile utilisateur';
         return view('profil', $this->data);
@@ -74,6 +76,7 @@ class UserController extends Controller
          */
         if(intval($user) === Auth::user()->id){
             $this->data['role'] = $this->role();
+            
             return view('profil_edit', $this->data);
         }
 

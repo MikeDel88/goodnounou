@@ -72,6 +72,8 @@
                                     contrats</span></a></li>
                         <li><a href="{{ route('parent.enfants') }}"><i
                                     class="fas fa-users"></i><span>Famille</span></a></li>
+                        <li><a href="{{ route('parent.favoris') }}"><i class="fas fa-star"></i><span>Mes
+                                    favoris</span></a></li>
                         <li><a href="#"><i class="fas fa-book"></i><span>Carnet de bord</span></a></li>
                     @else
                         <li><a

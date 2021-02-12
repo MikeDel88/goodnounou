@@ -30,11 +30,13 @@
                         </select>
                         <select class="form-select my-2" aria-label="Liste des asistantes maternelles favorites"
                             name="assistante_maternelle" required>
-                            <option selected disabled>Liste de mes assistantes maternelles favoris</option>
+                            <option selected disabled>Liste de mes assistantes maternelles favorites</option>
                             @foreach ($liste_favoris as $favoris)
-                                <option value="{{ $favoris->assistante_maternelle_id }}">
-                                    {{ "{$favoris->assistanteMaternelle->categorie->nom} {$favoris->assistanteMaternelle->categorie->prenom}" }}
-                                </option>
+                                @if ($favoris->assistanteMaternelle->disponible === 1 && $favoris->assistanteMaternelle->nombre_place > 0)
+                                    <option value="{{ $favoris->assistante_maternelle_id }}">
+                                        {{ "{$favoris->assistanteMaternelle->categorie->nom} {$favoris->assistanteMaternelle->categorie->prenom}" }}
+                                    </option>
+                                @endif
                             @endforeach
                         </select>
                         <div class="row my-3">
@@ -69,6 +71,43 @@
             </div>
         </article>
     @endif
+    @if ($role === 'assistante-maternelle')
+        <article class="box box-lg">
+            <header>
+                <button class="btn btn-dark mx-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Contrat en attente de validation
+                </button>
+            </header>
+            <div id="collapseExample" class="contenu collapse">
+                <div class="card card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach ($contrats as $contrat)
+                            @if ($contrat->status === 'En attente')
+                                <li class="d-flex justify-content-between list-group-item">
+                                    <a href="contrat/{{ $contrat->id }}">
+                                        {{ "{$contrat->parent->categorie->nom} {$contrat->parent->categorie->prenom}" }}
+                                        pour
+                                        {{ $contrat->enfant->prenom }}
+                                    </a>
+                                    <div>
+                                        <a href="{{ route('assistante-maternelle.contrat_validation', ['id' => $contrat->id]) }}"
+                                            class="d-inline-block mx-3" title="accepter">
+                                            <i class="fas fa-check text-success"></i>
+                                        </a>
+                                        <a href="{{ route('assistante-maternelle.contrat_refus', ['id' => $contrat->id]) }}"
+                                            class="d-inline-block mx-3" title="refuser">
+                                            <i class="fas fa-trash text-danger"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </article>
+    @endif
     <article class="box box-lg">
         <header>
             <h4>
@@ -78,14 +117,41 @@
         <div class="contenu">
             <ul class="list-group list-group-flush">
                 @foreach ($contrats as $contrat)
-                    <li class="d-flex justify-content-between list-group-item">
-                        <span>{{ "{$contrat->enfant->nom} {$contrat->enfant->prenom}" }} du
-                            {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}
-                            ({{ $contrat->status }})</span><a href="#" class="btn btn-dark">Consulter</a>
-                    </li>
+                    @if ($contrat->status === 'En cours' && $role === 'assistante-maternelle')
+                        <li class="d-flex justify-content-between list-group-item">
+                            <span>
+                                Famille
+                                {{ "{$contrat->parent->categorie->nom} {$contrat->parent->categorie->prenom}" }}
+                                pour
+                                {{ "{$contrat->enfant->nom} {$contrat->enfant->prenom}" }}
+                                du
+                                {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}
+                            </span>
+                            <a href="{{ route('assistante-maternelle.contrat_show', ['id' => $contrat->id]) }}"
+                                class="btn btn-dark">Consulter</a>
+                        </li>
+                    @elseif($role === 'parents')
+                        <li class="d-flex justify-content-between list-group-item">
+                            <span>
+                                {{ "{$contrat->enfant->nom} {$contrat->enfant->prenom}" }} avec
+                                {{ "{$contrat->assistanteMaternelle->categorie->nom} {$contrat->assistanteMaternelle->categorie->prenom}" }}
+                                du
+                                {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}
+                                ({{ $contrat->status }})
+                            </span>
+                            @if ($contrat->status === 'Refus' || $contrat->status === 'En attente')
+                                <a href="{{ route('parent.contrat_supprimer', ['id' => $contrat->id]) }}"
+                                    title="supprimer">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </a>
+                            @else
+                                <a href="{{ route('parent.contrat_edit', ['id' => $contrat->id]) }}"
+                                    class="btn btn-dark">Consulter</a>
+                            @endif
+                        </li>
+                    @endif
                 @endforeach
             </ul>
-
         </div>
     </article>
 @endsection
