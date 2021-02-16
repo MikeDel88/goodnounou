@@ -132,6 +132,7 @@ window.onload = () => {
             }).addTo(this.mymap)
             this.mymap.setView(pos, 11)
 
+            // Envoi de la requête en POST pour rechercher dans la base de données les assistantes maternelles dans le rayon
             let searchClients = await fetch(
                 `${window.origin}/api/recherche`, {
                 method: 'POST',

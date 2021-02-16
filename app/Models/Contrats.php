@@ -50,4 +50,9 @@ class Contrats extends Model
     { 
         return $this->belongsTo(Enfant::class, 'enfant_id'); 
     }
+
+    public function status()
+    { 
+        return $this->belongsTo(Status::class, 'status_id'); 
+    }
 }

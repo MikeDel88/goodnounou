@@ -139,8 +139,29 @@ class ContratController extends Controller
     public function edit($id)
     {
        $contrat = Contrat::findOrFail(intval($id));
-        if($this->role() === 'parents' && Auth::user()->categorie->id === $contrat->parent_id){
-            echo "parent ok";
+        $this->data['role'] = $this->role();
+
+        if($this->data['role'] === 'parents' && Auth::user()->categorie->id === $contrat->parent_id){
+
+            $this->data['contrat'] = $contrat;
+            $this->data['mois'] = [
+                1   => 'Janvier',
+                2   => 'Février',
+                3   => 'Mars',
+                4   => 'Avril',
+                5   => 'Mai',
+                6   => 'Juin',
+                7   => 'Juillet',
+                8   => 'Août',
+                9   => 'Septembre',
+                10  => 'Octobre',
+                11  => 'Novembre',
+                12  => 'Décembre'
+            ];
+            $this->data['salaire_mensuel'] = round((($contrat->taux_horaire * $contrat->nombre_heures * $contrat->nombre_semaines) / 12), 2);
+            $this->data['nombre_heures_lisse'] = ceil((($contrat->nombre_heures * $contrat->nombre_semaines) / 12));
+            return view('fiche_contrat_parents', $this->data);
+
        }else{
            return back()->with('message', "Désolé mais ce contrat n'est pas disponible");
        }
@@ -167,7 +188,7 @@ class ContratController extends Controller
     public function destroy($id)
     {
         $contrat = Contrat::findOrFail(intval($id));
-        if(Auth::user()->categorie->id === $contrat->parent_id && $contrat->status === 'Refus' || Auth::user()->categorie->id === $contrat->parent_id && $contrat->status === 'En attente'){
+        if(Auth::user()->categorie->id === $contrat->parent_id && $contrat->status_id === 3 || Auth::user()->categorie->id === $contrat->parent_id && $contrat->status_id === 1){
             Contrat::where('id', $id)->delete();
             return back()->with('success', 'Le contrat a bien été supprimé');
         }else{
@@ -185,9 +206,9 @@ class ContratController extends Controller
     public function validation($id)
     {
         $contrat = Contrat::findOrFail(intval($id));
-        if(Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status === 'En attente'){
+        if(Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status_id === 1){
             Contrat::where('id', $id)->update([
-                'status' => 'En cours'
+                'status_id' => 2
             ]);
             return back()->with('success', 'Le contrat a bien été validé');
         }else{
@@ -204,9 +225,9 @@ class ContratController extends Controller
     public function refus($id)
     {
         $contrat = Contrat::findOrFail(intval($id));
-        if(Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status === 'En attente'){
+        if(Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status_id === 1){
             Contrat::where('id', $id)->update([
-                'status' => 'Refus'
+                'status_id' => 3
             ]);
             return back()->with('success', 'Le contrat a bien été refusé');
         }else{

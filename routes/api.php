@@ -20,7 +20,7 @@ use App\Http\Controllers\FavorisAPI;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function () {
+Route::middleware('auth')->get('/user', function () {
     return response()->json([
         'status' => 'ok'
     ]);

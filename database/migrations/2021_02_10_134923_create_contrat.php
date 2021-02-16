@@ -35,7 +35,11 @@ class CreateContrat extends Migration
             ->onUpdate('cascade');
             $table->date('date_debut');
             $table->date('date_fin')->nullable();
-            $table->string('status')->default('En attente');
+            $table->unsignedBigInteger('status_id')
+            ->default(1);
+            $table->foreign('status_id')
+            ->references('id')
+            ->on('status');
             $table->unsignedTinyInteger('nombre_heures');
             $table->unsignedTinyInteger('nombre_semaines');
             $table->decimal('taux_horaire', 5,2)->nullable();

@@ -83,7 +83,7 @@
                 <div class="card card-body">
                     <ul class="list-group list-group-flush">
                         @foreach ($contrats as $contrat)
-                            @if ($contrat->status === 'En attente')
+                            @if ($contrat->status_id === 1)
                                 <li class="d-flex justify-content-between list-group-item">
                                     <a href="contrat/{{ $contrat->id }}">
                                         {{ "{$contrat->parent->categorie->nom} {$contrat->parent->categorie->prenom}" }}
@@ -117,7 +117,7 @@
         <div class="contenu">
             <ul class="list-group list-group-flush">
                 @foreach ($contrats as $contrat)
-                    @if ($contrat->status === 'En cours' && $role === 'assistante-maternelle')
+                    @if ($contrat->status_id === 2 && $role === 'assistante-maternelle')
                         <li class="d-flex justify-content-between list-group-item">
                             <span>
                                 Famille
@@ -137,9 +137,9 @@
                                 {{ "{$contrat->assistanteMaternelle->categorie->nom} {$contrat->assistanteMaternelle->categorie->prenom}" }}
                                 du
                                 {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}
-                                ({{ $contrat->status }})
+                                ({{ $contrat->status->nom }})
                             </span>
-                            @if ($contrat->status === 'Refus' || $contrat->status === 'En attente')
+                            @if ($contrat->status_id === 3 || $contrat->status_id === 1)
                                 <a href="{{ route('parent.contrat_supprimer', ['id' => $contrat->id]) }}"
                                     title="supprimer">
                                     <i class="fas fa-trash text-danger"></i>

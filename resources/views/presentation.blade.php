@@ -5,11 +5,15 @@
             <h4>Renseignements</h4>
             <div>
                 @if ($renseignements->categorie->disponible === 1)
-                    <span class="text-success">Disponible</span>
+                    <span class="text-success mx-1">Disponible</span>
                 @else
-                    <span class="text-danger">Disponible à partir du
+                    <span class="text-danger mx-1">Disponible à partir du
                         :
-                        {{ Carbon\Carbon::parse($renseignements->categorie->prochaine_disponibilite)->format('d/m/Y') ?? 'non renseigné' }}
+                        @if ($renseignements->categorie->prochaine_disponibilite === null)
+                            non communiqué
+                        @else
+                            {{ Carbon\Carbon::parse($renseignements->categorie->prochaine_disponibilite)->format('d/m/Y') }}
+                        @endif
                     </span>
                 @endif
             </div>
@@ -17,7 +21,7 @@
         <div class="contenu">
             <div class="favoris d-flex justify-content-end">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><i class="@if ($favoris===true) fas @else far @endif fa-heart text-danger "></i></label>
-                                                                    <input data-nounou-id="
+                                                                                        <input data-nounou-id="
                         {{ $renseignements->categorie_id }}" data-parent-id="{{ Auth::user()->categorie->id }}"
                         type="hidden" id="flexSwitchCheckDefault" name="favoris">
             </div>
