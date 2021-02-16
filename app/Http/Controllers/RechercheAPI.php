@@ -37,9 +37,14 @@ class RechercheAPI extends Controller
     public function show(Request $request)
     {
         $categorie = 'AssistantesMaternelles';
+        $binding = [
+            'lat1' => $request->lat,
+            'lat2' => $request->lat,
+            'lng' => $request->lng
+        ];
         
         // Requête qui permet de sélectionner un utilisateur en fonction de sa localisation géographique
-        $sql = "SELECT assistantes_maternelles.id, users.nom, users.prenom, lat, lng, ( 6371 * acos( cos( radians(".$request->lat.") ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(".$request->lng.") ) + sin( radians(".$request->lat.") ) * sin( radians( lat ) ) ) ) AS distance 
+        $sql = "SELECT assistantes_maternelles.id, users.nom, users.prenom, lat, lng, ( 6371 * acos( cos( radians(:lat1) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(:lng) ) + sin( radians(:lat2) ) * sin( radians( lat ) ) ) ) AS distance 
         FROM assistantes_maternelles, users, criteres 
         WHERE users.categorie_id = assistantes_maternelles.id 
         AND users.categorie_type LIKE '%$categorie' 
@@ -54,7 +59,7 @@ class RechercheAPI extends Controller
         }
            
         $sql = $sql . "HAVING distance < ".$request->distance." ORDER BY distance";
-        $result = DB::select($sql, ['lat' => $request->lat, 'lng' => $request->lng]);
+        $result = DB::select($sql, $binding);
 
         return response()->json($result);
        
