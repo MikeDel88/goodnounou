@@ -8,6 +8,7 @@ use App\Http\Controllers\EnfantController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContratController;
 use App\Http\Controllers\FavorisController;
+use App\Http\Controllers\HorairesController;
 
 
 
@@ -44,6 +45,7 @@ Route::middleware(['verified', 'parents'])->group(function () {
         Route::get('/contrat/{id}/supprimer', [ContratController::class, 'destroy'])->name('contrat_supprimer');
         Route::get('/contrat/{id}/editer', [ContratController::class, 'edit'])->name('contrat_edit');
         Route::get('/favoris', [FavorisController::class, 'show'])->name('favoris');
+        Route::post('/horaires/ajouter', [HorairesController::class, 'store']);
     });   
 });
 

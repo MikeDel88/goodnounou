@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Parents as Parents;
 use App\Models\AssistantesMaternelles as AssistantesMaternelles;
 use App\Models\Enfants as Enfants;
+use App\Models\Horaire as Horaire;
 
 class Contrats extends Model
 {
@@ -54,5 +55,10 @@ class Contrats extends Model
     public function status()
     { 
         return $this->belongsTo(Status::class, 'status_id'); 
+    }
+
+    public function horaire()
+    { 
+        return $this->hasMany(Horaire::class, 'contrat_id'); 
     }
 }

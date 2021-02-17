@@ -6,6 +6,8 @@ use App\Http\Controllers\AssistantesMaternellesAPI;
 use App\Http\Controllers\RechercheAPI;
 use App\Http\Controllers\CritereAPI;
 use App\Http\Controllers\FavorisAPI;
+use App\Http\Controllers\HorairesAPI;
+
 
 
 
@@ -36,6 +38,8 @@ Route::delete('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update
 Route::post('/recherche', [RechercheAPI::class, 'show']);
 
 Route::post('/favoris', [FavorisAPI::class, 'update']);
+
+Route::get('/horaires/{contrat}/{mois}/{annee}', [HorairesAPI::class, 'show']);
 
 
 

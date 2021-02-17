@@ -13,6 +13,7 @@ class CreateFavoris extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('favoris', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parent_id');
@@ -28,6 +29,7 @@ class CreateFavoris extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
             $table->timestamps();
+            $table->unique(['parent_id', 'assistante_maternelle_id']);
         });
     }
 

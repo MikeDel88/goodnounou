@@ -12,6 +12,7 @@ use App\Models\Contrats as Contrat;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Database\QueryException;
 
 
 class ContratController extends Controller
@@ -87,20 +88,28 @@ class ContratController extends Controller
             /**
              * Création du contrat
              */
-            Contrat::create([
-                'date_debut'                    => $request->input('date_debut'),
-                'enfant_id'                     => $request->input('enfant'),
-                'assistante_maternelle_id'      => $assistanteMaternelle->id,
-                'parent_id'                     => Auth::user()->categorie->id,
-                'nombre_heures'                 => $request->input('nombre_heures'),
-                'nombre_semaines'               => $request->input('nombre_semaines'),
-                'taux_horaire'                  => $assistanteMaternelle->taux_horaire,
-                'taux_entretien'                => $assistanteMaternelle->taux_entretien,
-                'frais_repas'                   => $assistanteMaternelle->frais_repas,
-            ]);
+            try{
+                Contrat::create([
+                    'date_debut'                    => $request->input('date_debut'),
+                    'enfant_id'                     => $request->input('enfant'),
+                    'assistante_maternelle_id'      => $assistanteMaternelle->id,
+                    'parent_id'                     => Auth::user()->categorie->id,
+                    'nombre_heures'                 => $request->input('nombre_heures'),
+                    'nombre_semaines'               => $request->input('nombre_semaines'),
+                    'taux_horaire'                  => $assistanteMaternelle->taux_horaire,
+                    'taux_entretien'                => $assistanteMaternelle->taux_entretien,
+                    'frais_repas'                   => $assistanteMaternelle->frais_repas,
+                ]);
+                return back()->with('success', 'Contrat enregistré');
 
-            return back()->with('success', 'Contrat enregistré');
-
+            }catch(\Illuminate\Database\QueryException $e){
+                
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    return back()->with('message', 'Un contrat avec cette assistante maternelle et cet enfant existe déjà');
+                }
+            }
+    
         }else{
             return redirect('/contrats')->with('message', "Désolé, une erreur est survenue");
         }

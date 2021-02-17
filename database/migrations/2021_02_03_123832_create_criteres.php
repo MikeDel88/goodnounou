@@ -16,7 +16,7 @@ class CreateCriteres extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('criteres', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('assistante_maternelle_id');
+            $table->unsignedBigInteger('assistante_maternelle_id')->unique();
             $table->foreign('assistante_maternelle_id')
             ->references('id')
             ->on('assistantes_maternelles')

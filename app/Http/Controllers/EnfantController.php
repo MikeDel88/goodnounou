@@ -8,6 +8,7 @@ use App\Models\Enfant;
 use App\Models\Parents as Parents;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\QueryException;
 
 class EnfantController extends Controller
 {
@@ -53,14 +54,22 @@ class EnfantController extends Controller
             'date_naissance'    => 'date_format:"Y-m-d"|before_or_equal:today',
         ])->validate();
 
-        Enfant::create([
+        try{
+
+            Enfant::create([
             'parent_id'       =>  Auth::user()->categorie->id,
             'nom'             =>  ucFirst($request->input('nom')),
             'prenom'          =>  ucFirst($request->input('prenom')),
             'date_naissance'  =>  $request->input('date_naissance'),
-        ]);
+            ]);
+            return back()->with('success', "Votre enfant a bien été crée");
 
-        return back()->with('success', "Votre enfant a bien été crée");
+        }catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+               return back()->with('message', 'Cet enfant existe déjà');
+            }
+        }
     }
 
     
@@ -101,14 +110,22 @@ class EnfantController extends Controller
             'date_naissance'    => 'date_format:"Y-m-d"|before_or_equal:today',
         ])->validate();
 
-        Enfant::where('id', intval($id))
-        ->update([
-            'nom'             =>  ucFirst($request->input('nom')),
-            'prenom'          =>  ucFirst($request->input('prenom')),
-            'date_naissance'  =>  $request->input('date_naissance'),
-        ]);
+        try{
+            Enfant::where('id', intval($id))
+            ->update([
+                'nom'             =>  ucFirst($request->input('nom')),
+                'prenom'          =>  ucFirst($request->input('prenom')),
+                'date_naissance'  =>  $request->input('date_naissance'),
+            ]);
 
-        return back()->with('success', "Votre enfant a bien été modifié");
+            return back()->with('success', "Votre enfant a bien été modifié");
+            
+        }catch(\Illuminate\Database\QueryException $e){
+            $errorCode = $e->errorInfo[1];
+            if($errorCode == 1062){
+               return back()->with('message', 'Cet enfant existe déjà');
+            }
+        }
     }
 
     /**

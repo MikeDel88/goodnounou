@@ -13,6 +13,7 @@ class CreateContrat extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('contrats', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parent_id');
@@ -46,6 +47,7 @@ class CreateContrat extends Migration
             $table->decimal('taux_entretien', 5,2)->nullable();
             $table->decimal('frais_repas', 5,2)->nullable();
             $table->timestamps();
+            $table->unique(['parent_id', 'assistante_maternelle_id', 'enfant_id']);
         });
     }
 

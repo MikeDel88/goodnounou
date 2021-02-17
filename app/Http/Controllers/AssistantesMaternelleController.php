@@ -33,13 +33,13 @@ class AssistantesMaternelleController extends Controller
         $this->data['role'] = 'parents'; // Je défini que le rôle de l'utilisateur doit être un parent.
         $this->data['js'][] = 'favoris'; // Chargement du script spécifique pour gérer les favoris en asynchrone
         
-        $criteres = DB::table('criteres')->select('*')->where('assistante_maternelle_id', $id)->get(); // Récupère l'ensemble des critères associé à l'assistante maternelle
-        $renseignements = User::where('categorie_id', $id)->where('categorie_type', 'App\Models\AssistantesMaternelles')->get(); // Récupère la liste des informations de l'utilisateur nounou
-        $favoris = Favoris::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->get(); // Cela doit retourner un seul résultat maximum
+        $criteres = DB::table('criteres')->select('*')->where('assistante_maternelle_id', $id)->first(); // Récupère l'ensemble des critères associé à l'assistante maternelle
+        $renseignements = User::where('categorie_id', $id)->where('categorie_type', 'App\Models\AssistantesMaternelles')->first(); // Récupère la liste des informations de l'utilisateur nounou
+        $favoris = Favoris::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first(); // Cela doit retourner un seul résultat maximum
         
-        $this->data['favoris'] = (isset($favoris[0])) ? true : false; // Si la requête à renvoyé un objet dans le tableau, alors il existe un favoris   
-        $this->data['renseignements'] = $renseignements[0]; // Récupère la seule ligne sur la base de données doit retourner
-        $this->data['criteres'] = (array) $criteres[0]; // Transforme l'objet en tableau pour l'exploiter dans la vue
+        $this->data['favoris'] = (isset($favoris)) ? true : false; // Si la requête à renvoyé un objet dans le tableau, alors il existe un favoris   
+        $this->data['renseignements'] = $renseignements; // Récupère la seule ligne sur la base de données doit retourner
+        $this->data['criteres'] = (array) $criteres; // Transforme l'objet en tableau pour l'exploiter dans la vue
         
         return view('presentation', $this->data); // retourne la vue
     }

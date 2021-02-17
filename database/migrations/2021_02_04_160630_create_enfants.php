@@ -13,6 +13,7 @@ class CreateEnfants extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('enfants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parent_id');
@@ -25,6 +26,7 @@ class CreateEnfants extends Migration
             $table->string('prenom')->nullable();
             $table->date('date_naissance')->nullable();
             $table->timestamps();
+            $table->unique(['parent_id', 'nom', 'prenom']);
         });
     }
 

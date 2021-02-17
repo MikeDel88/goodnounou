@@ -21,7 +21,7 @@
         <div class="contenu">
             <div class="favoris d-flex justify-content-end">
                 <label class="form-check-label" for="flexSwitchCheckDefault"><i class="@if ($favoris===true) fas @else far @endif fa-heart text-danger "></i></label>
-                                                                                        <input data-nounou-id="
+                                                                                                <input data-nounou-id="
                         {{ $renseignements->categorie_id }}" data-parent-id="{{ Auth::user()->categorie->id }}"
                         type="hidden" id="flexSwitchCheckDefault" name="favoris">
             </div>
@@ -101,15 +101,15 @@
             <ul>
                 <li>
                     <span class="fw-bold">Taux horaire :</span>
-                    {{ "{$renseignements->categorie->taux_horaire} €" ?? 'non renseigné' }}
+                    {{ "{$renseignements->categorie->taux_horaire} €" }}
                 </li>
                 <li>
                     <span class="fw-bold">Frais d'entretien :</span>
-                    {{ "{$renseignements->categorie->taux_entretien} €" ?? 'non renseigné' }}
+                    {{ "{$renseignements->categorie->taux_entretien} €" }}
                 </li>
                 <li>
                     <span class="fw-bold">Frais repas :</span>
-                    {{ "{$renseignements->categorie->frais_repas} €" ?? 'non renseigné' }}
+                    {{ "{$renseignements->categorie->frais_repas} €" }}
                 </li>
             </ul>
         </div>
