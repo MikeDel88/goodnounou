@@ -47,7 +47,7 @@ class CreateContrat extends Migration
             $table->decimal('taux_entretien', 5,2)->nullable();
             $table->decimal('frais_repas', 5,2)->nullable();
             $table->timestamps();
-            $table->unique(['parent_id', 'assistante_maternelle_id', 'enfant_id']);
+            $table->unique(['parent_id', 'assistante_maternelle_id', 'enfant_id', 'date_debut'], 'contrat_unique');
         });
     }
 
