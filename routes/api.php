@@ -40,6 +40,7 @@ Route::post('/recherche', [RechercheAPI::class, 'show']);
 Route::post('/favoris', [FavorisAPI::class, 'update']);
 
 Route::get('/horaires/{contrat}/{mois}/{annee}', [HorairesAPI::class, 'show']);
+Route::delete('/horaire/supprimer', [HorairesAPI::class, 'destroy']);
 
 
 

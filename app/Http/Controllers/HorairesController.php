@@ -65,9 +65,9 @@ class HorairesController extends Controller
                 'nombre_heures'                 => 'string|bail|required',
                 'jour_garde'                    => 'date_format:"Y-m-d"|required',
                 'heure_debut'                   => 'date_format:H:i',
-                'deposer_par'                   => 'string|nullable',
+                'depose_par'                    => 'string',
                 'heure_fin'                     => 'date_format:H:i|after:heure_debut',
-                'recuperer_par'                 => 'string|nullable',
+                'recupere_par'                  => 'string',
                 'description'                   => 'string|nullable',
             ])->validate();
 

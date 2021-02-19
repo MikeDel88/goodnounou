@@ -44,7 +44,6 @@ class ContratController extends Controller
         }
 
         $this->data['contrats'] = ($this->data['role'] === 'parents') ? Parents::find(Auth::user()->categorie_id)->contrats : AssistantesMaternelles::find(Auth::user()->categorie_id)->contrats; // Récupère la liste des contrats pour l'utilisateur connecté
-        
         return view('contrats', $this->data);
     }
 
@@ -152,6 +151,7 @@ class ContratController extends Controller
 
         if($this->data['role'] === 'parents' && Auth::user()->categorie->id === $contrat->parent_id){
 
+            $this->data['js'][] = 'horaires';
             $this->data['contrat'] = $contrat;
             $this->data['mois'] = [
                 1   => 'Janvier',

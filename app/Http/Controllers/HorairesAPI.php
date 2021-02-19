@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Horaire;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class HorairesAPI extends Controller
 {
@@ -41,7 +42,7 @@ class HorairesAPI extends Controller
 
        return response()->json([
             'horaire' => $listeContrats,
-            ]); 
+        ]); 
     }
 
     /**
@@ -62,8 +63,17 @@ class HorairesAPI extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        try{
+            Horaire::where('contrat_id', ':contrat')->where('id', ':id')->setBindings(['contrat' => intval($request->contrat), 'id' => intval($request->horaire)])->delete();
+            $status = 'ok';
+        }catch(\Illuminate\Database\QueryException $e){
+            $status = 'ko';
+        }
+       
+        return response()->json([
+            'status' => $status,
+        ]);
     }
 }

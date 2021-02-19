@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContratController;
 use App\Http\Controllers\FavorisController;
 use App\Http\Controllers\HorairesController;
+use App\Http\Controllers\PDFController;
 
 
 
@@ -65,4 +66,8 @@ Route::middleware(['verified'])->group(function () {
     Route::get('fiche/assistante-maternelle/{id}', [AssistantesMaternelleController::class, 'showCard']);
     Route::get('contrats', [ContratController::class, 'index'])->name('contrats');
 });
+
+
+// Génère un PDF pour les horaires de garde
+Route::get('pdf/horaires/{contrat}/{mois}/{annee}', [PDFController::class, 'generatePDF']);
 
