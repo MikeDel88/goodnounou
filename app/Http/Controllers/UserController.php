@@ -98,7 +98,6 @@ class UserController extends Controller
         if(intval($user) === Auth::user()->id){
   
             Validator::make($request->input(), [
-                'photo'             => 'nullable|image|mimes:jpeg,png,jpg|size:360',
                 'nom'               => 'bail|required',
                 'prenom'            => 'bail|required',
                 'date_naissance'    => 'date_format:"Y-m-d"|before_or_equal:today',
@@ -109,10 +108,16 @@ class UserController extends Controller
                 'email_contact'     => 'nullable|email'
             ])->validate();
 
+            
+
             /**
              * Si l'utilisateur a renseigné une photo, alors on stocke l'image dans un dossier images et un dossier avec le numéro de l'utilisateur
              */
             if($request->file('photo') !== null){
+
+                $request->validate([
+                    'photo' => 'image|mimes:jpeg,png,jpg|max:800',
+                ]);
 
                 $extension = $request->file('photo')->extension();
                 $path = $request->file('photo')->storeAs("public/images/$user", "avatar.$extension");
