@@ -45,6 +45,9 @@
                     </ul>
                 </li>
             </ul>
+            @if ($contrat->status_id === 4)
+                <span class="text-warning">Contrat clos le {{ $contrat->updated_at->translatedFormat('j F Y') }}</span>
+            @endif
         </div>
     </article>
 @endsection

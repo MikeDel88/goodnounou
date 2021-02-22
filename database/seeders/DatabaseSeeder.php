@@ -33,6 +33,9 @@ class DatabaseSeeder extends Seeder
         Status::insert([
             'nom' => 'refus'
         ]);
+        Status::insert([
+            'nom' => 'clos'
+        ]);
         User::factory()->count(30)->create();
         Critere::factory()->count(15)->create();
         

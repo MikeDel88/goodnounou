@@ -47,6 +47,7 @@ Route::middleware(['verified', 'parents'])->group(function () {
         Route::get('/contrat/{id}/editer', [ContratController::class, 'edit'])->name('contrat_edit');
         Route::get('/favoris', [FavorisController::class, 'show'])->name('favoris');
         Route::post('/horaires/ajouter', [HorairesController::class, 'store']);
+        Route::get('/contrat/{id}/cloture', [ContratController::class, 'clos']);
     });   
 });
 

@@ -38,6 +38,14 @@
                 </ul>
             </div>
         </div>
+
+        <div class="p-3 text-end">
+            @if ($contrat->status_id !== 4)
+                <a href="cloture" class="btn btn-danger">Mettre fin au contrat</a>
+            @else
+                <span class="text-warning">Contrat clos le {{ $contrat->updated_at->translatedFormat('j F Y') }}</span>
+            @endif
+        </div>
     </article>
     @if ($contrat->status_id === 2)
         <article class="box box-lg">

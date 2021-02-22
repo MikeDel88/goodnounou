@@ -130,7 +130,7 @@
                             <a href="{{ route('assistante-maternelle.contrat_show', ['id' => $contrat->id]) }}"
                                 class="btn btn-dark">Consulter</a>
                         </li>
-                    @elseif($role === 'parents')
+                    @elseif($role === 'parents' && $contrat->status_id !== 4)
                         <li class="d-flex justify-content-between list-group-item">
                             <span>
                                 {{ "{$contrat->enfant->nom} {$contrat->enfant->prenom}" }} avec
@@ -146,7 +146,45 @@
                                 </a>
                             @else
                                 <a href="{{ route('parent.contrat_edit', ['id' => $contrat->id]) }}"
-                                    class="btn btn-dark">Consulter</a>
+                                    class="btn btn-dark">Consulter
+                                </a>
+                            @endif
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+        </div>
+    </article>
+    <article class="box box-lg">
+        <header>
+            <h4>
+                Liste des contrats clos
+            </h4>
+        </header>
+        <div class="contenu">
+            <ul class="list-group list-group-flush">
+                @foreach ($contrats as $contrat)
+                    @if ($contrat->status_id === 4)
+                        <li class="d-flex justify-content-between list-group-item">
+                            <span>
+                                @if ($role === 'parents')
+                                    {{ "{$contrat->assistanteMaternelle->categorie->nom} {$contrat->assistanteMaternelle->categorie->prenom}" }}
+                                @elseif($role === 'assistante-maternelle')
+                                    {{ "{$contrat->parent->categorie->nom} {$contrat->parent->categorie->prenom}" }}
+                                @endif
+                                pour
+                                {{ "{$contrat->enfant->nom} {$contrat->enfant->prenom}" }}
+                                clos le
+                                {{ Carbon\Carbon::parse($contrat->updated_at)->translatedFormat('j F Y') }}
+                            </span>
+                            @if ($role === 'parents')
+                                <a href="{{ route('parent.contrat_edit', ['id' => $contrat->id]) }}"
+                                    class="btn btn-dark">Consulter
+                                </a>
+                            @elseif($role === 'assistante-maternelle')
+                                <a href="{{ route('assistante-maternelle.contrat_show', ['id' => $contrat->id]) }}"
+                                    class="btn btn-dark">Consulter
+                                </a>
                             @endif
                         </li>
                     @endif

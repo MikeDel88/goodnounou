@@ -176,18 +176,7 @@ class ContratController extends Controller
        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -241,6 +230,29 @@ class ContratController extends Controller
             return back()->with('success', 'Le contrat a bien été refusé');
         }else{
             return back()->with('message', "Désolé mais ce contrat n'existe pas");
+        }
+    }
+    
+    /**
+     * clos
+     *  Cloture un contrat de la part d'un parent
+     * @param  mixed $id
+     * @return void
+     */
+    public function clos($id)
+    {
+        // Recherche si le numéro de contrat existe dans la liste des contrats de l'utilisateur connecté
+        foreach(Auth::user()->categorie->contrats as $contrat){
+            $status = ($contrat->id === intval($id)) ? true : false;
+        }
+        // En fonction du retour, on clos le contrat ou bien on redirige avec un message d'erreur
+        if($status === true){
+            Contrat::where('id', $id)->update([
+                    'status_id' => 4
+            ]);
+            return back()->with('success', 'Le contrat a bien été clôturé');
+        }else{
+            return back()->with('message', "Désolé, cette page cette opération n'est pas autorisé !");
         }
     }
 }
