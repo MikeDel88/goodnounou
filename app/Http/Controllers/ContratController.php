@@ -205,9 +205,7 @@ class ContratController extends Controller
     {
         $contrat = Contrat::findOrFail(intval($id));
         if(Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status_id === 1){
-            Contrat::where('id', $id)->update([
-                'status_id' => 2
-            ]);
+            $this.update($id, 2);
             return back()->with('success', 'Le contrat a bien été validé');
         }else{
             return back()->with('message', "Désolé mais ce contrat n'existe pas");
@@ -224,9 +222,7 @@ class ContratController extends Controller
     {
         $contrat = Contrat::findOrFail(intval($id));
         if(Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status_id === 1){
-            Contrat::where('id', $id)->update([
-                'status_id' => 3
-            ]);
+            $this.update($id, 3);
             return back()->with('success', 'Le contrat a bien été refusé');
         }else{
             return back()->with('message', "Désolé mais ce contrat n'existe pas");
@@ -247,12 +243,24 @@ class ContratController extends Controller
         }
         // En fonction du retour, on clos le contrat ou bien on redirige avec un message d'erreur
         if($status === true){
-            Contrat::where('id', $id)->update([
-                    'status_id' => 4
-            ]);
+            $this.update($id, 4);
             return back()->with('success', 'Le contrat a bien été clôturé');
         }else{
             return back()->with('message', "Désolé, cette page cette opération n'est pas autorisé !");
         }
+    }
+    
+    /**
+     * update
+     *  Met à jour le status d'un contrat
+     * @param  mixed $id
+     * @param  mixed $status
+     * @return void
+     */
+    private function update($id, $status)
+    {
+        Contrat::where('id', $id)->update([
+            'status_id' => $status
+        ]);
     }
 }
