@@ -174,8 +174,8 @@
                                 @endif
                                 pour
                                 {{ "{$contrat->enfant->nom} {$contrat->enfant->prenom}" }}
-                                clos le
-                                {{ Carbon\Carbon::parse($contrat->updated_at)->translatedFormat('j F Y') }}
+                                - Du {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('d/m/Y') }} au
+                                {{ Carbon\Carbon::parse($contrat->updated_at)->translatedFormat('d/m/Y') }}
                             </span>
                             @if ($role === 'parents')
                                 <a href="{{ route('parent.contrat_edit', ['id' => $contrat->id]) }}"

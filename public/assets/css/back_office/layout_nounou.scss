@@ -182,7 +182,62 @@ main{
                     }   
                 }
             }
-            
+
+            #messages{
+                li{
+                    background-color: $color-main;
+                    padding: 10px 8px;
+                    position:relative;
+                    border-radius: 10px;
+                    min-height: 70px;
+                    box-shadow: 0px 1px 6px #0000005e;
+                    margin: 40px 0;
+
+                    .enfant{
+                        position:absolute;
+                        top:2px;
+                        left:10px;
+                        color: $color-white;
+                        text-transform: capitalize;
+                        font-weight: 600;
+                    }
+                    .message{
+                        padding-top: 20px;
+                        padding-left:20px;
+                        font-size: 14px;
+                        font-style:italic;
+                        display: block;
+                        width: 80%;
+                        word-break: break-all;
+                    }
+                    .date{
+                        position: absolute;
+                        bottom: 5px;
+                        right:5px;
+                        font-size:13px;
+                        color:$color-bg;
+                        letter-spacing: 1px;
+                    }
+                    .edit{
+                        position:absolute;
+                        top:-20px;
+                        right:0;
+                        font-size:14px;
+                    }
+                }
+                li::before{
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    width: 15px;
+                    height: 15px;
+                    background-color: inherit;
+                    bottom: -7px;
+                    right: 20px;
+                    box-shadow: 6px 5px 7px #0000001a;
+                    transform:rotate(48deg)
+                }
+            }
         }
 
         .box{

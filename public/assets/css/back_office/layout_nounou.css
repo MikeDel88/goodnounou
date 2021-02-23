@@ -210,6 +210,67 @@ main section article form button:hover {
   color: #4D7AEB;
 }
 
+main section article #messages li {
+  background-color: #99B4F9;
+  padding: 10px 8px;
+  position: relative;
+  border-radius: 10px;
+  min-height: 70px;
+  -webkit-box-shadow: 0px 1px 6px #0000005e;
+          box-shadow: 0px 1px 6px #0000005e;
+  margin: 40px 0;
+}
+
+main section article #messages li .enfant {
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  color: #FFFF;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+main section article #messages li .message {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 14px;
+  font-style: italic;
+  display: block;
+  width: 80%;
+  word-break: break-all;
+}
+
+main section article #messages li .date {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 13px;
+  color: #F0F0F0;
+  letter-spacing: 1px;
+}
+
+main section article #messages li .edit {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  font-size: 14px;
+}
+
+main section article #messages li::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: inherit;
+  bottom: -7px;
+  right: 20px;
+  -webkit-box-shadow: 6px 5px 7px #0000001a;
+          box-shadow: 6px 5px 7px #0000001a;
+  -webkit-transform: rotate(48deg);
+          transform: rotate(48deg);
+}
+
 main section .box {
   overflow: hidden;
 }

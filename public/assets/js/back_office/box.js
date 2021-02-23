@@ -9,8 +9,6 @@ window.addEventListener('DOMContentLoaded', function () {
             let article = getComputedStyle(element.parentNode.parentNode).height;
             let articleValue = article.split('px');
 
-
-
             if (element.firstChild.classList.contains('fa-times') && articleValue[0] > 60) {
                 element.firstChild.classList.remove('fa-times');
                 element.firstChild.classList.add('fa-plus');
@@ -48,6 +46,7 @@ class Box {
 
     reduire() {
         let that = this;
+
         let anim = setInterval(function () {
             if (that.heightBox <= that.heightHeader) {
                 clearInterval(anim)

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Parents as Parents;
 use App\Models\Contrats as Contrats;
+use App\Models\Messages as Messages;
 
 class Enfant extends Model
 {
@@ -38,11 +39,16 @@ class Enfant extends Model
      */
     public function parents()
     {
-        return $this->belongTo(Parents::class, 'parent_id');
+        return $this->belongsTo(Parents::class, 'parent_id');
     }
 
     public function contrats()
     { 
         return $this->hasMany(Contrats::class, 'enfant_id'); 
+    }
+
+    public function messages()
+    { 
+        return $this->hasMany(Messages::class, 'enfant_id'); 
     }
 }

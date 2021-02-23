@@ -48,8 +48,9 @@
             </div>
             <div class="col-md-4 my-3">
                 <ul>
-                    <li>Crée le : {{ $enfant->created_at->translatedFormat('j F Y') }}</li>
-                    <li>Dernière modification le : {{ $enfant->updated_at->translatedFormat('j F Y à H:i') }}</li>
+                    <li>Crée le : {{ Carbon\Carbon::parse($enfant->created_at)->translatedFormat('j F Y') }}</li>
+                    <li>Dernière modification le :
+                        {{ Carbon\Carbon::parse($enfant->updated_at)->translatedFormat('j F Y à H:i') }}</li>
                 </ul>
             </div>
         </div>

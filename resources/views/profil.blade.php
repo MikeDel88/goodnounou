@@ -69,6 +69,20 @@
                 <h4>Les derniers messages</h4>
                 <div class="close"><i class="fas fa-times"></i></div>
             </header>
+            @if (!empty($messages))
+                <div id="messages" class="contenu">
+                    <ul class="m-3">
+                        @foreach ($messages as $message)
+                            <li>
+                                <span
+                                    class="date">{{ Carbon\Carbon::parse($message->jour_garde)->translatedFormat('d/m/Y') }}</span>
+                                <span class="enfant">{{ $message->enfant->prenom }}</span>
+                                <span class="message">{{ Str::limit($message->contenu, 50) }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </article>
     </div>
 

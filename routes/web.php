@@ -10,6 +10,7 @@ use App\Http\Controllers\ContratController;
 use App\Http\Controllers\FavorisController;
 use App\Http\Controllers\HorairesController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\MessagesController;
 
 
 
@@ -48,6 +49,7 @@ Route::middleware(['verified', 'parents'])->group(function () {
         Route::get('/favoris', [FavorisController::class, 'show'])->name('favoris');
         Route::post('/horaires/ajouter', [HorairesController::class, 'store']);
         Route::get('/contrat/{id}/cloture', [ContratController::class, 'clos']);
+        Route::get('/carnet-de-bord/consulter', [MessagesController::class, 'show'])->name('carnet_consultation');
     });   
 });
 
@@ -59,6 +61,9 @@ Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
         Route::get('/contrat/{id}/validation', [ContratController::class, 'validation'])->name('contrat_validation');
         Route::get('/contrat/{id}/refus', [ContratController::class, 'refus'])->name('contrat_refus');
         Route::get('/contrat/{id}', [ContratController::class, 'show'])->name('contrat_show');
+        Route::get('/carnet-de-bord', [MessagesController::class, 'create'])->name('carnet');
+        Route::post('/message/ajouter', [MessagesController::class, 'store']);
+        Route::post('/message/modifier', [MessagesController::class, 'update']);
     });
 });
 

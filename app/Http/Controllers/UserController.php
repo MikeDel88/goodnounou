@@ -14,6 +14,8 @@ use App\Models\Parents;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Messages;
+use Illuminate\Support\Str;
 use Image;
 
 class UserController extends Controller
@@ -42,11 +44,18 @@ class UserController extends Controller
          */
         $this->data['role'] = $this->role();
 
-        if($this->data['role'] === 'parents'){
-            $this->data['enfants'] = Enfant::where('parent_id', Auth::user()->categorie->id)->get();
-        }
-        $this->data['contrats'] = ($this->data['role'] === 'parents') ? Contrats::where('parent_id', Auth::user()->categorie->id)->get() : Contrats::where('assistante_maternelle_id', Auth::user()->categorie->id)->get();
+        $this->data['enfants'] = ($this->data['role'] === 'parents') ? Enfant::where('parent_id', Auth::user()->categorie->id)->get() : '';
+        $this->data['contrats'] = ($this->data['role'] === 'parents') ? Contrats::where('parent_id', Auth::user()->categorie->id)->where('status_id', 2)->get() : Contrats::where('assistante_maternelle_id', Auth::user()->categorie->id)->where('status_id', 2)->get();
         
+        if($this->data['role'] === 'assistante-maternelle'){
+            $this->data['messages'] =  Messages::where('assistante_maternelle_id', Auth::user()->categorie->id)->orderByDesc('jour_garde')
+            ->limit(5)->get();
+        }elseif($this->data['role'] === 'parents'){
+            foreach(Auth::user()->categorie->enfants as $enfant){
+                $this->data['messages'] = Messages::where('enfant_id', $enfant->id)->orderByDesc('jour_garde')->limit(1)->get();
+            }
+        }
+
         $this->data['title'] = 'Profile utilisateur';
         return view('profil', $this->data);
     }

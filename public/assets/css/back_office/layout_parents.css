@@ -227,6 +227,61 @@ main section article form button:hover {
   color: #0D4671;
 }
 
+main section article #messages li {
+  background-color: #28a1e3;
+  padding: 10px 8px;
+  position: relative;
+  border-radius: 10px;
+  min-height: 70px;
+  -webkit-box-shadow: 0px 1px 6px #0000005e;
+          box-shadow: 0px 1px 6px #0000005e;
+  margin: 20px 0;
+}
+
+main section article #messages li .enfant {
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  color: #FFFF;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+main section article #messages li .message {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 14px;
+  font-style: italic;
+  color: #434242;
+  display: block;
+  width: 80% !important;
+  word-break: break-all;
+}
+
+main section article #messages li .date {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 13px;
+  color: #F0F0F0;
+  letter-spacing: 1px;
+}
+
+main section article #messages li::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: inherit;
+  bottom: -7px;
+  left: 20px;
+  -webkit-box-shadow: 6px 5px 7px #0000001a;
+          box-shadow: 6px 5px 7px #0000001a;
+  -webkit-transform: rotate(48deg);
+          transform: rotate(48deg);
+}
+
 main section article .liste_enfants ul {
   margin: 15px;
 }
@@ -403,6 +458,6 @@ main section .box-md {
   max-height: 345px;
   -ms-flex-item-align: end;
       align-self: flex-end;
-  overflow: auto;
+  overflow: hidden;
 }
 /*# sourceMappingURL=layout_parents.css.map */

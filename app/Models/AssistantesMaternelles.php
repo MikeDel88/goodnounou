@@ -8,6 +8,7 @@ use App\Models\User as User;
 use App\Models\Critere as Critere;
 use App\Models\Favoris as Favoris;
 use App\Models\Contrats as Contrats;
+use App\Models\Messages as Messages;
 
 
 class AssistantesMaternelles extends Model
@@ -49,6 +50,11 @@ class AssistantesMaternelles extends Model
     public function contrats()
     { 
         return $this->hasMany(Contrats::class, 'assistante_maternelle_id'); 
+    }
+
+    public function messages()
+    { 
+        return $this->hasMany(Messages::class, 'assistante_maternelle_id'); 
     }
 
 }

@@ -198,6 +198,57 @@ main{
                 }
             }
 
+            #messages{
+                li{
+                    background-color: rgb(40, 161, 227);
+                    padding: 10px 8px;
+                    position:relative;
+                    border-radius: 10px;
+                    min-height: 70px;
+                    box-shadow: 0px 1px 6px #0000005e;
+                    margin: 20px 0;
+
+                    .enfant{
+                        position:absolute;
+                        top:2px;
+                        left:10px;
+                        color: $color-white;
+                        text-transform: capitalize;
+                        font-weight: 600;
+                    }
+                    .message{
+                        padding-top: 20px;
+                        padding-left:20px;
+                        font-size: 14px;
+                        font-style:italic;
+                        color:rgb(67, 66, 66);
+                        display: block;
+                        width: 80% !important;
+                        word-break: break-all;
+                    }
+                    .date{
+                        position: absolute;
+                        bottom: 5px;
+                        right:5px;
+                        font-size:13px;
+                        color:$color-bg;
+                        letter-spacing: 1px;
+                    }
+                }
+                li::before{
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    width: 15px;
+                    height: 15px;
+                    background-color: inherit;
+                    bottom: -7px;
+                    left: 20px;
+                    box-shadow: 6px 5px 7px #0000001a;
+                    transform:rotate(48deg)
+                }
+            }
+
             .liste_enfants{
                 ul{
                     margin:15px;
@@ -336,7 +387,7 @@ main{
             min-width: 845px;
             max-height:345px;
             align-self: flex-end;
-            overflow: auto;
+            overflow: hidden;
         }
     }
 }

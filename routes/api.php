@@ -7,6 +7,7 @@ use App\Http\Controllers\RechercheAPI;
 use App\Http\Controllers\CritereAPI;
 use App\Http\Controllers\FavorisAPI;
 use App\Http\Controllers\HorairesAPI;
+use App\Http\Controllers\MessagesAPI;
 
 
 
@@ -41,6 +42,9 @@ Route::post('/favoris', [FavorisAPI::class, 'update']);
 
 Route::get('/horaires/{contrat}/{mois}/{annee}', [HorairesAPI::class, 'show']);
 Route::delete('/horaire/supprimer', [HorairesAPI::class, 'destroy']);
+
+Route::get('/messages/{assMatId}/{enfantId}', [MessagesAPI::class, 'show']);
+Route::get('/consulter/{idParent}/{id}', [MessagesAPI::class, 'index']);
 
 
 
