@@ -235,7 +235,7 @@ main section article #messages li {
   min-height: 70px;
   -webkit-box-shadow: 0px 1px 6px #0000005e;
           box-shadow: 0px 1px 6px #0000005e;
-  margin: 20px 0;
+  margin: 40px 0;
 }
 
 main section article #messages li .enfant {
@@ -265,6 +265,15 @@ main section article #messages li .date {
   font-size: 13px;
   color: #F0F0F0;
   letter-spacing: 1px;
+}
+
+main section article #messages li .delete {
+  position: absolute;
+  bottom: -25px;
+  right: 0;
+  font-size: 14px;
+  display: inline-block;
+  color: #CC4747;
 }
 
 main section article #messages li::before {

@@ -62,6 +62,9 @@ class MessagesAPI extends Controller
      */
     public function destroy($id)
     {
-        //
+        Messages::where('id', $id)->delete();
+        return response()->json([
+            'status' => 'ok'
+        ]);
     }
 }

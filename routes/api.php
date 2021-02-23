@@ -23,11 +23,11 @@ use App\Http\Controllers\MessagesAPI;
 |
 */
 
-Route::middleware('auth')->get('/user', function () {
-    return response()->json([
-        'status' => 'ok'
-    ]);
-});
+// Route::middleware('auth')->get('/user', function () {
+//     return response()->json([
+//         'status' => 'ok'
+//     ]);
+// });
 
 Route::get('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'show']);
 Route::put('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'update']);
@@ -43,8 +43,11 @@ Route::post('/favoris', [FavorisAPI::class, 'update']);
 Route::get('/horaires/{contrat}/{mois}/{annee}', [HorairesAPI::class, 'show']);
 Route::delete('/horaire/supprimer', [HorairesAPI::class, 'destroy']);
 
+Route::get('/supprimer-message/{id}', [MessagesAPI::class, 'destroy']);
 Route::get('/messages/{assMatId}/{enfantId}', [MessagesAPI::class, 'show']);
 Route::get('/consulter/{idParent}/{id}', [MessagesAPI::class, 'index']);
+
+
 
 
 
