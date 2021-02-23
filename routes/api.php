@@ -43,7 +43,7 @@ Route::post('/favoris', [FavorisAPI::class, 'update']);
 Route::get('/horaires/{contrat}/{mois}/{annee}', [HorairesAPI::class, 'show']);
 Route::delete('/horaire/supprimer', [HorairesAPI::class, 'destroy']);
 
-Route::get('/supprimer-message/{id}', [MessagesAPI::class, 'destroy']);
+Route::delete('/supprimer-message', [MessagesAPI::class, 'destroy']);
 Route::get('/messages/{assMatId}/{enfantId}', [MessagesAPI::class, 'show']);
 Route::get('/consulter/{idParent}/{id}', [MessagesAPI::class, 'index']);
 

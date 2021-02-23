@@ -21,6 +21,7 @@ class MessagesController extends Controller
         $this->data['role'] = $this->role();
         if($this->data['role'] === 'assistante-maternelle'){
             $this->data['contrats'] = Auth::user()->categorie->contrats;
+            $this->data['js'][] = "messages_ass_mat";
             return view('messages_ass_mat', $this->data);
         }
     }
@@ -35,6 +36,7 @@ class MessagesController extends Controller
         $this->data['role'] = $this->role();
         if($this->data['role'] === 'parents'){
             $this->data['enfants'] = Auth::user()->categorie->enfants;
+            $this->data['js'][] = "messages_parent";
             return view('messages_parents', $this->data);
         }
     }
