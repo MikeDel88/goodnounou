@@ -39,6 +39,11 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
     @endisset
+    @isset($planning)
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/locales/fr.min.js" defer></script>
+    @endisset
 </head>
 
 <body>
@@ -106,7 +111,8 @@
                 <h2>Espace Assistante Maternelle</h2>
             @endif
             <nav>
-                <a href="#" aria-label="mon agenda" title="mon agenda"><i class="far fa-calendar-alt"></i></a>
+                <a href="/planning/{{ Auth::user()->id }}" aria-label="mon agenda" title="mon agenda"><i
+                        class="far fa-calendar-alt"></i></a>
                 <a href="/users/{{ Auth::user()->id }}/edit" aria-label="mon compte"
                     title="mon profil utilisateur"><i class="fas fa-user-circle"></i></a>
                 <a href="{{ route('logout') }}" title="me déconnecter"

@@ -11,6 +11,8 @@ use App\Http\Controllers\FavorisController;
 use App\Http\Controllers\HorairesController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\PlanningController;
+
 
 
 
@@ -71,6 +73,7 @@ Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
 Route::middleware(['verified'])->group(function () {
     Route::get('fiche/assistante-maternelle/{id}', [AssistantesMaternelleController::class, 'showCard']);
     Route::get('contrats', [ContratController::class, 'index'])->name('contrats');
+    Route::get('/planning/{id}', [PlanningController::class, 'show']);
 });
 
 
