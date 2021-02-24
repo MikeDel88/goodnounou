@@ -61,13 +61,13 @@ class HorairesController extends Controller
             */
             Validator::make($request->input(), [
                 'contrat_id'                    => ['required', Rule::in($listeIdContrats)],
-                'debut_contrat'                 => "after_or_equal:$date_debut|required",
+                'jour_garde'                    => "after_or_equal:$date_debut|required",
                 'nombre_heures'                 => 'string|bail|required',
-                'jour_garde'                    => 'date_format:"Y-m-d"|required',
+                'debut_contrat'                 => 'date_format:"Y-m-d"|required',
                 'heure_debut'                   => 'date_format:H:i',
-                'depose_par'                    => 'string',
+                'depose_par'                    => 'string|nullable',
                 'heure_fin'                     => 'date_format:H:i|after:heure_debut',
-                'recupere_par'                  => 'string',
+                'recupere_par'                  => 'string|nullable',
                 'description'                   => 'string|nullable',
             ])->validate();
 
