@@ -2,7 +2,14 @@
 @section('content')
     <article class="box box-lg">
         <header>
-            <h4>Renseignements</h4>
+            <h4>Renseignements 
+                @if($moyenne !== null)
+                    @for ($i = 1; $i <= $noteMax; $i++)
+                        <i class="fs-6 text-warning @if($i <= $moyenne) fas @else far @endif fa-star"></i>
+                    @endfor
+                @endif
+                    <span class="fs-6">({{$nombreNote}} notes et {{$nombreAvis}} avis)</span>
+            </h4>
             <div>
                 @if ($renseignements->categorie->disponible === 1)
                     <span class="text-success mx-1">Disponible</span>
@@ -56,7 +63,8 @@
             <footer class="d-flex flex-wrap justify-content-between border-top">
                 <div>
                     <span>
-                        @for ($i = 1; $i <= 5; $i++)
+                        Note : 
+                        @for ($i = 1; $i <= $noteMax; $i++)
                             <i id="note{{ $i }}" alt="note {{$i}} / 5" data-note="{{ $i }}" class="@if (isset($recommandation) && $i <=$recommandation->note) fas noteCheck @endif far fa-star note"></i>
                         @endfor
                     </span>
@@ -114,20 +122,28 @@
     </article>
     <div class="modal fade" id="modalAvis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <form method="POST" action="{{ route('parent.ajout_avis')}}" class="modal-content">
+            @csrf
+            @if(isset($recommandation) && $recommandation->avis !== null)
+                @method('DELETE') 
+            @else
+                @method('POST') 
+            @endif
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Avis pour {{$renseignements->nom}} {{$renseignements->prenom}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body form-floating p-2">
-                <textarea class="form-control" name="avis" placeholder="Avis" id="avis" style="height:200px">{{old('avis')}}</textarea>
+                <input type="hidden" name="parent" value="{{Auth::user()->categorie->id}}">
+                <input type="hidden" name="assistante-maternelle" value="{{$renseignements->categorie->id}}">
+                <textarea class="form-control" name="avis" placeholder="Avis" id="avis" style="height:200px">@if(isset($recommandation) && $recommandation->avis !== null) {{$recommandation->avis}} @else {{old('avis')}}@endif</textarea>
                 <label for="avis">Avis sur l'assistante maternelle</label>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">@if(isset($recommandation) && $recommandation->avis !== null) Supprimer avis et note @else Valider @endif</button>
             </div>
-        </div>
+        </form>
       </div>
     </div>
 @endsection

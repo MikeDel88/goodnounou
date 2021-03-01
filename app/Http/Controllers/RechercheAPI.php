@@ -38,9 +38,9 @@ class RechercheAPI extends Controller
     {
         $categorie = 'AssistantesMaternelles';
         $binding = [
-            'lat1' => $request->lat,
-            'lat2' => $request->lat,
-            'lng' => $request->lng
+            'lat1'  => $request->lat,
+            'lat2'  => $request->lat,
+            'lng'   => $request->lng
         ];
         
         // Requête qui permet de sélectionner un utilisateur en fonction de sa localisation géographique

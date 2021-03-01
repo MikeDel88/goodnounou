@@ -12,6 +12,7 @@ use App\Http\Controllers\HorairesController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PlanningController;
+use App\Http\Controllers\RecommandationsController;
 
 
 
@@ -52,6 +53,8 @@ Route::middleware(['verified', 'parents'])->group(function () {
         Route::post('/horaires/ajouter', [HorairesController::class, 'store']);
         Route::get('/contrat/{id}/cloture', [ContratController::class, 'clos']);
         Route::get('/carnet-de-bord/consulter', [MessagesController::class, 'show'])->name('carnet_consultation');
+        Route::post('/fiche/assistante-maternelle/avis', [RecommandationsController::class, 'store'])->name('ajout_avis');
+        Route::delete('/fiche/assistante-maternelle/avis', [RecommandationsController::class, 'destroy'])->name('ajout_avis');
     });   
 });
 

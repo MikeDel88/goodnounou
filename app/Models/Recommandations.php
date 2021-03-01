@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AssistantesMaternelles;
 
 class Recommandations extends Model
 {
@@ -17,4 +18,9 @@ class Recommandations extends Model
     protected $guarded = [];
     
     protected $table = 'recommandations';
+
+    public function assistanteMaternelle()
+    { 
+        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id'); 
+    }
 }

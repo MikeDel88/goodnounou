@@ -30,10 +30,6 @@ class PDFController extends Controller
 
             $pdf = PDF::loadView('horairesPDF', $data); 
 
-            // Récupère le nombre d'heure dans le mois 
-            // SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(heure_fin, heure_debut))))
-            // FROM horaires WHERE contrat_id = $contrat
-
             return $pdf->download("horaires-$mois-$annee.pdf");
         }else{
             return back()->with('message', "Ce document n'est pas accessible");

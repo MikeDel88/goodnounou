@@ -42,9 +42,8 @@ class UserController extends Controller
         /**
          * Récupère la liste des enfants de l'utilisateur connecté
          */
-        $this->data['role'] = $this->role();
-
-        $this->data['enfants'] = ($this->data['role'] === 'parents') ? Enfant::where('parent_id', Auth::user()->categorie->id)->get() : '';
+        $this->data['role']     = $this->role();
+        $this->data['enfants']  = ($this->data['role'] === 'parents') ? Enfant::where('parent_id', Auth::user()->categorie->id)->get() : '';
         $this->data['contrats'] = ($this->data['role'] === 'parents') ? Contrats::where('parent_id', Auth::user()->categorie->id)->where('status_id', 2)->get() : Contrats::where('assistante_maternelle_id', Auth::user()->categorie->id)->where('status_id', 2)->get();
         
         if($this->data['role'] === 'assistante-maternelle'){
@@ -128,9 +127,9 @@ class UserController extends Controller
                     'photo' => 'image|mimes:jpeg,png,jpg|max:800',
                 ]);
 
-                $extension = $request->file('photo')->extension();
-                $path = $request->file('photo')->storeAs("public/images/$user", "avatar.$extension");
-                $url = Storage::url($path);
+                $extension  = $request->file('photo')->extension();
+                $path       = $request->file('photo')->storeAs("public/images/$user", "avatar.$extension");
+                $url        = Storage::url($path);
 
                 User::where('id', $user)
                 ->update([

@@ -47,9 +47,9 @@ class PlanningController extends Controller
     public function show($id)
     {
         if(intval($id) === Auth::user()->id){
-            $this->data['role'] = $this->role();
+            $this->data['role']     = $this->role();
             $this->data['planning'] = '';
-            $this->data['js'][] = 'planning';
+            $this->data['js'][]     = 'planning';
 
             return view('planning', $this->data);
 

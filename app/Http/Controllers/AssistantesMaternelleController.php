@@ -35,15 +35,21 @@ class AssistantesMaternelleController extends Controller
         $this->data['js'][] = 'favoris'; // Chargement du script spécifique pour gérer les favoris en asynchrone
         $this->data['js'][] = 'recommandation'; // Chargement du script spécifique pour gérer les notes en asynchrone
         
-        $criteres = DB::table('criteres')->select('*')->where('assistante_maternelle_id', $id)->first(); // Récupère l'ensemble des critères associé à l'assistante maternelle
+        $criteres       = DB::table('criteres')->select('*')->where('assistante_maternelle_id', $id)->first(); // Récupère l'ensemble des critères associé à l'assistante maternelle
         $renseignements = User::where('categorie_id', $id)->where('categorie_type', 'App\Models\AssistantesMaternelles')->first(); // Récupère la liste des informations de l'utilisateur nounou
-        $favoris = Favoris::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first(); // Cela doit retourner un seul résultat maximum
-        $recommandation = Recommandations::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first(); 
+        $favoris        = Favoris::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first(); // Cela doit retourner un seul résultat maximum
+        $recommandation = Recommandations::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first();
+        $nombreAvis     = Recommandations::where('assistante_maternelle_id', $renseignements->categorie->id)->whereNotNull('avis')->count();
+        $nombreNote     = Recommandations::where('assistante_maternelle_id', $renseignements->categorie->id)->whereNotNull('note')->count();
 
-        $this->data['recommandation'] = $recommandation;
-        $this->data['favoris'] = (isset($favoris)) ? true : false; // Si la requête à renvoyé un objet dans le tableau, alors il existe un favoris   
-        $this->data['renseignements'] = $renseignements; // Récupère la seule ligne sur la base de données doit retourner
-        $this->data['criteres'] = (array) $criteres; // Transforme l'objet en tableau pour l'exploiter dans la vue
+        $this->data['noteMax']          = 5;
+        $this->data['nombreNote']       = $nombreNote;
+        $this->data['nombreAvis']       = $nombreAvis;
+        $this->data['moyenne']          = $renseignements->categorie->recommandations->avg('note');
+        $this->data['recommandation']   = $recommandation;
+        $this->data['favoris']          = (isset($favoris)) ? true : false; // Si la requête à renvoyé un objet dans le tableau, alors il existe un favoris   
+        $this->data['renseignements']   = $renseignements; // Récupère la seule ligne sur la base de données doit retourner
+        $this->data['criteres']         = (array) $criteres; // Transforme l'objet en tableau pour l'exploiter dans la vue
         
         if($renseignements !== null){
             return view('presentation', $this->data); // retourne la vue
@@ -64,9 +70,10 @@ class AssistantesMaternelleController extends Controller
         // Vérifie que l'utilisateur demandé est bien celui qui est connecté
         if(intval($user) === Auth::user()->categorie->id){
 
-            $critere = DB::table('criteres')->where('assistante_maternelle_id', Auth::user()->categorie->id)->get(); // Sélectionne l'ensemble des critères de l'utilisateur connecté
-            $this->data['critere'] = $critere[0]; // Prépare l'objet pour la vue
-            $this->data['js'][] = 'fiche'; // Ajout d'un fichier asset spécifique à la vue
+            $critere                = DB::table('criteres')->where('assistante_maternelle_id', Auth::user()->categorie->id)->get(); // Sélectionne l'ensemble des critères de l'utilisateur connecté
+            $this->data['critere']  = $critere[0]; // Prépare l'objet pour la vue
+            $this->data['js'][]     = 'fiche'; // Ajout d'un fichier asset spécifique à la vue
+
             return view('fiche', $this->data);
 
         }

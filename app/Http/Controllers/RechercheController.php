@@ -27,7 +27,7 @@ class RechercheController extends Controller
                 $this->data['criteres'][] = $critere;
             }
         }
-        $this->data['geolocalisation'] = '';
+        $this->data['geolocalisation']  = '';
         $this->data['js'][] = "geolocalisation"; // Ajout d'un fichier spécifique pour la géolocalisation
         
         return view('recherche', $this->data);
