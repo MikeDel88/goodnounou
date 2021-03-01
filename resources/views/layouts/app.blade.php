@@ -25,8 +25,7 @@
 
     <!-- Styles -->
     @isset($bootstrap)
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     @endisset
     @isset($css)
         @foreach ($css as $file)
@@ -46,22 +45,14 @@
                         @guest
                             <li><a href="/" class="accueil"><i class="fas fa-home"></i>Accueil</a></li>
                             @if (Route::has('register'))
-                                <li><a href="{{ route('register') }}" class="inscription"><i
-                                            class="fas fa-user-plus"></i>Inscription</a>
-                                </li>
+                                <li><a href="{{ route('register') }}" class="inscription"><i class="fas fa-user-plus"></i>Inscription</a></li>
                             @endif
                             @if (Route::has('login'))
-                                <li><a href="{{ route('login') }}" class="connexion"><i
-                                            class="fas fa-user"></i>Connexion</a></li>
+                                <li><a href="{{ route('login') }}" class="connexion"><i class="fas fa-user"></i>Connexion</a></li>
                             @endif
                         @else
                             <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                                                                                                                        document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt"></i> revenir à l'accueil
-                                </a>
-
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> revenir à l'accueil</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -77,20 +68,14 @@
                     @guest
                         <li><a href="/" class="accueil">Accueil</a></li>
                         @if (Route::has('register'))
-                            <li><a href="{{ route('register') }}" class="inscription">Inscription</a>
-                            </li>
+                        <li><a href="{{ route('register') }}" class="inscription">Inscription</a></li>
                         @endif
                         @if (Route::has('login'))
-                            <li><a href="{{ route('login') }}" class="connexion">Connexion</a>
-                            </li>
+                        <li><a href="{{ route('login') }}" class="connexion">Connexion</a></li>
                         @endif
                     @else
                         <li>
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                                                document.getElementById('logout-form').submit();">
-                                revenir à l'accueil
-                            </a>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">revenir à l'accueil</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
@@ -123,20 +108,14 @@
                     <ul>
                         @guest
                             @if (Route::has('register'))
-                                <li><a href="{{ route('register') }}" class="inscription">Inscription</a>
-                                </li>
+                                <li><a href="{{ route('register') }}" class="inscription">Inscription</a></li>
                             @endif
                             @if (Route::has('login'))
-                                <li><a href="{{ route('login') }}" class="connexion">Connexion</a>
-                                </li>
+                                <li><a href="{{ route('login') }}" class="connexion">Connexion</a></li>
                             @endif
                         @else
                             <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                                                                                                                    document.getElementById('logout-form').submit();">
-                                    revenir à l'accueil
-                                </a>
+                                <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">revenir à l'accueil</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -151,9 +130,7 @@
     </div>
     <!-- Scripts -->
     @isset($bootstrap)
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
-        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     @endisset
     @isset($js)
         @foreach ($js as $file)

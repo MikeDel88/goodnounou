@@ -21,8 +21,7 @@
     <title>GoodNounou | Espace Personnel</title>
 
     <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     @if ($role === 'parents')
         <link rel="stylesheet" href="{{ URL::asset('assets/css/back_office/layout_parents.css') }}">
@@ -33,9 +32,7 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/css/back_office/mobile.css') }}">
 
     @isset($geolocalisation)
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
-            integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-            crossorigin="" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
     @endisset
@@ -72,27 +69,16 @@
                 <ul>
                     <li><a href="{{ route('profile') }}"><i class="fas fa-home"></i><span>Accueil</span></a></li>
                     @if ($role === 'parents')
-                        <li><a href="{{ route('parent.recherche') }}"><i
-                                    class="fas fa-map-marker-alt"></i><span>Rechercher</span></a></li>
-                        <li><a href="{{ route('contrats') }}"><i class="far fa-folder-open"></i><span>Mes
-                                    contrats</span></a></li>
-                        <li><a href="{{ route('parent.enfants') }}"><i
-                                    class="fas fa-users"></i><span>Famille</span></a></li>
-                        <li><a href="{{ route('parent.favoris') }}"><i class="fas fa-star"></i><span>Mes
-                                    favoris</span></a></li>
-                        <li><a href="{{ route('parent.carnet_consultation') }}"><i
-                                    class="fas fa-book"></i><span>Carnet de
-                                    bord</span></a></li>
+                        <li><a href="{{ route('parent.recherche') }}"><i class="fas fa-map-marker-alt"></i><span>Rechercher</span></a></li>
+                        <li><a href="{{ route('contrats') }}"><i class="far fa-folder-open"></i><span>Mes contrats</span></a></li>
+                        <li><a href="{{ route('parent.enfants') }}"><i class="fas fa-users"></i><span>Famille</span></a></li>
+                        <li><a href="{{ route('parent.favoris') }}"><i class="fas fa-star"></i><span>Mes favoris</span></a></li>
+                        <li><a href="{{ route('parent.carnet_consultation') }}"><i class="fas fa-book"></i><span>Carnet de bord</span></a></li>
                     @else
-                        <li><a
-                                href="{{ route('assistante-maternelle.fiche', ['id' => Auth::user()->categorie_id]) }}"><i
-                                    class="fas fa-inbox"></i><span>Ma
-                                    fiche</span></a></li>
-                        <li><a href="{{ route('contrats') }}"><i class="far fa-folder-open"></i><span>Mes
-                                    contrats</span></a></li>
+                        <li><a href="{{ route('assistante-maternelle.fiche', ['id' => Auth::user()->categorie_id]) }}"><i class="fas fa-inbox"></i><span>Ma fiche</span></a></li>
+                        <li><a href="{{ route('contrats') }}"><i class="far fa-folder-open"></i><span>Mes contrats</span></a></li>
                         <li><a href="#"><i class="fas fa-star-half-alt"></i><span>Recommandations</span></a></li>
-                        <li><a href="{{ route('assistante-maternelle.carnet') }}"><i
-                                    class="fas fa-book"></i><span>Carnet de bord</span></a></li>
+                        <li><a href="{{ route('assistante-maternelle.carnet') }}"><i class="fas fa-book"></i><span>Carnet de bord</span></a></li>
                     @endif
                 </ul>
             </nav>
@@ -111,14 +97,9 @@
                 <h2>Espace Assistante Maternelle</h2>
             @endif
             <nav>
-                <a href="/planning/{{ Auth::user()->id }}" aria-label="mon agenda" title="mon agenda"><i
-                        class="far fa-calendar-alt"></i></a>
-                <a href="/users/{{ Auth::user()->id }}/edit" aria-label="mon compte"
-                    title="mon profil utilisateur"><i class="fas fa-user-circle"></i></a>
-                <a href="{{ route('logout') }}" title="me déconnecter"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
+                <a href="/planning/{{ Auth::user()->id }}" aria-label="mon agenda" title="mon agenda"><i class="far fa-calendar-alt"></i></a>
+                <a href="/users/{{ Auth::user()->id }}/edit" aria-label="mon compte" title="mon profil utilisateur"><i class="fas fa-user-circle"></i></a>
+                <a href="{{ route('logout') }}" title="me déconnecter" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i></a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
@@ -147,13 +128,10 @@
         </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
     </script>
     @isset($geolocalisation)
-        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
-            integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-            crossorigin=""></script>
+        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
         <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     @endisset
     <script src="{{ URL::asset('assets/js/back_office/box.js') }}"></script>

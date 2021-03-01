@@ -2,13 +2,9 @@
 @section('content')
     <article class="box box-lg">
         <header>
-            <h4>
-                {{ $enfant->nom }}
-                {{ $enfant->prenom }}
-            </h4>
+            <h4>{{ $enfant->nom }} {{ $enfant->prenom }}</h4>
             <div>
-                <a href="#supprimer_enfant" class="col-md-2 text-danger" data-bs-toggle="modal"><i
-                        class="fas fa-trash"></i></a>
+                <a href="#supprimer_enfant" class="col-md-2 text-danger" data-bs-toggle="modal"><i class="fas fa-trash"></i></a>
             </div>
         </header>
         <div class="contenu row">
@@ -18,19 +14,15 @@
                     @method('PUT')
                     <div class="row mb-3">
                         <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" value="{{ $enfant->nom ?? old('nom') }}"
-                            name="nom" required>
+                        <input type="text" class="form-control" id="nom" value="{{ $enfant->nom ?? old('nom') }}" name="nom" required>
                     </div>
                     <div class="row mb-3">
                         <label for="prenom" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" id="prenom" value="{{ $enfant->prenom ?? old('prenom') }}"
-                            name="prenom" required>
+                        <input type="text" class="form-control" id="prenom" value="{{ $enfant->prenom ?? old('prenom') }}" name="prenom" required>
                     </div>
                     <div class="row mb-3">
                         <label for="date_naissance" class="form-label">Date de naissance</label>
-                        <input type="date" class="form-control" id="date_naissance"
-                            value="{{ $enfant->date_naissance ?? old('date_naissance') }}" min="1950-01-01"
-                            max="{{ date('Y-m-d') }}" name="date_naissance" required>
+                        <input type="date" class="form-control" id="date_naissance" value="{{ $enfant->date_naissance ?? old('date_naissance') }}" min="1950-01-01" max="{{ date('Y-m-d') }}" name="date_naissance" required>
                     </div>
                     <div class="row d-flex d-flex justify-content-end">
                         <button class="col-md-4" type="submit">Modifier</button>
@@ -40,7 +32,7 @@
                     <div class="mt-3 alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                            <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -49,8 +41,7 @@
             <div class="col-md-4 my-3">
                 <ul>
                     <li>Crée le : {{ Carbon\Carbon::parse($enfant->created_at)->translatedFormat('j F Y') }}</li>
-                    <li>Dernière modification le :
-                        {{ Carbon\Carbon::parse($enfant->updated_at)->translatedFormat('j F Y à H:i') }}</li>
+                    <li>Dernière modification le : {{ Carbon\Carbon::parse($enfant->updated_at)->translatedFormat('j F Y à H:i') }}</li>
                 </ul>
             </div>
         </div>
@@ -59,8 +50,7 @@
         </footer>
     </article>
 
-    <div class="modal fade show" id="supprimer_enfant" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
-        aria-modal="true" role="dialog">
+    <div class="modal fade show" id="supprimer_enfant" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -82,5 +72,4 @@
             </div>
         </div>
     </div>
-
 @endsection

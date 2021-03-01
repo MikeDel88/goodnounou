@@ -14,13 +14,11 @@
                     </div>
                     <div class="mb-3 col-md-3">
                         <label for="prenom" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" id="prenom" value="{{ old('prenom') }}" name="prenom"
-                            required>
+                        <input type="text" class="form-control" id="prenom" value="{{ old('prenom') }}" name="prenom" required>
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="date_naissance" class="form-label">Date de naissance</label>
-                        <input type="date" class="form-control" id="date_naissance" value="{{ old('date_naissance') }}"
-                            min="1950-01-01" max="{{ date('Y-m-d') }}" name="date_naissance" required>
+                        <input type="date" class="form-control" id="date_naissance" value="{{ old('date_naissance') }}" min="1950-01-01" max="{{ date('Y-m-d') }}" name="date_naissance" required>
                     </div>
                     <div class="mb-3 col-md-2 d-flex align-items-end">
                         <button type="submit" class="px-3"><i class="fas fa-user-plus fa-1x p-2"></i></button>
@@ -31,7 +29,7 @@
                 <div class="mt-3 alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                        <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
@@ -46,11 +44,7 @@
             <ul>
                 @foreach ($enfants as $enfant)
                     <li>
-                        <a href="/fiche/enfant/{{ $enfant->id }}">
-                            {{ $enfant->nom }}
-                            {{ $enfant->prenom }}
-                            ({{ Carbon\Carbon::parse($enfant->date_naissance)->age }} ans)
-                        </a>
+                        <a href="/fiche/enfant/{{ $enfant->id }}">{{ $enfant->nom }} {{ $enfant->prenom }} ({{ Carbon\Carbon::parse($enfant->date_naissance)->age }} ans)</a>
                     </li>
                 @endforeach
             </ul>

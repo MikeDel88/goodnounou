@@ -9,6 +9,7 @@ use App\Http\Controllers\FavorisAPI;
 use App\Http\Controllers\HorairesAPI;
 use App\Http\Controllers\MessagesAPI;
 use App\Http\Controllers\PlanningAPI;
+use App\Http\Controllers\RecommandationsAPI;
 
 
 
@@ -49,6 +50,8 @@ Route::get('/messages/{assMatId}/{enfantId}', [MessagesAPI::class, 'show']);
 Route::get('/consulter/{idParent}/{id}', [MessagesAPI::class, 'index']);
 
 Route::get('/planning/{id}', [PlanningAPI::class, 'index']);
+
+Route::post('recommandation/note', [RecommandationsAPI::class, 'store']);
 
 
 

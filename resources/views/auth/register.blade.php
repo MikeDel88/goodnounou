@@ -7,12 +7,10 @@
                 <h3 class="my-3">Selectionnez une catégorie</h3>
             </div>
             <div class="col-6 order-1">
-                <img src="{{ URL::asset('assets/images/parents.png') }}" loading="lazy" alt="parents" title="parents"
-                    data-name="parents">
+                <img src="{{ URL::asset('assets/images/parents.png') }}" loading="lazy" alt="parents" title="parents" data-name="parents">
             </div>
             <div class="col-6 order-1">
-                <img src="{{ URL::asset('assets/images/assistante-maternelle.png') }}" loading="lazy"
-                    alt="assistante-maternelle" title="assistante-maternelle" data-name="assistante-maternelle">
+                <img src="{{ URL::asset('assets/images/assistante-maternelle.png') }}" loading="lazy" alt="assistante-maternelle" title="assistante-maternelle" data-name="assistante-maternelle">
             </div>
             @error('categorie')
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -23,46 +21,37 @@
         </div>
     </section>
     <section id="formulaire" class="container-fluid">
-        <form action="{{ url('register') }}" method="POST" class="g-3 needs-validation" novalidate
-            oninput='password_confirmation.setCustomValidity(password_confirmation.value != password.value ? "Passwords do not match." : "")'>
+        <form action="{{ url('register') }}" method="POST" class="g-3 needs-validation" novalidate oninput='password_confirmation.setCustomValidity(password_confirmation.value != password.value ? "Passwords do not match." : "")'>
             @csrf
             <input class="categorie" type="hidden" name="categorie" required>
             <div class="row">
                 <div class="col-md-6 offset-md-3 my-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                        value="{{ old('email') }}" @error('email') is-invalid @enderror" required
-                        placeholder="email@exemple.com" autocomplete="off" name="email">
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" value="{{ old('email') }}" @error('email') is-invalid @enderror" required placeholder="email@exemple.com" autocomplete="off" name="email">
                     <div id="emailHelp" class="form-text">Une adresse mail valide pour l'envoi de la confirmation</div>
-                    <div class="valid-feedback">
-                        La saisie est correcte
-                    </div>
+                    <div class="valid-feedback">La saisie est correcte</div>
+                    
                     @error('email')
-                        <div class="feedback">{{ $message }}</div>
+                    <div class="feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 offset-md-3 my-3">
                     <label for="password1" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control" id="password1" aria-describedby="passwordHelp" minlength="8"
-                        maxlength="16" required autocomplete="off" name="password" aria-describedby="inputPassword"
-                        @error('password') .invalid @enderror">
+                    <input type="password" class="form-control" id="password1" aria-describedby="passwordHelp" minlength="8" maxlength="16" required autocomplete="off" name="password" aria-describedby="inputPassword" @error('password') .invalid @enderror">
                     <div id="passwordHelp" class="form-text">Mot de passe doit être compris entre 8 et 16 caractères.</div>
-                    <div class="valid-feedback">
-                        Mot de passe correct
-                    </div>
+                    <div class="valid-feedback">Mot de passe correct</div>
+                    
                     @error('password')
-                        <div id="inputPassword" class="feedback">{{ $message }}</div>
+                    <div id="inputPassword" class="feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 offset-md-3 my-3">
                     <label for="password2" class="form-label">Confirmation du Mot de passe</label>
-                    <input type="password" class="form-control" id="password2" aria-describedby="passwordConfirmHelp"
-                        minlength="8" maxlength="16" required autocomplete="off" name="password_confirmation"
-                        @error('password_confirmation') is-invalid @enderror required>
+                    <input type="password" class="form-control" id="password2" aria-describedby="passwordConfirmHelp" minlength="8" maxlength="16" required autocomplete="off" name="password_confirmation" @error('password_confirmation') is-invalid @enderror required>
                     <div id="passwordConfirmHelp" class="form-text">Renseignez le même mot de passe</div>
                     @error('password_confirmation')
                         <div class="feedback">{{ $message }}</div>
@@ -71,16 +60,11 @@
             </div>
             <div class="row">
                 <div class="form-check my-3 d-flex justify-content-center flex-wrap">
-                    <input class="form-check-input" type="checkbox" id="Check" required name="acceptCG"
-                        aria-describedby="inputAcceptCG" @error('acceptCG') is-invalid @enderror>
+                    <input class="form-check-input" type="checkbox" id="Check" required name="acceptCG" aria-describedby="inputAcceptCG" @error('acceptCG') is-invalid @enderror>
                     <label class="form-check-label" for="Check">
-                        <a href="#modalConditionsGenerales" data-bs-toggle="modal">J'ai lu et j'accepte les
-                            conditions
-                            générales</a>
+                        <a href="#modalConditionsGenerales" data-bs-toggle="modal">J'ai lu et j'accepte les conditions générales</a>
                     </label>
-                    <div id="inputAcceptCG" class="invalid-feedback text-center">
-                        Vous devez accepter les conditions générales afin de pouvoir valider votre inscription
-                    </div>
+                    <div id="inputAcceptCG" class="invalid-feedback text-center">Vous devez accepter les conditions générales afin de pouvoir valider votre inscription</div>
                 </div>
             </div>
             @error('acceptCG')
@@ -97,8 +81,7 @@
         </form>
     </section>
     <!-- Modal pour les conditions générales -->
-    <div class="modal fade show" id="modalConditionsGenerales" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
-        aria-modal="true" role="dialog">
+    <div class="modal fade show" id="modalConditionsGenerales" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">

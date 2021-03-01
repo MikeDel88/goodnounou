@@ -8,8 +8,7 @@
             <form class="row" action="#">
                 <div class="mb-3 col-md-6">
                     <label for="adresse" class="form-label">Adresse complète</label>
-                    <input type="text" class="form-control" id="search" value="{{ old('adresse') }}" name="search"
-                        required>
+                    <input type="text" class="form-control" id="search" value="{{ old('adresse') }}" name="search" required>
                 </div>
                 <div class="col-md-4">
                     <label for="customRange1" class="form-label">Rayon de recherche : <span id="distance"></span></label>
@@ -29,14 +28,9 @@
             <div class="contenu p-3">
                 <ul class="mt-1">
                     @foreach ($criteres as $critere)
-                        <li>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="{{ $critere }}"
-                                    id="{{ $critere }}">
-                                <label class="form-check-label" for="{{ $critere }}">
-                                    {{ $critere }}
-                                </label>
-                            </div>
+                        <li class="form-check">
+                            <input class="form-check-input" type="checkbox" name="{{ $critere }}" id="{{ $critere }}">
+                            <label class="form-check-label" for="{{ $critere }}">{{ $critere }}</label>
                         </li>
                     @endforeach
                 </ul>

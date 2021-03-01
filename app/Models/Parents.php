@@ -18,6 +18,7 @@ class Parents extends Model
      *
      * @var array
      */
+    
     protected $fillable = [
         
     ];

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Recommandations;
 
-class PlanningController extends Controller
+class RecommandationsAPI extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,16 +18,6 @@ class PlanningController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,7 +25,19 @@ class PlanningController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->note < 6 && $request->note > 0 || $request->note === null){
+            Recommandations::updateOrCreate(
+                ['parent_id' => $request->parent, 'assistante_maternelle_id' => $request->nounou],
+                ['note' => $request->note]
+            );
+            $status = true;
+        }else{
+            $status = false;
+        }
+        return response()->json([
+                'status' => $status
+        ]);
+        
     }
 
     /**
@@ -45,26 +47,6 @@ class PlanningController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        if(intval($id) === Auth::user()->id){
-            $this->data['role'] = $this->role();
-            $this->data['planning'] = '';
-            $this->data['js'][] = 'planning';
-
-            return view('planning', $this->data);
-
-        }else{
-            return back()->with('message', "Cette page n'est pas accessible");
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

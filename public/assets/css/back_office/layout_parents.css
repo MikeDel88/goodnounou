@@ -314,6 +314,15 @@ main section article .liste_enfants ul li a:hover {
           transform: scale(1.03);
 }
 
+main section article .note {
+  cursor: pointer;
+  color: #ffcc00;
+}
+
+main section article .noteCheck {
+  color: #ffcc00;
+}
+
 main section .box {
   overflow: hidden;
 }

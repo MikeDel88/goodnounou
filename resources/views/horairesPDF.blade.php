@@ -120,10 +120,6 @@
     <footer>
         <small>Généré le {{ date('d/m/Y') }} - &copy; Goodnounou {{ date('Y') }}</small>
     </footer>
-    <ul>
-
-    </ul>
-
 </body>
 
 </html>

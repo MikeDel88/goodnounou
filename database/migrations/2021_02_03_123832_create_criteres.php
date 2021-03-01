@@ -25,12 +25,12 @@ class CreateCriteres extends Migration
             $table->boolean('week_end')->default(0);
             $table->boolean('ferie')->default(0);
             $table->boolean('horaires_atypique')->default(0);
-            $table->boolean('animaux')->default(0);
+            $table->boolean('pas_animaux')->default(0);
             $table->boolean('lait_maternelle')->default(0);
             $table->boolean('couches_lavable')->default(0);
-            $table->boolean('deplacements')->default(0);
+            $table->boolean('pas_deplacements')->default(0);
             $table->boolean('periscolaire')->default(0);
-            $table->boolean('fumeur')->default(0);
+            $table->boolean('non_fumeur')->default(0);
             $table->boolean('repas')->default(0);
             $table->timestamps();
         });

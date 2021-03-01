@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\AssistantesMaternelles;
 use App\Models\Critere;
 use App\Models\Favoris;
+use App\Models\Recommandations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -32,16 +33,24 @@ class AssistantesMaternelleController extends Controller
         $id = intval($userId); // Transforme la données en entier
         $this->data['role'] = 'parents'; // Je défini que le rôle de l'utilisateur doit être un parent.
         $this->data['js'][] = 'favoris'; // Chargement du script spécifique pour gérer les favoris en asynchrone
+        $this->data['js'][] = 'recommandation'; // Chargement du script spécifique pour gérer les notes en asynchrone
         
         $criteres = DB::table('criteres')->select('*')->where('assistante_maternelle_id', $id)->first(); // Récupère l'ensemble des critères associé à l'assistante maternelle
         $renseignements = User::where('categorie_id', $id)->where('categorie_type', 'App\Models\AssistantesMaternelles')->first(); // Récupère la liste des informations de l'utilisateur nounou
         $favoris = Favoris::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first(); // Cela doit retourner un seul résultat maximum
-        
+        $recommandation = Recommandations::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first(); 
+
+        $this->data['recommandation'] = $recommandation;
         $this->data['favoris'] = (isset($favoris)) ? true : false; // Si la requête à renvoyé un objet dans le tableau, alors il existe un favoris   
         $this->data['renseignements'] = $renseignements; // Récupère la seule ligne sur la base de données doit retourner
         $this->data['criteres'] = (array) $criteres; // Transforme l'objet en tableau pour l'exploiter dans la vue
         
-        return view('presentation', $this->data); // retourne la vue
+        if($renseignements !== null){
+            return view('presentation', $this->data); // retourne la vue
+        }else{
+            return abort(404); // Sinon retourne une erreur 404 page introuvable
+        }
+        
     }
     
     /**
@@ -59,6 +68,7 @@ class AssistantesMaternelleController extends Controller
             $this->data['critere'] = $critere[0]; // Prépare l'objet pour la vue
             $this->data['js'][] = 'fiche'; // Ajout d'un fichier asset spécifique à la vue
             return view('fiche', $this->data);
+
         }
         return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
     }

@@ -58,6 +58,6 @@ class CreateContrat extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contrat');
+        Schema::dropIfExists('contrats');
     }
 }

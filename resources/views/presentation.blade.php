@@ -7,8 +7,7 @@
                 @if ($renseignements->categorie->disponible === 1)
                     <span class="text-success mx-1">Disponible</span>
                 @else
-                    <span class="text-danger mx-1">Disponible à partir du
-                        :
+                    <span class="text-danger mx-1">Disponible à partir du :
                         @if ($renseignements->categorie->prochaine_disponibilite === null)
                             non communiqué
                         @else
@@ -20,42 +19,33 @@
         </header>
         <div class="contenu">
             <div class="favoris d-flex justify-content-end">
-                <label class="form-check-label" for="flexSwitchCheckDefault"><i class="@if ($favoris===true) fas @else far @endif fa-heart text-danger "></i></label>
-                                                                                                <input data-nounou-id="
-                        {{ $renseignements->categorie_id }}" data-parent-id="{{ Auth::user()->categorie->id }}"
-                        type="hidden" id="flexSwitchCheckDefault" name="favoris">
+                <label class="form-check-label" for="favoris">
+                    <i alt="ajouter ou retirer des favoris" class="@if ($favoris===true) fas @else far @endif fa-heart text-danger "></i>
+                </label>
+                <input data-nounou-id="{{ $renseignements->categorie_id }}" data-parent-id="{{ Auth::user()->categorie->id }}" type="hidden" id="favoris" name="favoris" />
             </div>
             <ul id="renseignements">
                 <li><span class="fw-bold">Nom :</span> {{ $renseignements->nom ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Prénom :</span> {{ $renseignements->prenom ?? 'non renseigné' }}</li>
-                <li><span class="fw-bold">Age :</span>
-                    {{ Carbon\Carbon::parse($renseignements->date_naissance)->age ?? 'non renseigné' }}
-                </li>
-                <li><span class="fw-bold">Exerce depuis
-                        :</span>
-                    {{ Carbon\Carbon::parse($renseignements->categorie->date_debut)->format('d/m/Y') ?? 'non renseigné' }}
-                </li>
-                <li><span class="fw-bold">Formation :</span>
-                    {{ $renseignements->categorie->formation ?? 'non renseigné' }}</li>
-                <li><span class="fw-bold">Nombre d'enfants maximum :</span>
-                    {{ $renseignements->categorie->nombre_place ?? 'non renseigné' }}
-                </li>
-                <li><span class="fw-bold">Adresse d'excercice :</span>
-                    {{ "{$renseignements->categorie->adresse_pro} {$renseignements->categorie->code_postal_pro}, {$renseignements->categorie->ville_pro}" ?? 'non renseigné' }}
+                <li><span class="fw-bold">Age :</span> {{ Carbon\Carbon::parse($renseignements->date_naissance)->age ?? 'non renseigné' }}</li>
+                <li><span class="fw-bold">Exerce depuis :</span> {{ Carbon\Carbon::parse($renseignements->categorie->date_debut)->format('d/m/Y') ?? 'non renseigné' }}</li>
+                <li><span class="fw-bold">Formation :</span> {{ $renseignements->categorie->formation ?? 'non renseigné' }}</li>
+                <li><span class="fw-bold">Nombre d'enfants maximum :</span> {{ $renseignements->categorie->nombre_place ?? 'non renseigné' }}</li>
+                <li><span class="fw-bold">Adresse d'excercice :</span> {{ "{$renseignements->categorie->adresse_pro} {$renseignements->categorie->code_postal_pro}, {$renseignements->categorie->ville_pro}" ?? 'non renseigné' }}
                 <li><span class="fw-bold">Contacter :</span>
                     @if ($renseignements->telephone !== null)
-                        <a href="tel:{{ $renseignements->telephone }}">
-                            <i class="fas fa-phone-alt text-success"></i>
+                        <a href="tel:{{ $renseignements->telephone }}" class="mx-2">
+                            <i alt="contact par téléphone possible" class="fas fa-phone-alt text-success"></i>
                         </a>
                     @else
-                        <i class="fas fa-phone-slash text-danger"></i>
+                        <i alt="contact par téléphone impossible" class="fas fa-phone-slash text-danger"></i>
                     @endif
                     @if ($renseignements->email_contact !== null)
                         <a href="mailto:{{ $renseignements->email_contact ?? '#' }}">
-                            <i class="fas fa-envelope text-success"></i>
+                            <i alt="contact par email possible" class="fas fa-envelope text-success"></i>
                         </a>
                     @else
-                        <i class="fas fa-envelope text-danger"></i>
+                        <i alt="contact par email impossible" class="fas fa-envelope text-danger"></i>
                     @endif
                 </li>
             </ul>
@@ -63,9 +53,22 @@
                 <h5>Présentation :</h5>
                 <p>{{ $renseignements->categorie->description ?? 'Aucune description' }}</p>
             </div>
-            <footer>
-                <span class="fw-bold">Inscrit depuis le :
-                    {{ $renseignements->created_at->translatedFormat('j F Y') }}</span>
+            <footer class="d-flex flex-wrap justify-content-between border-top">
+                <div>
+                    <span>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <i id="note{{ $i }}" alt="note {{$i}} / 5" data-note="{{ $i }}" class="@if (isset($recommandation) && $i <=$recommandation->note) fas noteCheck @endif far fa-star note"></i>
+                        @endfor
+                    </span>
+                    <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#modalAvis">
+                        @if (isset($recommandation) && $recommandation->avis !== null)
+                            Voir mon avis
+                        @else
+                            Laissez un avis
+                        @endif
+                    </a>
+                </div>
+                <p class="fw-bold">Inscrit depuis le : {{ $renseignements->created_at->translatedFormat('j F Y') }}</p>
             </footer>
         </div>
     </article>
@@ -79,13 +82,11 @@
                     @if ($critere !== 'id' && $critere !== 'assistante_maternelle_id' && $critere !== 'created_at' && $critere !== 'updated_at')
                         @if ($valeur === 1)
                             <li>
-                                <i
-                                    class="fas fa-check-square text-success mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
+                                <i alt="critère accepté" class="fas fa-check-square text-success mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
                             </li>
                         @else
                             <li>
-                                <i
-                                    class="fas fa-window-close text-danger mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
+                                <i alt="critère refusé" class="fas fa-window-close text-danger mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
                             </li>
                         @endif
                     @endif
@@ -100,18 +101,33 @@
         <div class="contenu">
             <ul>
                 <li>
-                    <span class="fw-bold">Taux horaire :</span>
-                    {{ "{$renseignements->categorie->taux_horaire} €" }}
+                    <span class="fw-bold">Taux horaire :</span> {{ "{$renseignements->categorie->taux_horaire} €" }}
                 </li>
                 <li>
-                    <span class="fw-bold">Frais d'entretien :</span>
-                    {{ "{$renseignements->categorie->taux_entretien} €" }}
+                    <span class="fw-bold">Frais d'entretien :</span> {{ "{$renseignements->categorie->taux_entretien} €" }}
                 </li>
                 <li>
-                    <span class="fw-bold">Frais repas :</span>
-                    {{ "{$renseignements->categorie->frais_repas} €" }}
+                    <span class="fw-bold">Frais repas :</span> {{ "{$renseignements->categorie->frais_repas} €" }}
                 </li>
             </ul>
         </div>
     </article>
+    <div class="modal fade" id="modalAvis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Avis pour {{$renseignements->nom}} {{$renseignements->prenom}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body form-floating p-2">
+                <textarea class="form-control" name="avis" placeholder="Avis" id="avis" style="height:200px">{{old('avis')}}</textarea>
+                <label for="avis">Avis sur l'assistante maternelle</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+      </div>
+    </div>
 @endsection

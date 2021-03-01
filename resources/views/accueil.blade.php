@@ -26,8 +26,7 @@
             </article>
             <a href="{{ route('register') }}" class="lien btn btn-ass-mat">Je suis une nounou</a>
             <figure class="right">
-                <img src="{{ URL::asset('assets/images/assistante-maternelle.png') }}" alt="assistante maternelle"
-                    loading="lazy">
+                <img src="{{ URL::asset('assets/images/assistante-maternelle.png') }}" alt="assistante maternelle" loading="lazy">
             </figure>
         </section>
     </div>

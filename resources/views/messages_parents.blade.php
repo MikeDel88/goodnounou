@@ -9,9 +9,7 @@
             <select id="messages_enfant" class="form-select" aria-label="enfants" required>
                 <option value="#" disabled selected>Selectionnez un enfant</option>
                 @foreach ($enfants as $enfant)
-                    <option value="{{ $enfant->id }}">
-                        {{ ucFirst($enfant->prenom) }}
-                    </option>
+                <option value="{{ $enfant->id }}">{{ ucFirst($enfant->prenom) }}</option>
                 @endforeach
             </select>
     </article>
