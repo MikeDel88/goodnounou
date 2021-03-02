@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recommandations;
+use App\Models\User;
 
 class RecommandationsAPI extends Controller
 {
@@ -12,9 +13,20 @@ class RecommandationsAPI extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $avis = Recommandations::join('users', 'users.categorie_id', '=', 'parent_id')
+        ->select('users.nom', 'users.prenom', 'recommandations.updated_at', 'recommandations.note', 'recommandations.avis')
+        ->where('users.categorie_type', 'App\\Models\\Parents')
+        ->where('assistante_maternelle_id', $id)
+        ->whereNotNull('avis')
+        ->orderByDesc('recommandations.updated_at')
+        ->limit(100)
+        ->paginate(10);
+
+        return response()->json([
+            'avis' => $avis,
+        ]);
     }
 
     /**
@@ -35,7 +47,7 @@ class RecommandationsAPI extends Controller
             $status = false;
         }
         return response()->json([
-                'status' => $status
+            'status' => $status
         ]);
         
     }

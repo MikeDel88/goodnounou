@@ -86,7 +86,8 @@ class HorairesController extends Controller
                     'description'                   => $request->input('description'),         
                 ]);
 
-                return back()->with('success', "L'horaire a bien été enregistré");
+                $dateinit = \Carbon\Carbon::parse($request->input('jour_garde'));
+                return back()->with('success', "L'horaire pour le {$dateinit->format('d/m/Y')} a bien été enregistré");
                 
             }catch(\Illuminate\Database\QueryException $e){
                 $errorCode = $e->errorInfo[1];

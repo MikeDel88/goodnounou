@@ -57,5 +57,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphTo();
     }
 
+    public function adresseComplete(){
+        return "$this->adresse  $this->code_postal  $this->ville";
+    }
+
 
 }

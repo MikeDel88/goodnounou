@@ -31,7 +31,7 @@ class RecommandationsController extends Controller
                 ['parent_id' => Auth::user()->categorie->id, 'assistante_maternelle_id' => $request->input('assistante-maternelle')],
                 ['avis' => $request->input('avis')]
             );
-            return back()->with('success', "Votre Avis a bien été enregistré");
+            return back()->with('success', "Votre avis a bien été enregistré");
 
         }catch(\Illuminate\Database\QueryException $e){
             $errorCode = $e->errorInfo[1];

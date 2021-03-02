@@ -8,11 +8,11 @@
             <form class="row" action="#">
                 <div class="mb-3 col-md-6">
                     <label for="adresse" class="form-label">Adresse complète</label>
-                    <input type="text" class="form-control" id="search" value="{{ old('adresse') }}" name="search" required>
+                    <input type="text" class="form-control" id="search" value="{{ old('adresse') ?? Auth::user()->adresseComplete() }} " name="search" required>
                 </div>
                 <div class="col-md-4">
-                    <label for="customRange1" class="form-label">Rayon de recherche : <span id="distance"></span></label>
-                    <input type="range" class="form-range distance" id="rangeDistance" min="0" max="100" step="5">
+                    <label for="customRange1" class="form-label">Rayon de recherche : <span id="distance">20 km</span></label>
+                    <input type="range" class="form-range distance" id="rangeDistance" min="0" max="100" step="5" value="20">
                 </div>
                 <div class="mb-3 col-md-2 d-flex align-items-end">
                     <button class="py-1" type="submit">Rechercher</button>

@@ -288,6 +288,47 @@ main{
                 color:rgb(255, 204, 0);
             }
 
+            
+            .avis{
+                border: 1px solid $color-main;
+                position: relative;
+                padding: 10px;
+                margin: 30px 0;
+                background-color: $color-bg;
+                color: $color-grey;
+                min-height: 100px;
+                box-shadow: 1px 5px 5px $color-shadow;
+                border-radius: 10px;
+                .avis_date{
+                    position: absolute;
+                    color: $color-main-more;
+                    top: 5px;
+                    left: 5px;
+                    font-size:15px;
+                    text-decoration: underline;
+                }
+                .avis_note{
+                    position: absolute;
+                    color: $color-main-more;
+                    top: 5px;
+                    right: 5px;
+                    font-size:15px;
+                }
+                .avis_message{
+                    display:inline-block;
+                    padding:30px 0;
+                    hyphens: auto;
+                    font-size:18px;
+                }
+            }
+            #pagination_avis{
+                margin: 10px 0;
+                .page_current{
+                    background-color:$color-main-more;
+                    color: $color-bg;
+                }
+            }
+            
         }
 
         .box{

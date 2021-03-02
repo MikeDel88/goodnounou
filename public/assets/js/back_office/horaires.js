@@ -240,7 +240,7 @@ window.onload = () => {
         })
 
         // Affichage du total des heures pour le mois
-        totalHeures.innerHTML = `Total d'heures de garde ${nombreHeuresMois}`;
+        totalHeures.innerHTML = `Total d'heures de garde ${nombreHeuresMois} pour ${horaires.length} jours`;
         div.appendChild(totalHeures);
         linkPDF.setAttribute('href', `/pdf/horaires/${contrat}/${mois}/${annee}`);
         linkPDF.classList.add('d-block', 'text-end', 'my-3');
@@ -286,7 +286,7 @@ window.onload = () => {
 
                             let nouvelleValeur = await cumulHeuresMois(horaires);
 
-                            totalHeures.innerHTML = `Total d'heures de garde ${nouvelleValeur}`;
+                            totalHeures.innerHTML = `Total d'heures de garde ${nouvelleValeur} pour ${horaires.length} jours`;
 
                         } else {
                             // Suppression du contenu DOM 
