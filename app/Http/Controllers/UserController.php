@@ -18,11 +18,14 @@ use App\Models\Messages;
 use Illuminate\Support\Str;
 use Image;
 
+/**
+ * UserController
+ */
 class UserController extends Controller
 {
 
-    private array $data = [];
-    
+    private array $_data = [];
+
     /**
      * __construct
      * Utilise le middleware auth pour récupérer les informations de l'utilisateur
@@ -31,7 +34,7 @@ class UserController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -42,33 +45,25 @@ class UserController extends Controller
         /**
          * Récupère la liste des enfants de l'utilisateur connecté
          */
-        $this->data['role']     = $this->role();
-        $this->data['enfants']  = ($this->data['role'] === 'parents') ? Enfant::where('parent_id', Auth::user()->categorie->id)->get() : '';
-        $this->data['contrats'] = ($this->data['role'] === 'parents') ? Contrats::where('parent_id', Auth::user()->categorie->id)->where('status_id', 2)->get() : Contrats::where('assistante_maternelle_id', Auth::user()->categorie->id)->where('status_id', 2)->get();
-        
-        if($this->data['role'] === 'assistante-maternelle'){
-            $this->data['messages'] =  Messages::where('assistante_maternelle_id', Auth::user()->categorie->id)->orderByDesc('jour_garde')
-            ->limit(5)->get();
-        }elseif($this->data['role'] === 'parents'){
+        $this->_data['role']     = $this->role();
+        $this->_data['enfants']  = ($this->_data['role'] === 'parents') ? Enfant::where('parent_id', Auth::user()->categorie->id)->get() : '';
+        $this->_data['contrats'] = ($this->_data['role'] === 'parents') ? Contrats::where('parent_id', Auth::user()->categorie->id)->where('status_id', 2)->get() : Contrats::where('assistante_maternelle_id', Auth::user()->categorie->id)->where('status_id', 2)->get();
+
+        if($this->_data['role'] === 'assistante-maternelle'){
+            $this->_data['messages'] =  Messages::where('assistante_maternelle_id', Auth::user()->categorie->id)->orderByDesc('jour_garde')
+                ->limit(5)
+                ->get();
+        }elseif($this->_data['role'] === 'parents'){
             foreach(Auth::user()->categorie->enfants as $enfant){
-                $this->data['messages'] = Messages::where('enfant_id', $enfant->id)->orderByDesc('jour_garde')->limit(1)->get();
+                $this->_data['messages'] = Messages::where('enfant_id', $enfant->id)
+                    ->orderByDesc('jour_garde')
+                    ->limit(1)
+                    ->get();
             }
         }
 
-        $this->data['title'] = 'Profile utilisateur';
-        return view('profil', $this->data);
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        echo "voir l'utilisateur $id";
+        $this->_data['title'] = 'Profile utilisateur';
+        return view('profil', $this->_data);
     }
 
     /**
@@ -83,9 +78,9 @@ class UserController extends Controller
          * Vérifie si l'utilisateur demandé est bien celui connecté
          */
         if(intval($user) === Auth::user()->id){
-            $this->data['role'] = $this->role();
-            
-            return view('profil_edit', $this->data);
+            $this->_data['role'] = $this->role();
+
+            return view('profil_edit', $this->_data);
         }
 
         return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
@@ -104,7 +99,7 @@ class UserController extends Controller
          * Vérifie si l'utilisateur demandé est bien celui connecté
          */
         if(intval($user) === Auth::user()->id){
-  
+
             Validator::make($request->input(), [
                 'nom'               => 'bail|required',
                 'prenom'            => 'bail|required',
@@ -116,7 +111,7 @@ class UserController extends Controller
                 'email_contact'     => 'nullable|email'
             ])->validate();
 
-            
+
 
             /**
              * Si l'utilisateur a renseigné une photo, alors on stocke l'image dans un dossier images et un dossier avec le numéro de l'utilisateur
@@ -133,24 +128,24 @@ class UserController extends Controller
 
                 User::where('id', $user)
                 ->update([
-                  'photo' => $url,
+                    'photo' => $url,
                 ]);
 
             }
-                
+
             User::where('id', $user)
-              ->update([
-                  'nom'             =>  ucFirst($request->input('nom')),
-                  'prenom'          =>  ucFirst($request->input('prenom')),
-                  'date_naissance'  =>  $request->input('date_naissance'),
-                  'adresse'         => $request->input('adresse'),
-                  'ville'           => ucFirst($request->input('ville')),
-                  'code_postal'     => $request->input('code_postal'),
-                  'telephone'       => $request->input('telephone'),
-                  'email_contact'   => $request->input('email_contact'),
-              ]);
-   
-            
+                ->update([
+                    'nom'             =>  ucFirst($request->input('nom')),
+                    'prenom'          =>  ucFirst($request->input('prenom')),
+                    'date_naissance'  =>  $request->input('date_naissance'),
+                    'adresse'         => $request->input('adresse'),
+                    'ville'           => ucFirst($request->input('ville')),
+                    'code_postal'     => $request->input('code_postal'),
+                    'telephone'       => $request->input('telephone'),
+                    'email_contact'   => $request->input('email_contact'),
+                ]);
+
+
             return back()->with('success', 'Votre profil a bien été mise à jour');
         }
         return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
@@ -179,7 +174,7 @@ class UserController extends Controller
             }elseif($role === 'assistante-maternelle'){
                 AssistantesMaternelles::find(Auth::user()->categorie_id)->delete();
             }
-            
+
             User::find(Auth::user()->id)->delete();
             return redirect('/')->with('message', "Votre compte a bien été supprimé");
 

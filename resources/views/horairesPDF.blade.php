@@ -91,6 +91,10 @@
                 <h3>Total des heures</h3>
                 <p>{{ str_replace(':', 'h', substr($total->nombre_heures, 0, -3)) }}</p>
             </div>
+            <div>
+                <h3>Nombre de jours</h3>
+                <p>{{ count($horaires) }} jours</p>
+            </div>
         </section>
         <section>
             <table>

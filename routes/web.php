@@ -69,6 +69,7 @@ Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
         Route::get('/carnet-de-bord', [MessagesController::class, 'create'])->name('carnet');
         Route::post('/message/ajouter', [MessagesController::class, 'store']);
         Route::post('/message/modifier', [MessagesController::class, 'update']);
+        Route::get('/recommandations', [RecommandationsController::class, 'index'])->name('recommandations');
     });
 });
 

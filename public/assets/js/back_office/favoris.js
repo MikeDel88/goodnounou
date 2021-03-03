@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let favoris = document.querySelector('.fa-heart')
-    let nounou = document.querySelector('input[name="favoris"]').getAttribute('data-nounou-id')
-    let parent = document.querySelector('input[name="favoris"]').getAttribute('data-parent-id')
+    const favoris = document.querySelector('.fa-heart')
+    const nounou = document.querySelector('input[name="favoris"]').getAttribute('data-nounou-id')
+    const parent = document.querySelector('input[name="favoris"]').getAttribute('data-parent-id')
     let hearth;
 
     favoris.addEventListener('click', async function () {

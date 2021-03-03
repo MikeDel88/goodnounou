@@ -6,7 +6,7 @@ if (checkNextDispo.getAttribute('checked') === 'checked') {
     nextDispo.value = null;
 }
 
-// Permet de saisir si le champ visible est vrai ou faux 
+// Permet de saisir si le champ visible est vrai ou faux
 let inputVisibilite = document.querySelector('.visibilite');
 inputVisibilite.addEventListener('change', async function () {
 
@@ -23,7 +23,7 @@ inputVisibilite.addEventListener('change', async function () {
         visible = true;
     }
 
-    let response = await fetch(
+    await fetch(
 
         `${window.origin}/api/assistante-maternelle/fiche/${clientId}`, {
         method: method,
@@ -61,7 +61,7 @@ inputDisponible.addEventListener('change', async function () {
         nextDispo.value = null;
     }
 
-    let response = await fetch(
+    await fetch(
 
         `${window.origin}/api/assistante-maternelle/fiche/${clientId}`, {
         method: method,
@@ -95,7 +95,7 @@ criteres.forEach(critere => {
             value = true;
         }
 
-        let response = await fetch(
+        await fetch(
 
             `${window.origin}/api/assistante-maternelle/critere/${clientId}`, {
             method: method,
@@ -110,7 +110,5 @@ criteres.forEach(critere => {
             }),
         }
         );
-        // let msg = await response.json();
-        // console.log(msg.status)
     })
 })

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 
+/**
+ * PlanningAPI
+ */
 class PlanningAPI extends Controller
 {
     /**
@@ -17,63 +19,17 @@ class PlanningAPI extends Controller
         $user = User::findOrFail(intval($id));
         $contrats = $user->categorie->contrats;
 
-        foreach($contrats as $contrat){
-            if($contrat->status_id === 2){
+        foreach ($contrats as $contrat) {
+            if ($contrat->status_id === 2) {
                 $horaires[] = [
                     'enfant' => $contrat->enfant->prenom,
-                    'horaires'  => $contrat->horaire,
+                    'horaires' => $contrat->horaire,
                 ];
             }
-            
+
         }
 
-        return response()->json([
-            'events' => $horaires,
-        ]);
+        return response()->json(['events' => $horaires]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

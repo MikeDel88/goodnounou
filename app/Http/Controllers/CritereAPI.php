@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Critere;
-use Illuminate\Support\Facades\DB;
+
+use Illuminate\Http\Request;
+
 
 class CritereAPI extends Controller
 {
@@ -54,7 +55,7 @@ class CritereAPI extends Controller
          */
         $reponse = ($request->value === true) ? true : false;
         Critere::where('assistante_maternelle_id', intval($id))
-        ->update([$request->critere => $reponse]);  
+            ->update([$request->critere => $reponse]);
     }
 
     /**

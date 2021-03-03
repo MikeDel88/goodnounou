@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Recommandations;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class RecommandationsAPI extends Controller
 {
@@ -16,17 +15,15 @@ class RecommandationsAPI extends Controller
     public function index($id)
     {
         $avis = Recommandations::join('users', 'users.categorie_id', '=', 'parent_id')
-        ->select('users.nom', 'users.prenom', 'recommandations.updated_at', 'recommandations.note', 'recommandations.avis')
-        ->where('users.categorie_type', 'App\\Models\\Parents')
-        ->where('assistante_maternelle_id', $id)
-        ->whereNotNull('avis')
-        ->orderByDesc('recommandations.updated_at')
-        ->limit(100)
-        ->paginate(10);
+            ->select('users.nom', 'users.prenom', 'recommandations.updated_at', 'recommandations.note', 'recommandations.avis')
+            ->where('users.categorie_type', 'App\\Models\\Parents')
+            ->where('assistante_maternelle_id', $id)
+            ->whereNotNull('avis')
+            ->orderByDesc('recommandations.updated_at')
+            ->limit(100)
+            ->paginate(10);
 
-        return response()->json([
-            'avis' => $avis,
-        ]);
+        return response()->json(['avis' => $avis]);
     }
 
     /**
@@ -37,19 +34,17 @@ class RecommandationsAPI extends Controller
      */
     public function store(Request $request)
     {
-        if($request->note < 6 && $request->note > 0 || $request->note === null){
+        if ($request->note < 6 && $request->note > 0 || $request->note === null) {
             Recommandations::updateOrCreate(
                 ['parent_id' => $request->parent, 'assistante_maternelle_id' => $request->nounou],
                 ['note' => $request->note]
             );
             $status = true;
-        }else{
+        } else {
             $status = false;
         }
-        return response()->json([
-            'status' => $status
-        ]);
-        
+        return response()->json(['status' => $status]);
+
     }
 
     /**

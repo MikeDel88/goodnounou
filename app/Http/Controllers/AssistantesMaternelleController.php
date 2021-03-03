@@ -13,89 +13,122 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 
+/**
+ * AssistantesMaternelleController
+ */
 class AssistantesMaternelleController extends Controller
 {
-    private array $data = [];
+    private array $_data = [];
 
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
-        $this->data['role'] = 'assistante-maternelle';
+        $this->_data['role'] = 'assistante-maternelle';
     }
-    
+
     /**
-     * showCard
+     * ShowCard
      * Affiche la fiche de renseigments d'une assistante maternelle pour les parents
-     * @param  mixed $userId
+     *
+     * @param mixed $userId Id
+     *
      * @return void
      */
     public function showCard($userId)
     {
-        $id = intval($userId); // Transforme la données en entier
-        $this->data['role'] = 'parents'; // Je défini que le rôle de l'utilisateur doit être un parent.
-        $this->data['js'][] = 'favoris'; // Chargement du script spécifique pour gérer les favoris en asynchrone
-        $this->data['js'][] = 'recommandation'; // Chargement du script spécifique pour gérer les notes en asynchrone
-        
-        $criteres       = DB::table('criteres')->select('*')->where('assistante_maternelle_id', $id)->first(); // Récupère l'ensemble des critères associé à l'assistante maternelle
-        $renseignements = User::where('categorie_id', $id)->where('categorie_type', 'App\Models\AssistantesMaternelles')->first(); // Récupère la liste des informations de l'utilisateur nounou
-        $favoris        = Favoris::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first(); // Cela doit retourner un seul résultat maximum
-        $recommandation = Recommandations::where('parent_id', Auth::user()->categorie->id)->where('assistante_maternelle_id', $id)->first();
-        $nombreAvis     = Recommandations::where('assistante_maternelle_id', $renseignements->categorie->id)->whereNotNull('avis')->count();
-        $nombreNote     = Recommandations::where('assistante_maternelle_id', $renseignements->categorie->id)->whereNotNull('note')->count();
+        $id = intval($userId);
+        $this->_data['role'] = 'parents';
+        $this->_data['js'][] = 'favoris';
+        $this->_data['js'][] = 'recommandation';
 
-        $this->data['noteMax']          = 5;
-        $this->data['nombreNote']       = $nombreNote;
-        $this->data['nombreAvis']       = $nombreAvis;
-        $this->data['moyenne']          = $renseignements->categorie->recommandations->avg('note');
-        $this->data['recommandation']   = $recommandation;
-        $this->data['favoris']          = (isset($favoris)) ? true : false; // Si la requête à renvoyé un objet dans le tableau, alors il existe un favoris   
-        $this->data['renseignements']   = $renseignements; // Récupère la seule ligne sur la base de données doit retourner
-        $this->data['criteres']         = (array) $criteres; // Transforme l'objet en tableau pour l'exploiter dans la vue
-        
-        if($renseignements !== null){
-            return view('presentation', $this->data); // retourne la vue
-        }else{
+        $criteres = DB::table('criteres')
+            ->select('*')
+            ->where('assistante_maternelle_id', $id)
+            ->first();
+        $renseignements = User::where('categorie_id', $id)
+            ->where('categorie_type', 'App\Models\AssistantesMaternelles')
+            ->first();
+        $favoris = Favoris::where('parent_id', Auth::user()->categorie->id)
+            ->where('assistante_maternelle_id', $id)
+            ->first();
+        $recommandation = Recommandations::where('parent_id', Auth::user()->categorie->id)
+            ->where('assistante_maternelle_id', $id)
+            ->first();
+        $nombreAvis = Recommandations::where('assistante_maternelle_id', $renseignements->categorie->id)
+            ->whereNotNull('avis')
+            ->count();
+        $nombreNote = Recommandations::where('assistante_maternelle_id', $renseignements->categorie->id)
+            ->whereNotNull('note')
+            ->count();
+
+        $this->_data['noteMax']          = 5;
+        $this->_data['nombreNote']       = $nombreNote;
+        $this->_data['nombreAvis']       = $nombreAvis;
+        $this->_data['moyenne']          = $renseignements->categorie->recommandations->avg('note');
+        $this->_data['recommandation']   = $recommandation;
+        $this->_data['favoris']          = (isset($favoris)) ? true : false;
+        $this->_data['renseignements']   = $renseignements;
+        $this->_data['criteres']         = (array) $criteres;
+
+        if ($renseignements !== null) {
+            return view('presentation', $this->_data); // retourne la vue
+        } else {
             return abort(404); // Sinon retourne une erreur 404 page introuvable
         }
-        
+
     }
-    
+
     /**
-     * editCard
+     * EditCard
      * Montre la fiche d'une assistante maternelle
-     * @param  mixed $user
+     *
+     * @param mixed $user User
+     *
      * @return void
      */
     public function editCard($user)
     {
         // Vérifie que l'utilisateur demandé est bien celui qui est connecté
-        if(intval($user) === Auth::user()->categorie->id){
+        if (intval($user) === Auth::user()->categorie->id) {
 
-            $critere                = DB::table('criteres')->where('assistante_maternelle_id', Auth::user()->categorie->id)->get(); // Sélectionne l'ensemble des critères de l'utilisateur connecté
-            $this->data['critere']  = $critere[0]; // Prépare l'objet pour la vue
-            $this->data['js'][]     = 'fiche'; // Ajout d'un fichier asset spécifique à la vue
+            $critere = DB::table('criteres')
+                ->where('assistante_maternelle_id', Auth::user()->categorie->id)
+                ->get();
+            $this->_data['critere'] = $critere[0];
+            $this->_data['js'][] = 'fiche';
 
-            return view('fiche', $this->data);
+            return view('fiche', $this->_data);
 
         }
-        return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
+        return redirect('/profile')
+            ->with('message', "Cette page n'est pas autorisé");
     }
-    
+
     /**
-     * updateCard
-     *  Met à jour les informations professionnelles et enregistre les coordonnées de géolocalisation
-     * @param  mixed $request
-     * @param  mixed $user
+     * UpdateCard
+     *  Met à jour les informations professionnelles
+     * et enregistre les coordonnées de géolocalisation
+     *
+     * @param mixed $request Requête
+     * @param mixed $user    Id
+     *
      * @return void
      */
     public function updateCard(Request $request, $user)
     {
         // Vérifie que l'utilisateur demandé est bien celui qui est connecté
-        if(intval($user) === Auth::user()->categorie->id){
+        if (intval($user) === Auth::user()->categorie->id) {
 
             /**
              * Validation des données
              */
-            Validator::make($request->input(), [
+            Validator::make(
+                $request->input(),
+                [
                 'date_debut'                    => 'date_format:"Y-m-d"|before_or_equal:today|required',
                 'formation'                     => 'string|bail|required',
                 'nombre_place'                  => 'integer|required|min:0',
@@ -107,10 +140,12 @@ class AssistantesMaternelleController extends Controller
                 'frais_repas'                   => 'numeric|min:0|required',
                 'description'                   => 'string|nullable',
                 'date_prochaine_disponibilite'  => 'date_format:"Y-m-d"|after_or_equal:today|nullable'
-            ])->validate();
+                ]
+            )->validate();
 
             /**
-             * Récupère les coordonnées géographique de l'adresse pour permettre les recherches
+             * Récupère les coordonnées géographique de l'adresse
+             *pour permettre les recherches
              */
             $coordonnees = $this->coordonnees($request, $request->input('adresse_pro'), $request->input('code_postal_pro'), $request->input('ville_pro'));
 
@@ -118,42 +153,51 @@ class AssistantesMaternelleController extends Controller
              * Mise à jour de l'utilisateur
              */
             AssistantesMaternelles::where('id', $user)
-                ->update([
-                'lat'                     => $coordonnees['lat'],
-                'lng'                     => $coordonnees['lng'],
-                'date_debut'              => $request->input('date_debut'),
-                'formation'               => $request->input('formation'),
-                'nombre_place'            => $request->input('nombre_place'),
-                'adresse_pro'             => $request->input('adresse_pro'),
-                'ville_pro'               => ucFirst($request->input('ville_pro')),
-                'code_postal_pro'         => $request->input('code_postal_pro'),
-                'taux_horaire'            => $request->input('taux_horaire'),
-                'taux_entretien'          => $request->input('taux_entretien'),
-                'frais_repas'             => $request->input('frais_repas'),
-                'description'             => $request->input('description'),
-                'prochaine_disponibilite' => $request->input('date_prochaine_disponibilite')           
-            ]);
+                ->update(
+                    [
+                    'lat'                     => $coordonnees['lat'],
+                    'lng'                     => $coordonnees['lng'],
+                    'date_debut'              => $request->input('date_debut'),
+                    'formation'               => $request->input('formation'),
+                    'nombre_place'            => $request->input('nombre_place'),
+                    'adresse_pro'             => $request->input('adresse_pro'),
+                    'ville_pro'               => ucFirst($request->input('ville_pro')),
+                    'code_postal_pro'         => $request->input('code_postal_pro'),
+                    'taux_horaire'            => $request->input('taux_horaire'),
+                    'taux_entretien'          => $request->input('taux_entretien'),
+                    'frais_repas'             => $request->input('frais_repas'),
+                    'description'             => $request->input('description'),
+                    'prochaine_disponibilite' => $request->input('date_prochaine_disponibilite')
+                    ]
+                );
 
             /**
-             * Condition si les coordonnées géographique n'ont pas été trouvé pour permettre la géolocalisation
+             * Condition si les coordonnées géographique n'ont pas été trouvé
+             * pour permettre la géolocalisation
              */
-            if($coordonnees['lat'] !== null && $coordonnees['lng'] !== null){
-                return back()->with('success', 'Vos informations ont bien été enregistrées');
-            }else{
-                return back()->with('message', "Attention, Les informations sont enregistrées mais l'adresse que vous avez renseigné ne permet pas la géolocalisation");
+            if ($coordonnees['lat'] !== null && $coordonnees['lng'] !== null) {
+                return back()
+                    ->with('success', 'Vos informations ont bien été enregistrées');
+            } else {
+                return back()
+                    ->with('message', "Attention, Les informations sont enregistrées mais l'adresse que vous avez renseigné ne permet pas la géolocalisation");
             }
-            
-        }else{
-            return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
+
+        } else {
+            return redirect('/profile')
+                ->with('message', "Cette page n'est pas autorisé");
         }
     }
 
     /**
-     * coordonnees
+     * Coordonnees
      *  Transforme une adresse en coordonnees lat et lon
-     * @param  mixed $adresse
-     * @param  mixed $code_postal
-     * @param  mixed $ville
+     *
+     * @param mixed $request     Requête
+     * @param mixed $adresse     Adresse
+     * @param mixed $code_postal CodePostal
+     * @param mixed $ville       Ville
+     *
      * @return array
      */
     public function coordonnees(Request $request, string $adresse, string $code_postal, string $ville) :array
@@ -162,12 +206,12 @@ class AssistantesMaternelleController extends Controller
          * Récupère l'adresse sur l'API Openstreetmap de façon asynchrone avec Curl
          */
         $adresse = array(
-                  'street'     => $adresse,
-                  'postalcode' => $code_postal,
-                  'ville'      => $ville,
-                  'country'    => 'france',
-                  'format'     => 'json',
-                );
+            'street'     => $adresse,
+            'postalcode' => $code_postal,
+            'ville'      => $ville,
+            'country'    => 'france',
+            'format'     => 'json',
+        );
 
         $url = 'https://nominatim.openstreetmap.org/?' . http_build_query($adresse);
 
@@ -181,7 +225,7 @@ class AssistantesMaternelleController extends Controller
         $data = [];
         $data['lat'] = $json_data[0]['lat'] ?? null;
         $data['lng'] = $json_data[0]['lon'] ?? null;
-                
+
         return $data;
     }
 

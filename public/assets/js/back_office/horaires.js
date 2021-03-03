@@ -172,7 +172,7 @@ window.onload = () => {
         let horaires = await getHoraires(contrat, mois, annee);
         resetDetailMois();
         if (horaires.length > 0) {
-            let nombreHeuresMois = await creationDetailMois(horaires);
+            await creationDetailMois(horaires);
         }
 
     })
@@ -185,7 +185,7 @@ window.onload = () => {
         let horaires = await getHoraires(contrat, mois, annee);
         resetDetailMois();
         if (horaires.length > 0) {
-            let nombreHeuresMois = await creationDetailMois(horaires);
+            await creationDetailMois(horaires);
         }
 
     })
@@ -289,7 +289,7 @@ window.onload = () => {
                             totalHeures.innerHTML = `Total d'heures de garde ${nouvelleValeur} pour ${horaires.length} jours`;
 
                         } else {
-                            // Suppression du contenu DOM 
+                            // Suppression du contenu DOM
                             resetDetailMois();
                         }
                     }

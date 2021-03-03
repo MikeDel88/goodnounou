@@ -7,9 +7,19 @@ use App\Models\Critere;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * RechercheController
+ */
+
 class RechercheController extends Controller
 {
     private array $data = [];
+
+/**
+ * __construct
+ *
+ * @return void
+ */
 
     public function __construct()
     {
@@ -29,7 +39,7 @@ class RechercheController extends Controller
         }
         $this->data['geolocalisation']  = '';
         $this->data['js'][] = "geolocalisation"; // Ajout d'un fichier spécifique pour la géolocalisation
-        
+
         return view('recherche', $this->data);
     }
 

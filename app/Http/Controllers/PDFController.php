@@ -1,15 +1,17 @@
 <?php
-  
+
 namespace App\Http\Controllers;
-  
-use Illuminate\Http\Request;
+
+use App\Models\Contrats as Contrat;
 use App\Models\Horaire;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\Contrats as Contrat;
-use Illuminate\Support\Arr;
 use PDF;
-  
+
+/**
+ * PDFController
+ */
 class PDFController extends Controller
 {
     /**
@@ -20,7 +22,7 @@ class PDFController extends Controller
     public function generatePDF($contrat, $mois, $annee)
     {
         $getContrat = Contrat::where('id', ':contrat')->where('parent_id', ':parent')->setBindings(['contrat' => $contrat, 'parent' => Auth::user()->categorie->id])->first();
-        if(!empty($getContrat)){
+        if (!empty($getContrat)) {
 
             $data['horaires'] = Horaire::where('contrat_id', ':contrat')->whereMonth('jour_garde', ':mois')->whereYear('jour_garde', ':annee')->orderBy('jour_garde', 'asc')->setBindings(['contrat' => intval($contrat), 'mois' => $mois, 'annee' => $annee])->get();
             $data['contrat'] = $getContrat;
@@ -28,10 +30,10 @@ class PDFController extends Controller
             $data['mois'] = $this->recupMois($mois);
             $data['annee'] = intval($annee);
 
-            $pdf = PDF::loadView('horairesPDF', $data); 
+            $pdf = PDF::loadView('horairesPDF', $data);
 
             return $pdf->download("horaires-$mois-$annee.pdf");
-        }else{
+        } else {
             return back()->with('message', "Ce document n'est pas accessible");
         }
     }
@@ -39,20 +41,20 @@ class PDFController extends Controller
     public function recupMois($mois)
     {
         $listeMois = [
-            1   => 'Janvier',
-            2   => 'Février',
-            3   => 'Mars',
-            4   => 'Avril',
-            5   => 'Mai',
-            6   => 'Juin',
-            7   => 'Juillet',
-            8   => 'Août',
-            9   => 'Septembre',
-            10  => 'Octobre',
-            11  => 'Novembre',
-            12  => 'Décembre'
+            1 => 'Janvier',
+            2 => 'Février',
+            3 => 'Mars',
+            4 => 'Avril',
+            5 => 'Mai',
+            6 => 'Juin',
+            7 => 'Juillet',
+            8 => 'Août',
+            9 => 'Septembre',
+            10 => 'Octobre',
+            11 => 'Novembre',
+            12 => 'Décembre',
         ];
-        
-        return Arr::get($listeMois, $mois);   
+
+        return Arr::get($listeMois, $mois);
     }
 }
