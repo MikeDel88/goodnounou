@@ -13,8 +13,7 @@ class FavorisAPI extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request  $request Requête
-     * @param int                       $id      Id
+     * @param \Illuminate\Http\Request $request Requête
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,9 +23,9 @@ class FavorisAPI extends Controller
             if ($request->favoris === true) {
                 try {
                     DB::table('favoris')
-                    ->insert(
-                        ['parent_id' => $request->parent, 'assistante_maternelle_id' => $request->nounou]
-                    );
+                        ->insert(
+                            ['parent_id' => $request->parent, 'assistante_maternelle_id' => $request->nounou]
+                        );
                 } catch (\Illuminate\Database\QueryException $e) {
                     $errorCode = $e->errorInfo[1];
                     if ($errorCode == 1062) {

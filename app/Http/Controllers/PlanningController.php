@@ -13,7 +13,8 @@ class PlanningController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)

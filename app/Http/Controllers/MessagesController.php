@@ -46,7 +46,8 @@ class MessagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request Requête
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,11 +56,13 @@ class MessagesController extends Controller
         /**
          ** Validation des données
          */
-        Validator::make($request->input(), [
+        Validator::make(
+            $request->input(), [
             'enfant' => 'integer|required',
             'jour_garde' => "before_or_equal:today|required",
             'message' => 'string|required',
-        ])->validate();
+            ]
+        )->validate();
 
         foreach (Auth::user()->categorie->contrats as $user) {
             $status = ($user->enfant->id === intval($request->input('enfant'))) ? true : false;
@@ -74,12 +77,14 @@ class MessagesController extends Controller
              * Création du message
              */
             try {
-                Messages::create([
+                Messages::create(
+                    [
                     'assistante_maternelle_id' => Auth::user()->categorie->id,
                     'enfant_id' => $request->input('enfant'),
                     'contenu' => $request->input('message'),
                     'jour_garde' => $request->input('jour_garde'),
-                ]);
+                    ]
+                );
 
                 return back()->with('success', 'Message enregistré');
             } catch (\Illuminate\Database\QueryException $e) {
@@ -96,7 +101,8 @@ class MessagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request Requête
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -104,11 +110,14 @@ class MessagesController extends Controller
         /**
          ** Validation des données
          */
-        Validator::make($request->input(), [
+        Validator::make(
+            $request->input(),
+            [
             'enfant' => 'integer|required',
             'id_message' => 'integer|required',
             'contenu' => 'string|required',
-        ])->validate();
+            ]
+        )->validate();
 
         // Vérifie si l'id de l'enfant est bien l'un des utilisateurs connecté et avec un contrat en cours
         foreach (Auth::user()->categorie->contrats as $contrat) {

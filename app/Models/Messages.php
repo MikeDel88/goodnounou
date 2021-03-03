@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\AssistantesMaternelles;
 use App\Models\Enfant;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Messages
+ */
 
 class Messages extends Model
 {
@@ -27,14 +31,24 @@ class Messages extends Model
         'assistante_maternelle_id',
         'enfant_id',
         'contenu',
-        'jour_garde'
+        'jour_garde',
     ];
 
+    /**
+     * AssistanteMaternelle
+     *
+     * @return void
+     */
     public function assistanteMaternelle()
     {
         return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id');
     }
 
+    /**
+     * Enfant
+     *
+     * @return void
+     */
     public function enfant()
     {
         return $this->belongsTo(Enfant::class, 'enfant_id');

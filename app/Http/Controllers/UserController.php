@@ -29,6 +29,7 @@ class UserController extends Controller
     /**
      * __construct
      * Utilise le middleware auth pour récupérer les informations de l'utilisateur
+     *
      * @return void
      */
     public function __construct()
@@ -70,7 +71,8 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $user Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($user)
@@ -90,8 +92,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request Requête
+     * @param int                      $user    Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $user)
@@ -100,7 +103,9 @@ class UserController extends Controller
          * Vérifie si l'utilisateur demandé est bien celui connecté
          */
         if (intval($user) === Auth::user()->id) {
-            Validator::make($request->input(), [
+            Validator::make(
+                $request->input(),
+                [
                 'nom'               => 'bail|required',
                 'prenom'            => 'bail|required',
                 'date_naissance'    => 'date_format:"Y-m-d"|before_or_equal:today',
@@ -109,7 +114,8 @@ class UserController extends Controller
                 'code_postal'       => 'min:5|max:5',
                 'telephone'         => 'nullable|max:10',
                 'email_contact'     => 'nullable|email'
-            ])->validate();
+                ]
+            )->validate();
 
 
 
@@ -117,22 +123,19 @@ class UserController extends Controller
              * Si l'utilisateur a renseigné une photo, alors on stocke l'image dans un dossier images et un dossier avec le numéro de l'utilisateur
              */
             if ($request->file('photo') !== null) {
-                $request->validate([
-                    'photo' => 'image|mimes:jpeg,png,jpg|max:800',
-                ]);
+                $request->validate(['photo' => 'image|mimes:jpeg,png,jpg|max:800']);
 
                 $extension  = $request->file('photo')->extension();
                 $path       = $request->file('photo')->storeAs("public/images/$user", "avatar.$extension");
                 $url        = Storage::url($path);
 
                 User::where('id', $user)
-                ->update([
-                    'photo' => $url,
-                ]);
+                ->update(['photo' => $url]);
             }
 
             User::where('id', $user)
-                ->update([
+                ->update(
+                    [
                     'nom'             =>  ucFirst($request->input('nom')),
                     'prenom'          =>  ucFirst($request->input('prenom')),
                     'date_naissance'  =>  $request->input('date_naissance'),
@@ -141,7 +144,8 @@ class UserController extends Controller
                     'code_postal'     => $request->input('code_postal'),
                     'telephone'       => $request->input('telephone'),
                     'email_contact'   => $request->input('email_contact'),
-                ]);
+                    ]
+                );
 
 
             return back()->with('success', 'Votre profil a bien été mise à jour');
@@ -152,7 +156,8 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

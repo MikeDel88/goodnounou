@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\AssistantesMaternelles as AssistantesMaternelles;
+use App\Models\Parents as Parents;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Parents as Parents;
-use App\Models\AssistantesMaternelles as AssistantesMaternelles;
+
+/**
+ * Favoris
+ */
 
 class Favoris extends Model
 {
@@ -25,14 +29,24 @@ class Favoris extends Model
      */
     protected $fillable = [
         'parent_id',
-        'assistante_maternelle_id'
+        'assistante_maternelle_id',
     ];
 
+    /**
+     * AssistanteMaternelle
+     *
+     * @return void
+     */
     public function assistanteMaternelle()
     {
         return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id');
     }
 
+    /**
+     * Parents
+     *
+     * @return void
+     */
     public function parents()
     {
         return $this->belongsTo(Parents::class, 'parent_id');

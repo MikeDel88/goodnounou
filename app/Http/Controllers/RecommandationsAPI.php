@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Recommandations;
 use Illuminate\Http\Request;
 
+/**
+ * RecommandationsAPI
+ */
 class RecommandationsAPI extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @param int $id Id
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,7 +34,8 @@ class RecommandationsAPI extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request Requête
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,7 +56,8 @@ class RecommandationsAPI extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,8 +68,9 @@ class RecommandationsAPI extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request Requête
+     * @param int                      $id      Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -73,7 +81,8 @@ class RecommandationsAPI extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

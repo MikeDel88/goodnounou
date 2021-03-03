@@ -17,6 +17,10 @@ class PDFController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param int $contrat Id
+     * @param int $mois    Id
+     * @param int $annee   Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function generatePDF($contrat, $mois, $annee)
@@ -37,6 +41,13 @@ class PDFController extends Controller
         }
     }
 
+    /**
+     * RecupMois
+     *
+     * @param mixed $mois Id
+     *
+     * @return void
+     */
     public function recupMois($mois)
     {
         $listeMois = [

@@ -14,9 +14,9 @@ class HorairesAPI extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int  $contrat Contrat
-     * @param int  $mois    Mois
-     * @param int  $annee   Annee
+     * @param int $contrat Contrat
+     * @param int $mois    Mois
+     * @param int $annee   Annee
      *
      * @return \Illuminate\Http\Response
      */

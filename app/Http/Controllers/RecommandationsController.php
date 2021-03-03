@@ -36,11 +36,14 @@ class RecommandationsController extends Controller
     public function store(Request $request)
     {
         if (intval($request->parent) === Auth::user()->categorie->id) {
-            Validator::make($request->input(), [
+            Validator::make(
+                $request->input(),
+                [
                 'parent' => 'integer|bail|required',
                 'assistante-maternelle' => 'integer|bail|required',
                 'avis' => 'string|bail|required',
-            ])->validate();
+                ]
+            )->validate();
 
             try {
                 $assMat = 'assistante-maternelle';

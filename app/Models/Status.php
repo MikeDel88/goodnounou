@@ -15,11 +15,16 @@ class Status extends Model
      * @var array
      */
     protected $fillable = [
-        'status'
+        'status',
     ];
 
     protected $table = 'status';
 
+    /**
+     * Contrats
+     *
+     * @return void
+     */
     public function contrats()
     {
         return $this->hasMany(Contrats::class, 'status_id');

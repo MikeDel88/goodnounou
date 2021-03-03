@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Critere;
 use Illuminate\Http\Request;
 
+/**
+ * CritereAPI
+ */
 class CritereAPI extends Controller
 {
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request Requête
+     * @param int                      $id      Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

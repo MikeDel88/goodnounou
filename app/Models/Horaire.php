@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Horaire
+ */
+
 class Horaire extends Model
 {
     use HasFactory;
@@ -29,9 +33,14 @@ class Horaire extends Model
         'nombre_heures',
         'depose_par',
         'recupere_par',
-        'jour_garde'
+        'jour_garde',
     ];
 
+    /**
+     * Contrat
+     *
+     * @return void
+     */
     public function contrat()
     {
         return $this->belongsTo(Contrat::class, 'contrat_id');

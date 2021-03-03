@@ -18,7 +18,8 @@ class HorairesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request Requête
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,7 +41,8 @@ class HorairesController extends Controller
             /**
              * Validation des données
              */
-            Validator::make($request->input(), [
+            Validator::make(
+                $request->input(), [
                 'contrat_id' => ['required', Rule::in($listeIdContrats)],
                 'jour_garde' => "after_or_equal:$date_debut|required",
                 'nombre_heures' => 'string|bail|required',
@@ -50,13 +52,15 @@ class HorairesController extends Controller
                 'heure_fin' => 'date_format:H:i|after:heure_debut',
                 'recupere_par' => 'string|nullable',
                 'description' => 'string|nullable',
-            ])->validate();
+                ]
+            )->validate();
 
             /**
              * Création de l'horaire
              */
             try {
-                Horaire::create([
+                Horaire::create(
+                    [
                     'contrat_id' => $request->input('contrat_id'),
                     'nombre_heures' => $request->input('nombre_heures'),
                     'jour_garde' => $request->input('jour_garde'),
@@ -65,7 +69,8 @@ class HorairesController extends Controller
                     'heure_fin' => $request->input('heure_fin'),
                     'recupere_par' => $request->input('recupere_par'),
                     'description' => $request->input('description'),
-                ]);
+                    ]
+                );
 
                 $dateinit = \Carbon\Carbon::parse($request->input('jour_garde'));
                 return back()->with('success', "L'horaire pour le {$dateinit->format('d/m/Y')} a bien été enregistré");

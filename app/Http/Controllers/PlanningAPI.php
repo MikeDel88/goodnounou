@@ -12,6 +12,8 @@ class PlanningAPI extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param int $id Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function index($id)

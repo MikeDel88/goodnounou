@@ -32,8 +32,9 @@ class Enfant extends Model
     ];
 
     /**
-     * parents
+     * Parents
      * Relation un enfant appartient à un parent
+     *
      * @return void
      */
     public function parents()
@@ -41,11 +42,21 @@ class Enfant extends Model
         return $this->belongsTo(Parents::class, 'parent_id');
     }
 
+    /**
+     * Contrats
+     *
+     * @return void
+     */
     public function contrats()
     {
         return $this->hasMany(Contrats::class, 'enfant_id');
     }
 
+    /**
+     * Messages
+     *
+     * @return void
+     */
     public function messages()
     {
         return $this->hasMany(Messages::class, 'enfant_id');

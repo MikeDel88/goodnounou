@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\AssistantesMaternelles as AssistantesMaternelles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\AssistantesMaternelles as AssistantesMaternelles;
+
+/**
+ * Critere
+ */
 
 class Critere extends Model
 {
@@ -23,9 +27,14 @@ class Critere extends Model
      * @var array
      */
     protected $fillable = [
-        'assistante_maternelle_id'
+        'assistante_maternelle_id',
     ];
 
+    /**
+     * AssistanteMaternelle
+     *
+     * @return void
+     */
     public function assistanteMaternelle()
     {
         return $this->belongTo(AssistantesMaternelles::class, 'assistante_maternelle_id', 'id');

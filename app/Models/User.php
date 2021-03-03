@@ -10,6 +10,9 @@ use Illuminate\Auth\Events\Registered;
 use App\Models\AssistanteMaternelle;
 use App\Models\Parents;
 
+/**
+ * User
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;
@@ -48,8 +51,9 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * categorie
+     * Categorie
      * Relation polymorphe d'un objet utilisateur en deux catégories (parent ou assistante-maternelle)
+     *
      * @return void
      */
     public function categorie()
@@ -57,6 +61,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphTo();
     }
 
+    /**
+     * AdresseComplete
+     *
+     * @return void
+     */
     public function adresseComplete()
     {
         return "$this->adresse  $this->code_postal  $this->ville";

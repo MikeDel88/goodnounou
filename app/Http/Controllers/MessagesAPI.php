@@ -7,13 +7,18 @@ use App\Models\Enfant;
 use App\Models\Messages;
 use Illuminate\Http\Request;
 
+/**
+ * MessagesAPI
+ */
 class MessagesAPI extends Controller
 {
     /**
      * Display a listing of the resource.
      * Retourne les messages d'un enfant issu d'une assistantes maternelle
-     * @param  int  $idParent
-     * @param  int  $id
+     *
+     * @param int $idParent Id
+     * @param int $id       Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function index($idParent, $id)
@@ -37,8 +42,10 @@ class MessagesAPI extends Controller
     /**
      * Display the specified resource.
      *  Retourne les messages d'un enfant issu d'une assistantes maternelle
-     * @param  int  $assMatId
-     * @param  int  $enfantId
+     *
+     * @param int $assMatId Id
+     * @param int $enfantId Id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($assMatId, $enfantId)
@@ -53,7 +60,8 @@ class MessagesAPI extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Request $request Requête
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
