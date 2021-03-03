@@ -17,11 +17,11 @@ class Status extends Model
     protected $fillable = [
         'status'
     ];
-    
+
     protected $table = 'status';
 
     public function contrats()
-    { 
-        return $this->hasMany(Contrats::class, 'status_id'); 
+    {
+        return $this->hasMany(Contrats::class, 'status_id');
     }
 }

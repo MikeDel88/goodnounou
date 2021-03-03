@@ -1,7 +1,9 @@
 <?php
+
 /**
  * Controller
  */
+
 namespace App\Http\Controllers;
 
 use App\Models\AssistantesMaternelles;
@@ -105,21 +107,17 @@ class ContratController extends Controller
                     ]
                 );
                 return back()->with('success', 'Contrat enregistré');
-
             } catch (\Illuminate\Database\QueryException $e) {
-
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()
                         ->with('message', 'Un contrat avec cette assistante maternelle et cet enfant existe déjà');
                 }
             }
-
         } else {
             return redirect('/contrats')
                 ->with('message', "Désolé, une erreur est survenue");
         }
-
     }
 
     /**
@@ -136,12 +134,10 @@ class ContratController extends Controller
         $this->data['role'] = $this->role();
 
         if ($this->data['role'] === 'assistante-maternelle' && Auth::user()->categorie->id === $contrat->assistante_maternelle_id) {
-
             $this->data['contrat'] = $contrat;
             $this->data['salaire_mensuel'] = round((($contrat->taux_horaire * $contrat->nombre_heures * $contrat->nombre_semaines) / 12), 2);
             $this->data['nombre_heures_mois'] = ceil((($contrat->nombre_heures * $contrat->nombre_semaines) / 12));
             return view('fiche_contrat_ass_mat', $this->data);
-
         } else {
             return back()->with('message', "Désolé mais ce contrat n'est pas disponible");
         }
@@ -161,7 +157,6 @@ class ContratController extends Controller
         $this->data['role'] = $this->role();
 
         if ($this->data['role'] === 'parents' && Auth::user()->categorie->id === $contrat->parent_id) {
-
             $this->data['js'][] = 'horaires';
             $this->data['contrat'] = $contrat;
             $this->data['mois'] = [
@@ -181,7 +176,6 @@ class ContratController extends Controller
             $this->data['salaire_mensuel'] = round((($contrat->taux_horaire * $contrat->nombre_heures * $contrat->nombre_semaines) / 12), 2);
             $this->data['nombre_heures_lisse'] = ceil((($contrat->nombre_heures * $contrat->nombre_semaines) / 12));
             return view('fiche_contrat_parents', $this->data);
-
         } else {
             return back()
                 ->with('message', "Désolé mais ce contrat n'est pas disponible");

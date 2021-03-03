@@ -79,7 +79,6 @@ class AssistantesMaternelleController extends Controller
         } else {
             return abort(404); // Sinon retourne une erreur 404 page introuvable
         }
-
     }
 
     /**
@@ -94,7 +93,6 @@ class AssistantesMaternelleController extends Controller
     {
         // Vérifie que l'utilisateur demandé est bien celui qui est connecté
         if (intval($user) === Auth::user()->categorie->id) {
-
             $critere = DB::table('criteres')
                 ->where('assistante_maternelle_id', Auth::user()->categorie->id)
                 ->get();
@@ -102,7 +100,6 @@ class AssistantesMaternelleController extends Controller
             $this->_data['js'][] = 'fiche';
 
             return view('fiche', $this->_data);
-
         }
         return redirect('/profile')
             ->with('message', "Cette page n'est pas autorisé");
@@ -182,7 +179,6 @@ class AssistantesMaternelleController extends Controller
                 return back()
                     ->with('message', "Attention, Les informations sont enregistrées mais l'adresse que vous avez renseigné ne permet pas la géolocalisation");
             }
-
         } else {
             return redirect('/profile')
                 ->with('message', "Cette page n'est pas autorisé");
@@ -200,7 +196,7 @@ class AssistantesMaternelleController extends Controller
      *
      * @return array
      */
-    public function coordonnees(Request $request, string $adresse, string $code_postal, string $ville) :array
+    public function coordonnees(Request $request, string $adresse, string $code_postal, string $ville)
     {
         /**
          * Récupère l'adresse sur l'API Openstreetmap de façon asynchrone avec Curl
@@ -228,6 +224,4 @@ class AssistantesMaternelleController extends Controller
 
         return $data;
     }
-
-
 }

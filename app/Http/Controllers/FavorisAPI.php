@@ -22,26 +22,23 @@ class FavorisAPI extends Controller
     {
         if (intval($request->nounou) && intval($request->parent)) {
             if ($request->favoris === true) {
-
                 try {
                     DB::table('favoris')
                     ->insert(
-                    ['parent_id' => $request->parent, 'assistante_maternelle_id' => $request->nounou]);
-
-                } catch(\Illuminate\Database\QueryException $e) {
+                        ['parent_id' => $request->parent, 'assistante_maternelle_id' => $request->nounou]
+                    );
+                } catch (\Illuminate\Database\QueryException $e) {
                     $errorCode = $e->errorInfo[1];
                     if ($errorCode == 1062) {
                         return back()->with('message', 'Cette assistante maternelle est déjà en favoris');
                     }
                 }
-
             } elseif ($request->favoris === false) {
                 DB::table('favoris')
-                ->where('parent_id',$request->parent)
-                ->where('assistante_maternelle_id',$request->nounou)
-                ->delete();
+                    ->where('parent_id', $request->parent)
+                    ->where('assistante_maternelle_id', $request->nounou)
+                    ->delete();
             }
         }
     }
-
 }

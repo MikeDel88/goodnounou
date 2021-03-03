@@ -22,9 +22,8 @@ class RecommandationsController extends Controller
     public function index()
     {
         if ($this->role() === 'assistante-maternelle') {
-
+            echo "ok";
         }
-
     }
 
     /**
@@ -44,7 +43,6 @@ class RecommandationsController extends Controller
             ])->validate();
 
             try {
-
                 $assMat = 'assistante-maternelle';
                 Recommandations::updateOrCreate(
                     [
@@ -54,7 +52,6 @@ class RecommandationsController extends Controller
                     ['avis' => $request->input('avis')]
                 );
                 return back()->with('success', "Votre avis a bien été enregistré");
-
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {

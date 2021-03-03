@@ -27,8 +27,7 @@ class Critere extends Model
     ];
 
     public function assistanteMaternelle()
-    { 
-        return $this->belongTo(AssistantesMaternelles::class, 'assistante_maternelle_id', 'id'); 
+    {
+        return $this->belongTo(AssistantesMaternelles::class, 'assistante_maternelle_id', 'id');
     }
-
 }

@@ -11,28 +11,6 @@ use Illuminate\Http\Request;
 class AssistantesMaternellesAPI extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request Requête
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param int $id Id
@@ -74,5 +52,4 @@ class AssistantesMaternellesAPI extends Controller
                 ->update(['disponible' => $value]);
         }
     }
-
 }

@@ -29,12 +29,12 @@ class Favoris extends Model
     ];
 
     public function assistanteMaternelle()
-    { 
-        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id'); 
+    {
+        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id');
     }
 
     public function parents()
-    { 
-        return $this->belongsTo(Parents::class, 'parent_id'); 
+    {
+        return $this->belongsTo(Parents::class, 'parent_id');
     }
 }

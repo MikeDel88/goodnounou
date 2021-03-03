@@ -31,7 +31,6 @@ class Enfant extends Model
         'parent_id'
     ];
 
-    
     /**
      * parents
      * Relation un enfant appartient à un parent
@@ -43,12 +42,12 @@ class Enfant extends Model
     }
 
     public function contrats()
-    { 
-        return $this->hasMany(Contrats::class, 'enfant_id'); 
+    {
+        return $this->hasMany(Contrats::class, 'enfant_id');
     }
 
     public function messages()
-    { 
-        return $this->hasMany(Messages::class, 'enfant_id'); 
+    {
+        return $this->hasMany(Messages::class, 'enfant_id');
     }
 }

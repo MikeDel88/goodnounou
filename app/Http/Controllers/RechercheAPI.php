@@ -45,7 +45,5 @@ class RechercheAPI extends Controller
         $result = DB::select($sql, $binding);
 
         return response()->json($result);
-
     }
-
 }

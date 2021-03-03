@@ -16,11 +16,10 @@ class Recommandations extends Model
     * @var array
     */
     protected $guarded = [];
-    
     protected $table = 'recommandations';
 
     public function assistanteMaternelle()
-    { 
-        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id'); 
+    {
+        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id');
     }
 }

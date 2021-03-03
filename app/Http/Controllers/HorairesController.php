@@ -26,18 +26,15 @@ class HorairesController extends Controller
 
         // Vérifie d'abord sur l'utilisateur connecté est bien un parent
         if ($this->role() === 'parents') {
-
             // Récupère la liste des contrats de l'utilisateur parent connecté
             $listeContrats = Contrats::where('parent_id', Auth::user()->categorie->id)->get();
             $listeIdContrats = [];
             foreach ($listeContrats as $contrat) {
-
                 // Met dans un tableau tous les id des contrats appartenant à l'utilisateur parent connecté
                 $listeIdContrats[] = $contrat->id;
 
                 // Permettra de vérifier si la date renseigné et postérieur ou égal à la date du contrat
                 $date_debut = (intval($request->input('contrat_id')) === $contrat->id) ? $contrat->date_debut : $date_debut = date('Y-m-d');
-
             }
 
             /**
@@ -72,18 +69,14 @@ class HorairesController extends Controller
 
                 $dateinit = \Carbon\Carbon::parse($request->input('jour_garde'));
                 return back()->with('success', "L'horaire pour le {$dateinit->format('d/m/Y')} a bien été enregistré");
-
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('message', 'Un horaire existe déjà pour ce jour');
                 }
             }
-
         } else {
             return back()->with('message', "Désole cette page n'est pas accessible");
         }
-
     }
-
 }

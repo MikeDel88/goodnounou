@@ -31,7 +31,8 @@ class UserController extends Controller
      * Utilise le middleware auth pour récupérer les informations de l'utilisateur
      * @return void
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -49,12 +50,12 @@ class UserController extends Controller
         $this->_data['enfants']  = ($this->_data['role'] === 'parents') ? Enfant::where('parent_id', Auth::user()->categorie->id)->get() : '';
         $this->_data['contrats'] = ($this->_data['role'] === 'parents') ? Contrats::where('parent_id', Auth::user()->categorie->id)->where('status_id', 2)->get() : Contrats::where('assistante_maternelle_id', Auth::user()->categorie->id)->where('status_id', 2)->get();
 
-        if($this->_data['role'] === 'assistante-maternelle'){
+        if ($this->_data['role'] === 'assistante-maternelle') {
             $this->_data['messages'] =  Messages::where('assistante_maternelle_id', Auth::user()->categorie->id)->orderByDesc('jour_garde')
                 ->limit(5)
                 ->get();
-        }elseif($this->_data['role'] === 'parents'){
-            foreach(Auth::user()->categorie->enfants as $enfant){
+        } elseif ($this->_data['role'] === 'parents') {
+            foreach (Auth::user()->categorie->enfants as $enfant) {
                 $this->_data['messages'] = Messages::where('enfant_id', $enfant->id)
                     ->orderByDesc('jour_garde')
                     ->limit(1)
@@ -77,7 +78,7 @@ class UserController extends Controller
         /**
          * Vérifie si l'utilisateur demandé est bien celui connecté
          */
-        if(intval($user) === Auth::user()->id){
+        if (intval($user) === Auth::user()->id) {
             $this->_data['role'] = $this->role();
 
             return view('profil_edit', $this->_data);
@@ -98,8 +99,7 @@ class UserController extends Controller
         /**
          * Vérifie si l'utilisateur demandé est bien celui connecté
          */
-        if(intval($user) === Auth::user()->id){
-
+        if (intval($user) === Auth::user()->id) {
             Validator::make($request->input(), [
                 'nom'               => 'bail|required',
                 'prenom'            => 'bail|required',
@@ -116,8 +116,7 @@ class UserController extends Controller
             /**
              * Si l'utilisateur a renseigné une photo, alors on stocke l'image dans un dossier images et un dossier avec le numéro de l'utilisateur
              */
-            if($request->file('photo') !== null){
-
+            if ($request->file('photo') !== null) {
                 $request->validate([
                     'photo' => 'image|mimes:jpeg,png,jpg|max:800',
                 ]);
@@ -130,7 +129,6 @@ class UserController extends Controller
                 ->update([
                     'photo' => $url,
                 ]);
-
             }
 
             User::where('id', $user)
@@ -149,7 +147,6 @@ class UserController extends Controller
             return back()->with('success', 'Votre profil a bien été mise à jour');
         }
         return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
-
     }
 
     /**
@@ -163,22 +160,21 @@ class UserController extends Controller
         /**
          * Vérifie si l'utilisateur demandé est bien celui connecté
          */
-        if(intval($id) === Auth::user()->id){
+        if (intval($id) === Auth::user()->id) {
             $role = $this->role(); // On récupère la catégorie à laquelle appartient l'utilisateur
 
             /**
              * Traitement de suppression de la catégorie de rattachement
              */
-            if($role === 'parents'){
+            if ($role === 'parents') {
                 Parents::find(Auth::user()->categorie_id)->delete();
-            }elseif($role === 'assistante-maternelle'){
+            } elseif ($role === 'assistante-maternelle') {
                 AssistantesMaternelles::find(Auth::user()->categorie_id)->delete();
             }
 
             User::find(Auth::user()->id)->delete();
             return redirect('/')->with('message', "Votre compte a bien été supprimé");
-
-        }else{
+        } else {
             return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
         }
     }

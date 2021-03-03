@@ -38,27 +38,27 @@ class Contrats extends Model
     ];
 
     public function assistanteMaternelle()
-    { 
-        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id'); 
+    {
+        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id');
     }
 
     public function parent()
-    { 
-        return $this->belongsTo(Parents::class, 'parent_id'); 
+    {
+        return $this->belongsTo(Parents::class, 'parent_id');
     }
 
     public function enfant()
-    { 
-        return $this->belongsTo(Enfant::class, 'enfant_id'); 
+    {
+        return $this->belongsTo(Enfant::class, 'enfant_id');
     }
 
     public function status()
-    { 
-        return $this->belongsTo(Status::class, 'status_id'); 
+    {
+        return $this->belongsTo(Status::class, 'status_id');
     }
 
     public function horaire()
-    { 
-        return $this->hasMany(Horaire::class, 'contrat_id'); 
+    {
+        return $this->hasMany(Horaire::class, 'contrat_id');
     }
 }

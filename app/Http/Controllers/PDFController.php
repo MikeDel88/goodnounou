@@ -23,7 +23,6 @@ class PDFController extends Controller
     {
         $getContrat = Contrat::where('id', ':contrat')->where('parent_id', ':parent')->setBindings(['contrat' => $contrat, 'parent' => Auth::user()->categorie->id])->first();
         if (!empty($getContrat)) {
-
             $data['horaires'] = Horaire::where('contrat_id', ':contrat')->whereMonth('jour_garde', ':mois')->whereYear('jour_garde', ':annee')->orderBy('jour_garde', 'asc')->setBindings(['contrat' => intval($contrat), 'mois' => $mois, 'annee' => $annee])->get();
             $data['contrat'] = $getContrat;
             $data['total'] = Horaire::select(DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(heure_fin, heure_debut)))) AS nombre_heures'))->where('contrat_id', ':contrat')->whereMonth('jour_garde', ':mois')->whereYear('jour_garde', ':annee')->setBindings(['contrat' => intval($contrat), 'mois' => $mois, 'annee' => $annee])->first();

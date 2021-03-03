@@ -13,6 +13,7 @@ trait PasswordValidationRules
      */
     protected function passwordRules()
     {
-        return ['required', 'string', new Password, 'confirmed', 'filled','min:8','max:16'];
+return ['required', 'string', new Password, 'confirmed', 'filled', 'min:8', 'max:16'];
+
     }
 }

@@ -12,7 +12,8 @@ use App\Models\Parents;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
 
     /**
@@ -46,7 +47,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    
     /**
      * categorie
      * Relation polymorphe d'un objet utilisateur en deux catégories (parent ou assistante-maternelle)
@@ -57,9 +57,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphTo();
     }
 
-    public function adresseComplete(){
+    public function adresseComplete()
+    {
         return "$this->adresse  $this->code_postal  $this->ville";
     }
-
-
 }

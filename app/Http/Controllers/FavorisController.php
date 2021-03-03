@@ -22,13 +22,10 @@ class FavorisController extends Controller
         $this->data['role'] = $this->role();
 
         if ($this->data['role'] === 'parents') {
-
             return view('favoris', $this->data);
-
         } else {
             return back()
                     ->with('message', "Désolé mais cette page n'est pas accessible");
         }
-
     }
 }

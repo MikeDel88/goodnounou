@@ -82,15 +82,12 @@ class MessagesController extends Controller
                 ]);
 
                 return back()->with('success', 'Message enregistré');
-
             } catch (\Illuminate\Database\QueryException $e) {
-
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('message', 'Une erreur est survenue');
                 }
             }
-
         } else {
             return back()->with('message', "Désolé mais cette opération est impossible");
         }
@@ -127,7 +124,6 @@ class MessagesController extends Controller
              * Modification du message par l'assistante maternelle
              */
             try {
-
                 $message = Messages::where('id', $request->input('id_message'))
                     ->where('enfant_id', $request->input('enfant'))
                     ->first();
@@ -135,18 +131,14 @@ class MessagesController extends Controller
                 $message->save();
 
                 return back()->with('success', 'Message modifié avec succès');
-
             } catch (\Illuminate\Database\QueryException $e) {
-
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()->with('message', 'Une erreur est survenue');
                 }
             }
-
         } else {
             return back()->with('message', "Désolé mais cette opération est impossible");
         }
     }
-
 }

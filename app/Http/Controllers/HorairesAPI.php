@@ -6,12 +6,18 @@ use App\Models\Horaire;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
+/**
+ * HorairesAPI
+ */
 class HorairesAPI extends Controller
 {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int  $contrat Contrat
+     * @param int  $mois    Mois
+     * @param int  $annee   Annee
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($contrat, $mois, $annee)
@@ -23,13 +29,13 @@ class HorairesAPI extends Controller
             ->setBindings(['contrat' => intval($contrat), 'mois' => $mois, 'annee' => $annee])
             ->get();
 
-        return response()->json([
-            'horaire' => $listeContrats,
-        ]);
+        return response()->json(['horaire' => $listeContrats]);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param \Illuminate\Http\Request $request Requête
      *
      * @return \Illuminate\Http\Response
      */

@@ -11,7 +11,6 @@ use App\Models\Contrats as Contrats;
 use App\Models\Messages as Messages;
 use App\Models\Recommandations as Recommandations;
 
-
 class AssistantesMaternelles extends Model
 {
     use HasFactory;
@@ -27,7 +26,7 @@ class AssistantesMaternelles extends Model
     ];
 
     protected $table = 'assistantes_maternelles';
-    
+
     /**
      * categorie
      * Relation polymorphe avec l'objet utilisateur
@@ -39,28 +38,27 @@ class AssistantesMaternelles extends Model
     }
 
     public function criteres()
-    { 
-        return $this->hasOne(Critere::class, 'assistante_maternelle_id', 'id'); 
+    {
+        return $this->hasOne(Critere::class, 'assistante_maternelle_id', 'id');
     }
 
     public function favoris()
-    { 
-        return $this->hasMany(Favoris::class, 'assistante_maternelle_id'); 
+    {
+        return $this->hasMany(Favoris::class, 'assistante_maternelle_id');
     }
 
     public function contrats()
-    { 
-        return $this->hasMany(Contrats::class, 'assistante_maternelle_id'); 
+    {
+        return $this->hasMany(Contrats::class, 'assistante_maternelle_id');
     }
 
     public function messages()
-    { 
-        return $this->hasMany(Messages::class, 'assistante_maternelle_id'); 
+    {
+        return $this->hasMany(Messages::class, 'assistante_maternelle_id');
     }
 
     public function recommandations()
-    { 
-        return $this->hasMany(Recommandations::class, 'assistante_maternelle_id'); 
+    {
+        return $this->hasMany(Recommandations::class, 'assistante_maternelle_id');
     }
-
 }

@@ -9,22 +9,12 @@ use App\Models\Favoris as Favoris;
 use App\Models\Contrats as Contrats;
 use App\Models\Enfant as Enfant;
 
-
 class Parents extends Model
 {
     use HasFactory;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    
-    protected $fillable = [
-        
-    ];
-    
+
     protected $table = 'parents';
-    
+
     /**
      * categorie
      * Relation polymorphe avec l'objet utilisateur
@@ -37,16 +27,16 @@ class Parents extends Model
 
     public function enfants()
     {
-        return $this->hasMany(Enfant::class, 'parent_id'); 
+        return $this->hasMany(Enfant::class, 'parent_id');
     }
 
     public function favoris()
-    { 
-        return $this->hasMany(Favoris::class, 'parent_id'); 
+    {
+        return $this->hasMany(Favoris::class, 'parent_id');
     }
 
     public function contrats()
-    { 
-        return $this->hasMany(Contrats::class, 'parent_id'); 
+    {
+        return $this->hasMany(Contrats::class, 'parent_id');
     }
 }

@@ -43,8 +43,8 @@ class RecommandationsAPI extends Controller
         } else {
             $status = false;
         }
-        return response()->json(['status' => $status]);
 
+        return response()->json(['status' => $status]);
     }
 
     /**

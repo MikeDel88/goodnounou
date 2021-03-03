@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -25,7 +24,6 @@ class PlanningController extends Controller
             $this->data['js'][] = 'planning';
 
             return view('planning', $this->data);
-
         } else {
             return back()->with('message', "Cette page n'est pas accessible");
         }

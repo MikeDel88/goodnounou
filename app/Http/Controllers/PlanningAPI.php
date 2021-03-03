@@ -26,10 +26,8 @@ class PlanningAPI extends Controller
                     'horaires' => $contrat->horaire,
                 ];
             }
-
         }
 
         return response()->json(['events' => $horaires]);
     }
-
 }

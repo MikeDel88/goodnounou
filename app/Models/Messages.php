@@ -31,12 +31,12 @@ class Messages extends Model
     ];
 
     public function assistanteMaternelle()
-    { 
-        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id'); 
+    {
+        return $this->belongsTo(AssistantesMaternelles::class, 'assistante_maternelle_id');
     }
 
     public function enfant()
-    { 
-        return $this->belongsTo(Enfant::class, 'enfant_id'); 
+    {
+        return $this->belongsTo(Enfant::class, 'enfant_id');
     }
 }

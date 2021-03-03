@@ -61,7 +61,6 @@ class EnfantController extends Controller
         )->validate();
 
         try {
-
             Enfant::create(
                 [
                     'parent_id'       =>  Auth::user()->categorie->id,
@@ -71,7 +70,6 @@ class EnfantController extends Controller
                 ]
             );
             return back()->with('success', "Votre enfant a bien été crée");
-
         } catch (\Illuminate\database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode === 1062) {
@@ -134,8 +132,7 @@ class EnfantController extends Controller
                 );
 
             return back()->with('success', "Votre enfant a bien été modifié");
-
-        } catch(\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
                 return back()->with('message', 'Cet enfant existe déjà');
@@ -159,14 +156,10 @@ class EnfantController extends Controller
          * Vérifie si le parent de l'enfant est bien l'utilisateur connecté
          */
         if ($enfant->parent_id === Auth::user()->categorie->id) {
-
             Enfant::where('id', $enfant->id)->delete();
             return redirect('/liste/enfants')->with('success', "L'enfant a bien été supprimé");
-
         } else {
-
             return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
-
         }
     }
 }
