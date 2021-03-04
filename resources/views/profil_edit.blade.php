@@ -44,13 +44,13 @@
                         <label for="adresse" class="form-label">Adresse</label>
                         <input type="text" class="form-control" id="adresse" value="{{ Auth::user()->adresse ?? old('adresse') }}" name="adresse" required>
                     </div>
-                    <div class="mb-3 col-md-4">
-                        <label for="ville" class="form-label">Ville</label>
-                        <input type="text" class="form-control" id="ville" value="{{ Auth::user()->ville ?? old('ville') }}" name="ville" required>
-                    </div>
                     <div class="mb-3 col-md-2">
                         <label for="code_postal" class="form-label">Code Postal</label>
                         <input type="text" class="form-control" id="code_postal" value="{{ Auth::user()->code_postal ?? old('code_postal') }}" name="code_postal" required>
+                    </div>
+                    <div class="mb-3 col-md-4">
+                        <label for="ville" class="form-label">Ville</label>
+                        <input type="text" class="form-control" id="ville" value="{{ Auth::user()->ville ?? old('ville') }}" name="ville" required>
                     </div>
                 </div>
                 <div class="row">

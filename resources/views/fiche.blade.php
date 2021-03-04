@@ -13,6 +13,7 @@
                 <li>Identité : {{ Auth::user()->nom }} {{ Auth::user()->prenom }} ({{ Carbon\Carbon::parse(Auth::user()->date_naissance)->age }} ans)</li>
                 <li>Téléphone : {{ Auth::user()->telephone ?? 'non renseigné' }}</li>
                 <li>Email : {{ Auth::user()->email_contact ?? 'non renseigné ' }}</li>
+                <li>Adresse personnelle : <span id="adresse-perso">{{Auth::user()->adresse}}</span> <span id='code-postal-perso'>{{Auth::user()->code_postal}}</span> <span id="ville-perso">{{Auth::user()->ville}}</span></li>
                 <li>Membre depuis le : {{ Auth::user()->created_at->translatedFormat('j F Y') }}</li>
                 <li class="text-end">
                     <a href=" /users/{{ Auth::user()->id }}/edit">Modifier mes informations</a>
@@ -42,18 +43,26 @@
                             <input type="text" class="form-control" id="formation" value="{{ Auth::user()->categorie->formation ?? old('formation') }}" name="formation" required>
                         </div>
                     </div>
+                    @if(Auth::user()->adresse !== null)
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label for="same-adress">Utiliser mon adresse personnelle</label>
+                                <input id="same-adress" type="checkbox">
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="adresse_pro" class="form-label">Mon adresse</label>
                             <input type="text" class="form-control" id="adresse_pro" value="{{ Auth::user()->categorie->adresse_pro ?? old('adresse_pro') }}" name="adresse_pro" required>
                         </div>
-                        <div class="mb-3 col-md-4">
-                            <label for="ville_pro" class="form-label">Ma ville</label>
-                            <input type="text" class="form-control" id="ville_pro" value="{{ Auth::user()->categorie->ville_pro ?? old('ville_pro') }}" name="ville_pro" required>
-                        </div>
                         <div class="mb-3 col-md-2">
                             <label for="code_postal_pro" class="form-label">Mon code postal</label>
                             <input type="text" class="form-control" id="code_postal_pro" value="{{ Auth::user()->categorie->code_postal_pro ?? old('code_postal_pro') }}" name="code_postal_pro" required>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="ville_pro" class="form-label">Ma ville</label>
+                            <input type="text" class="form-control" id="ville_pro" value="{{ Auth::user()->categorie->ville_pro ?? old('ville_pro') }}" name="ville_pro" required>
                         </div>
                     </div>
                     <div class="row">

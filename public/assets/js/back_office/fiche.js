@@ -112,3 +112,33 @@ criteres.forEach(critere => {
         );
     })
 })
+
+
+// Permet de reprendre l'adresse personnel pour l'adresse pro
+let sameAdress = document.querySelector('#same-adress');
+const SELECTEUR = {
+    'adresse_pro' : document.querySelector('#adresse_pro'),
+    'code_postal_pro' : document.querySelector('#code_postal_pro'),
+    'ville_pro' : document.querySelector('#ville_pro')
+}
+const ADRESSE_PRO = SELECTEUR.adresse_pro.value;
+const CODE_POSTAL_PRO =  SELECTEUR.code_postal_pro.value;
+const VILLE_PRO = SELECTEUR.ville_pro.value;
+const ADRESSE = document.querySelector('#adresse-perso').innerHTML;
+const CODE_POSTAL = document.querySelector('#code-postal-perso').innerHTML;
+const VILLE = document.querySelector('#ville-perso').innerHTML;
+
+function adresseComplete(adresse, cp, ville){
+    SELECTEUR.adresse_pro.value = adresse;
+    SELECTEUR.code_postal_pro.value = cp;
+    SELECTEUR.ville_pro.value = ville;
+}
+
+
+sameAdress.addEventListener('change', function(){
+    if(this.checked){
+        adresseComplete(ADRESSE, CODE_POSTAL, VILLE)
+    }else{
+        adresseComplete(ADRESSE_PRO, CODE_POSTAL_PRO, VILLE_PRO)
+    }
+})
