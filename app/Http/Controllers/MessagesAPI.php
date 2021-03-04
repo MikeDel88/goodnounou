@@ -26,6 +26,7 @@ class MessagesAPI extends Controller
         $enfant = Enfant::findOrFail(intval($id));
         if ($enfant->parents->id === intval($idParent)) {
             foreach ($enfant->messages->sortByDesc('jour_garde') as $message) {
+
                 $assistanteMaternelle = AssistantesMaternelles::find($message->assistante_maternelle_id);
 
                 $infos = new \stdClass();

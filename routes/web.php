@@ -55,7 +55,7 @@ Route::middleware(['verified', 'parents'])->group(function () {
         Route::get('/carnet-de-bord/consulter', [MessagesController::class, 'show'])->name('carnet_consultation');
         Route::post('/fiche/assistante-maternelle/avis', [RecommandationsController::class, 'store'])->name('ajout_avis');
         Route::delete('/fiche/assistante-maternelle/avis', [RecommandationsController::class, 'destroy'])->name('ajout_avis');
-    });   
+    });
 });
 
 // Route accessible si l'utilisateur est authentifié et appartient à la catégorie assistante-maternelle
@@ -70,6 +70,8 @@ Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
         Route::post('/message/ajouter', [MessagesController::class, 'store']);
         Route::post('/message/modifier', [MessagesController::class, 'update']);
         Route::get('/recommandations', [RecommandationsController::class, 'index'])->name('recommandations');
+
+
     });
 });
 

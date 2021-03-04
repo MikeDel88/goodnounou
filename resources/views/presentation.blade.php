@@ -3,7 +3,7 @@
     {{-- Renseignements générales sur l'assistante maternelle avec ses disponibilités, nombre d'avis, notes et moyenne de note --}}
     <article class="box box-lg">
         <header>
-            <h4>Renseignements 
+            <h4>Renseignements
                 @if($moyenne !== null)
                     @for ($i = 1; $i <= $noteMax; $i++)
                         <i class="fs-6 text-warning @if($i <= $moyenne) fas @else far @endif fa-star"></i>
@@ -64,7 +64,7 @@
             <footer class="d-flex flex-wrap justify-content-between border-top">
                 <div>
                     <span>
-                        Note : 
+                        Note :
                         @for ($i = 1; $i <= $noteMax; $i++)
                             <i id="note{{ $i }}" alt="note {{$i}} / {{$noteMax}}" data-note="{{ $i }}" class="@if (isset($recommandation) && $i <=$recommandation->note) fas noteCheck @endif far fa-star note"></i>
                         @endfor
@@ -125,30 +125,30 @@
     </article>
 {{-- Modal pouur enregistrer ou supprimer un avis --}}
     <div class="modal fade" id="modalAvis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <form method="POST" action="{{ route('parent.ajout_avis')}}" class="modal-content">
-            @csrf
-            @if(isset($recommandation) && $recommandation->avis !== null)
-                @method('DELETE') 
-            @else
-                @method('POST') 
-            @endif
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Avis pour {{$renseignements->nom}} {{$renseignements->prenom}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body form-floating p-2">
-                <input type="hidden" name="parent" value="{{Auth::user()->categorie->id}}">
-                <input type="hidden" name="assistante-maternelle" value="{{$renseignements->categorie->id}}">
-                <textarea class="form-control" name="avis" placeholder="Avis" id="avis" style="height:200px">@if(isset($recommandation) && $recommandation->avis !== null) {{$recommandation->avis}} @else {{old('avis')}}@endif</textarea>
-                <label for="avis">Avis sur l'assistante maternelle</label>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="submit" class="btn btn-primary">@if(isset($recommandation) && $recommandation->avis !== null) Supprimer avis et note @else Valider @endif</button>
-            </div>
-        </form>
-      </div>
+        <div class="modal-dialog modal-lg">
+            <form method="POST" action="{{ route('parent.ajout_avis')}}" class="modal-content">
+                @csrf
+                @if(isset($recommandation) && $recommandation->avis !== null)
+                    @method('DELETE')
+                @else
+                    @method('POST')
+                @endif
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Avis pour {{$renseignements->nom}} {{$renseignements->prenom}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body form-floating p-2">
+                    <input type="hidden" name="parent" value="{{Auth::user()->categorie->id}}">
+                    <input type="hidden" name="assistante-maternelle" value="{{$renseignements->categorie->id}}">
+                    <textarea class="form-control" name="avis" placeholder="Avis" id="avis" style="height:200px">@if(isset($recommandation) && $recommandation->avis !== null) {{$recommandation->avis}} @else {{old('avis')}}@endif</textarea>
+                    <label for="avis">Avis sur l'assistante maternelle</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">@if(isset($recommandation) && $recommandation->avis !== null) Supprimer avis et note @else Valider @endif</button>
+                </div>
+            </form>
+        </div>
     </div>
 {{-- Contenu des avis sur l'assistante maternelle --}}
     <article id="avis" class="box box-lg">
@@ -172,8 +172,8 @@
     const pagination = document.querySelector('#pagination_avis');
     const messages = document.querySelector('#messages_avis');
     const noteMax = document.querySelectorAll('.note').length;
-    
-    
+
+
     function creationMessage(message){
 
         let p = document.createElement('p');
@@ -215,14 +215,14 @@
         if(link.active){
             a.classList.add('page_current');
         }
-        
+
 
         //Evenemement sur le click d'une page
         a.addEventListener('click', async function(e){
             e.preventDefault();
 
             loader();
-            
+
             document.querySelector('.page_current').classList.remove('page_current');
 
             fetch(`${window.origin}/api/avis/${nounouId}?page=${link.label}`).then((element) => {
@@ -231,7 +231,7 @@
                 element.json().then((response) => {
 
                     document.querySelector(`.page_number${response.avis.current_page}`).classList.add('page_current');
-                    
+
                     response.avis.data.forEach(message => {
                         creationMessage(message)
                     })
@@ -239,7 +239,7 @@
             })
         })
     }
-   
+
     window.addEventListener('load', function(){
 
         // Récupère l'ensemble des messages d'une assistante-maternelle
@@ -257,22 +257,22 @@
                         element.avis.data.forEach(message => {
                             creationMessage(message)
                         })
-        
+
                         // Boucle pour les liens de pagination
                         element.avis.links.forEach(link => {
 
                             if(link.label !== 'Suivant &raquo;' && link.label !== '&laquo; Précédent'){
                                 creationPagination(link);
-                            } 
+                            }
                         })
                     }else{
                         messages.innerHTML = 'Aucun avis';
                     }
-                    
+
 
                 })
             }
-            
+
         })
     })
 </script>

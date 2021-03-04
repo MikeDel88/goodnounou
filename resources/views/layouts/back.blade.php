@@ -48,7 +48,7 @@
     <div class="fond"></div>
 
     <!-- Bandeau du côté version parents -->
-    <aside style="z-index:100">
+    <aside class="aside" role="complementary" style="z-index:100">
 
         <div class="menu-one">
             <h1 aria-label="menu">GoodNounou</h1>
@@ -65,7 +65,7 @@
             <h3>{{ Auth::user()->nom ?? '' }} {{ Auth::user()->prenom ?? '' }}</h3>
         </div>
         <div class="menu-two">
-            <nav>
+            <nav role="navigation">
                 <ul>
                     <li><a href="{{ route('profile') }}"><i class="fas fa-home"></i><span>Accueil</span></a></li>
                     @if ($role === 'parents')
@@ -84,9 +84,9 @@
             </nav>
         </div>
     </aside>
-    <main>
+    <main id="main" role="main">
         <!-- Bannière du haut layout version parents -->
-        <header>
+        <header id="header" role="banner">
             {{-- Accès vers le menu général --}}
             <div class="menu-mobile">
                 <a href="#" class="menu_principal_mobile" aria-label="menu"><i class="fas fa-bars"></i></a>
@@ -96,7 +96,7 @@
             @else
                 <h2>Espace Assistante Maternelle</h2>
             @endif
-            <nav>
+            <nav role="navigation">
                 <a href="/planning/{{ Auth::user()->id }}" aria-label="mon agenda" title="mon agenda"><i class="far fa-calendar-alt"></i></a>
                 <a href="/users/{{ Auth::user()->id }}/edit" aria-label="mon compte" title="mon profil utilisateur"><i class="fas fa-user-circle"></i></a>
                 <a href="{{ route('logout') }}" title="me déconnecter" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i></a>

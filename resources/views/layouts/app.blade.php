@@ -36,7 +36,7 @@
 
 <body>
     <div id="app">
-        <header>
+        <header id="header" role="banner">
             {{-- Menu pour le mobile --}}
             <nav class="menu-burger">
                 <div id="burger"><i class="fas fa-bars"></i></div>
@@ -63,7 +63,7 @@
             </nav>
             <h1 class="titre">Good Nounou</h1>
             {{-- Menu pour l'ecran de bureau --}}
-            <nav class="menu-desktop">
+            <nav id="navigation" role="navigation" class="menu-desktop">
                 <ul>
                     @guest
                         <li><a href="/" class="accueil">Accueil</a></li>
@@ -84,7 +84,7 @@
                 </ul>
             </nav>
         </header>
-        <main class="py-4">
+        <main id="main" class="py-4" role="main">
             {{-- Affiche une erreur sur la page demandé est interdite d'accès --}}
             @if (session('error403'))
                 <div class="response">{{ session('error403') }}</div>
@@ -94,9 +94,9 @@
             @endif
             @yield('content')
         </main>
-        <footer>
+        <footer id="footer" role="contentinfo">
             <div class="menu">
-                <nav class="liens">
+                <nav role="navigation" class="liens">
                     <ul>
                         <li><a href="#">Contacter l'administrateur</a></li>
                         <li><a href="#">Conditions générales</a></li>
@@ -104,7 +104,7 @@
                         <li><a href="#">Remerciements</a></li>
                     </ul>
                 </nav>
-                <nav class="login">
+                <nav role="navigation" class="login">
                     <ul>
                         @guest
                             @if (Route::has('register'))

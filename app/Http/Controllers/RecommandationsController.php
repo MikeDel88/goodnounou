@@ -6,6 +6,8 @@ use App\Models\Recommandations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 
 /**
  * RecommandationsController
@@ -14,17 +16,70 @@ use Illuminate\Support\Facades\Validator;
  */
 class RecommandationsController extends Controller
 {
+
+    private array $_data = [];
+
     /**
      * Affiche la liste des recommandations
      *
+     * @param \Illuminate\Http\Request $request Requête
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(? Request $request)
     {
+
         if ($this->role() === 'assistante-maternelle') {
-            echo "ok";
+            $this->_data['role'] = $this->role();
+            $this->_data['noteMax'] = 5;
+            $this->_data['nombreNote'] = Recommandations::where('assistante_maternelle_id', Auth::user()->categorie_id)
+                ->whereNotNull('note')
+                ->count();
+            $this->_data['nombreAvis'] = Recommandations::where('assistante_maternelle_id', Auth::user()->categorie_id)
+                ->whereNotNull('avis')
+                ->count();
+            $this->_data['moyenne'] = Recommandations::where('assistante_maternelle_id', Auth::user()->categorie_id)
+                ->whereNotNull('note')
+                ->avg('note');
+
+            if ($request->input('filtre')) {
+
+                Validator::make(
+                    $request->input(),
+                    ['filtre' => ['required',Rule::in(['note_asc', 'note_desc', 'avis_asc', 'avis_desc'])]]
+                );
+
+                $filtre = explode('_', $request->input('filtre'));
+
+                $filtre[0] = ($filtre[0] === 'avis') ? 'recommandations.updated_at' : 'recommandations.note';
+
+                $this->_data['listeAvis'] = Recommandations::join('users', 'users.categorie_id', '=', 'parent_id')
+                    ->select('users.nom', 'users.prenom', 'recommandations.updated_at', 'recommandations.note', 'recommandations.avis')
+                    ->where('users.categorie_type', 'App\\Models\\Parents')
+                    ->where('assistante_maternelle_id', Auth::user()->categorie_id)
+                    ->whereNotNull($filtre[0])
+                    ->orderBy($filtre[0], $filtre[1])
+                    ->paginate(5);
+
+            } else {
+
+                $this->_data['listeAvis'] = Recommandations::join('users', 'users.categorie_id', '=', 'parent_id')
+                    ->select('users.nom', 'users.prenom', 'recommandations.updated_at', 'recommandations.note', 'recommandations.avis')
+                    ->where('users.categorie_type', 'App\\Models\\Parents')
+                    ->where('assistante_maternelle_id', Auth::user()->categorie_id)
+                    ->whereNotNull('avis')
+                    ->orderByDesc('recommandations.updated_at')
+                    ->paginate(5);
+
+            }
+
+            return view('recommandations', $this->_data);
+
+        } else {
+            return back()->with('message', "Cette page n'est pas accessible");
         }
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -69,7 +124,7 @@ class RecommandationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param request $request Requête
+     * @param \Illuminate\Http\Request $request Requête
      *
      * @return \Illuminate\Http\Response
      */
