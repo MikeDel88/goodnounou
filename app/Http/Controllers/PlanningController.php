@@ -11,6 +11,16 @@ class PlanningController extends Controller
 {
 
     /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param int $id Id
@@ -26,7 +36,7 @@ class PlanningController extends Controller
 
             return view('planning', $this->data);
         } else {
-            return back()->with('message', "Cette page n'est pas accessible");
+            return back()->with('message', $this->messages['erreur_acces']);
         }
     }
 }

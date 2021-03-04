@@ -14,6 +14,16 @@ use PDF;
  */
 class PDFController extends Controller
 {
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +47,7 @@ class PDFController extends Controller
 
             return $pdf->download("horaires-$mois-$annee.pdf");
         } else {
-            return back()->with('message', "Ce document n'est pas accessible");
+            return back()->with('message', $this->messages['erreur_document']);
         }
     }
 

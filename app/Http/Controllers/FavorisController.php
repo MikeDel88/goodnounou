@@ -11,6 +11,16 @@ class FavorisController extends Controller
 {
 
     /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
      * Show
      * Permet à un parent de consulter la liste de ses assistantes maternelles favorites
      * et d'accéder à leurs fiches
@@ -25,7 +35,7 @@ class FavorisController extends Controller
             return view('favoris', $this->data);
         } else {
             return back()
-                    ->with('message', "Désolé mais cette page n'est pas accessible");
+                ->with('message', $this->messages['erreur_acces']);
         }
     }
 }

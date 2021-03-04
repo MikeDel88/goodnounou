@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\Validator;
 class MessagesController extends Controller
 {
 
+    private array $_messages = [];
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_messages = [
+            'validation' => 'Message enregistré',
+            'modification' => 'Message modifié avec succès'
+        ];
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -58,9 +73,9 @@ class MessagesController extends Controller
          */
         Validator::make(
             $request->input(), [
-            'enfant' => 'integer|required',
-            'jour_garde' => "before_or_equal:today|required",
-            'message' => 'string|required',
+                'enfant' => 'integer|required',
+                'jour_garde' => "before_or_equal:today|required",
+                'message' => 'string|required',
             ]
         )->validate();
 
@@ -79,22 +94,22 @@ class MessagesController extends Controller
             try {
                 Messages::create(
                     [
-                    'assistante_maternelle_id' => Auth::user()->categorie->id,
-                    'enfant_id' => $request->input('enfant'),
-                    'contenu' => $request->input('message'),
-                    'jour_garde' => $request->input('jour_garde'),
+                        'assistante_maternelle_id' => Auth::user()->categorie->id,
+                        'enfant_id' => $request->input('enfant'),
+                        'contenu' => $request->input('message'),
+                        'jour_garde' => $request->input('jour_garde'),
                     ]
                 );
 
-                return back()->with('success', 'Message enregistré');
+                return back()->with('success', $this->_messages['validation']);
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
-                    return back()->with('message', 'Une erreur est survenue');
+                    return back()->with('message', $this->messages['erreur']);
                 }
             }
         } else {
-            return back()->with('message', "Désolé mais cette opération est impossible");
+            return back()->with('message', $this->messages['erreur']);
         }
     }
 
@@ -113,9 +128,9 @@ class MessagesController extends Controller
         Validator::make(
             $request->input(),
             [
-            'enfant' => 'integer|required',
-            'id_message' => 'integer|required',
-            'contenu' => 'string|required',
+                'enfant' => 'integer|required',
+                'id_message' => 'integer|required',
+                'contenu' => 'string|required',
             ]
         )->validate();
 
@@ -139,15 +154,15 @@ class MessagesController extends Controller
                 $message->contenu = $request->input('contenu');
                 $message->save();
 
-                return back()->with('success', 'Message modifié avec succès');
+                return back()->with('success', $this->_messages['modifications']);
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
-                    return back()->with('message', 'Une erreur est survenue');
+                    return back()->with('message', $this->messages['erreur']);
                 }
             }
         } else {
-            return back()->with('message', "Désolé mais cette opération est impossible");
+            return back()->with('message', $this->messages['erreur']);
         }
     }
 }

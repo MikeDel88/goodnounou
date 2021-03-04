@@ -13,7 +13,22 @@ use Illuminate\Support\Facades\Auth;
  */
 class Controller extends BaseController
 {
+    protected array $messages = [];
 
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->messages = [
+            'erreur' => 'Désolé une erreur est survenue',
+            'erreur_page' => 'Désolé cette page n\'existe pas',
+            'erreur_acces' => 'Désolé mais cette pas n\'est pas accessible',
+            'erreur_document' => 'Ce document n\'est pas accessible',
+        ];
+    }
     /**
      * Role
      * Permet de connaitre la catégorie à laquelle appartient l'utisateur en cours

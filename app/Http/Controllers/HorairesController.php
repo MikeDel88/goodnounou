@@ -15,6 +15,18 @@ use Illuminate\Validation\Rule;
 class HorairesController extends Controller
 {
 
+    private array $_messages = [];
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_messages = ['doublon' => 'Un horaire existe déjà pour ce jour'];
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -77,11 +89,11 @@ class HorairesController extends Controller
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
-                    return back()->with('message', 'Un horaire existe déjà pour ce jour');
+                    return back()->with('message', $this->_messages['doublon']);
                 }
             }
         } else {
-            return back()->with('message', "Désole cette page n'est pas accessible");
+            return back()->with('message', $this->messages['erreur_acces']);
         }
     }
 }

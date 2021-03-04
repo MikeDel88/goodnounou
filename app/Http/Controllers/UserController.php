@@ -34,6 +34,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth');
     }
 
@@ -86,7 +87,7 @@ class UserController extends Controller
             return view('profil_edit', $this->_data);
         }
 
-        return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
+        return redirect('/profile')->with('message', $this->messages['erreur_acces']);
     }
 
     /**
@@ -150,7 +151,7 @@ class UserController extends Controller
 
             return back()->with('success', 'Votre profil a bien été mise à jour');
         }
-        return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
+        return redirect('/profile')->with('message', $this->messages['erreur_acces']);
     }
 
     /**
@@ -180,7 +181,7 @@ class UserController extends Controller
             User::find(Auth::user()->id)->delete();
             return redirect('/')->with('message', "Votre compte a bien été supprimé");
         } else {
-            return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
+            return redirect('/profile')->with('message', $this->messages['erreur_acces']);
         }
     }
 }

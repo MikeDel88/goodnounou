@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
 class AssistantesMaternelleController extends Controller
 {
     private array $_data = [];
+    private array $_messages = [];
 
     /**
      * __construct
@@ -27,7 +28,12 @@ class AssistantesMaternelleController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->_data['role'] = 'assistante-maternelle';
+        $this->_messages = [
+            'validation' => 'Vos informations ont bien été enregistrées',
+            'validation_warning' => 'Attention, Les informations sont enregistrées mais l\'adresse que vous avez renseigné ne permet pas la géolocalisation',
+        ];
     }
 
     /**
@@ -104,7 +110,7 @@ class AssistantesMaternelleController extends Controller
             return view('fiche', $this->_data);
         }
         return redirect('/profile')
-            ->with('message', "Cette page n'est pas autorisé");
+            ->with('message', $this->messages['erreur']);
     }
 
     /**
@@ -176,14 +182,14 @@ class AssistantesMaternelleController extends Controller
              */
             if ($coordonnees['lat'] !== null && $coordonnees['lng'] !== null) {
                 return back()
-                    ->with('success', 'Vos informations ont bien été enregistrées');
+                    ->with('success', $this->_messages['validation']);
             } else {
                 return back()
-                    ->with('message', "Attention, Les informations sont enregistrées mais l'adresse que vous avez renseigné ne permet pas la géolocalisation");
+                    ->with('message', $this->_messages['validation_warning']);
             }
         } else {
             return redirect('/profile')
-                ->with('message', "Cette page n'est pas autorisé");
+                ->with('message', $this->messages['erreur']);
         }
     }
 

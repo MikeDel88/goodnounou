@@ -17,6 +17,7 @@ class EnfantController extends Controller
 {
 
     private array $_data = [];
+    private array $_messages = [];
 
     /**
      * __construct
@@ -26,8 +27,16 @@ class EnfantController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth');
         $this->_data['role'] = 'parents';
+        $this->_messages = [
+            'validation' => 'Votre enfant a bien été crée',
+            'modification' => 'Votre enfant a bien été modifié',
+            'suppression' => 'L\'enfant a bien été supprimé',
+            'doublon' => 'Cet enfant existe déjà',
+            'erreur' => 'Cette page n\'est pas autorisé'
+        ];
     }
 
     /**
@@ -69,11 +78,11 @@ class EnfantController extends Controller
                     'date_naissance'  =>  $request->input('date_naissance'),
                 ]
             );
-            return back()->with('success', "Votre enfant a bien été crée");
+            return back()->with('success', $this->_messages['validation']);
         } catch (\Illuminate\database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode === 1062) {
-                return back()->with('message', 'Cet enfant existe déjà');
+                return back()->with('message', $this->_messages['doublon']);
             }
         }
     }
@@ -98,7 +107,7 @@ class EnfantController extends Controller
             $this->_data['enfant'] = $enfant;
             return view('fiche_enfant', $this->_data);
         } else {
-            return back()->with('error403', "Désolé cette enfant n'est pas accessible");
+            return back()->with('error403', $this->messages['erreur']);
         }
     }
 
@@ -131,11 +140,11 @@ class EnfantController extends Controller
                     ]
                 );
 
-            return back()->with('success', "Votre enfant a bien été modifié");
+            return back()->with('success', $this->_messages['modification']);
         } catch (\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             if ($errorCode == 1062) {
-                return back()->with('message', 'Cet enfant existe déjà');
+                return back()->with('message', $this->_messages['doublon']);
             }
         }
     }
@@ -157,9 +166,9 @@ class EnfantController extends Controller
          */
         if ($enfant->parent_id === Auth::user()->categorie->id) {
             Enfant::where('id', $enfant->id)->delete();
-            return redirect('/liste/enfants')->with('success', "L'enfant a bien été supprimé");
+            return redirect('/liste/enfants')->with('success', $this->_messages['suppression']);
         } else {
-            return redirect('/profile')->with('message', "Cette page n'est pas autorisé");
+            return redirect('/profile')->with('message', $this->messages['erreur']);
         }
     }
 }

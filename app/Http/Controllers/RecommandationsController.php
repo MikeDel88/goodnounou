@@ -18,6 +18,21 @@ class RecommandationsController extends Controller
 {
 
     private array $_data = [];
+    private array $_messages = [];
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_messages = [
+            'validation' => 'Votre avis a bien été enregistré',
+            'suppression' => 'Votre avis et votre note ont bien été supprimé'
+        ];
+    }
 
     /**
      * Affiche la liste des recommandations
@@ -77,7 +92,7 @@ class RecommandationsController extends Controller
             return view('recommandations', $this->_data);
 
         } else {
-            return back()->with('message', "Cette page n'est pas accessible");
+            return back()->with('message', $this->messages['erreur_acces']);
         }
     }
 
@@ -110,15 +125,15 @@ class RecommandationsController extends Controller
                     ],
                     ['avis' => $request->input('avis')]
                 );
-                return back()->with('success', "Votre avis a bien été enregistré");
+                return back()->with('success', $this->_messages['validation']);
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
-                    return back()->with('message', 'Cet enfant existe déjà');
+                    return back()->with('message', $this->messages['erreur_acces']);
                 }
             }
         } else {
-            return back()->with('message', "Désolé cette action n'est pas possible");
+            return back()->with('message', $this->messages['erreur']);
         }
     }
 
@@ -135,9 +150,9 @@ class RecommandationsController extends Controller
             Recommandations::where('parent_id', $request->input('parent'))
                 ->where('assistante_maternelle_id', $request->input('assistante-maternelle'))
                 ->delete();
-            return back()->with('success', 'Votre avis et votre note ont bien été supprimé');
+            return back()->with('success', $this->_messages['suppression']);
         } else {
-            return back()->with('message', "Désolé cette action n'est pas possible");
+            return back()->with('message', $this->messages['erreur']);
         }
     }
 }

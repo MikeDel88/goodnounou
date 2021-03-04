@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
  */
 class ContratController extends Controller
 {
-
+    private array $_messages;
     /**
      * __construct
      * Utilise le middleware auth pour récupérer les informations de l'utilisateur
@@ -29,7 +29,16 @@ class ContratController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth');
+        $this->_messages = [
+            'enregistre' => 'Contrat enregistré',
+            'validation' => 'Le contrat a bien été validé',
+            'refus' => 'Le contrat a bien été refusé',
+            'suppression' => 'Le contrat a bien été supprimé',
+            'clos' => 'Le contrat a bien été clôturé',
+            'doublon' => 'Un contrat avec cette assistante maternelle et cet enfant existe déjà',
+        ];
     }
 
     /**
@@ -106,17 +115,17 @@ class ContratController extends Controller
                         'frais_repas' => $assistanteMaternelle->frais_repas,
                     ]
                 );
-                return back()->with('success', 'Contrat enregistré');
+                return back()->with('success', $this->_messages['enregistre']);
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {
                     return back()
-                        ->with('message', 'Un contrat avec cette assistante maternelle et cet enfant existe déjà');
+                        ->with('message', $this->_messages['doublon']);
                 }
             }
         } else {
             return redirect('/contrats')
-                ->with('message', "Désolé, une erreur est survenue");
+                ->with('message', $this->messages['erreur']);
         }
     }
 
@@ -139,7 +148,7 @@ class ContratController extends Controller
             $this->data['nombre_heures_mois'] = ceil((($contrat->nombre_heures * $contrat->nombre_semaines) / 12));
             return view('fiche_contrat_ass_mat', $this->data);
         } else {
-            return back()->with('message', "Désolé mais ce contrat n'est pas disponible");
+            return back()->with('message', $this->messages['erreur_acces']);
         }
     }
 
@@ -178,7 +187,7 @@ class ContratController extends Controller
             return view('fiche_contrat_parents', $this->data);
         } else {
             return back()
-                ->with('message', "Désolé mais ce contrat n'est pas disponible");
+                ->with('message', $this->messages['erreur_acces']);
         }
     }
 
@@ -194,9 +203,9 @@ class ContratController extends Controller
         $contrat = Contrat::findOrFail(intval($id));
         if (Auth::user()->categorie->id === $contrat->parent_id && $contrat->status_id === 3 || Auth::user()->categorie->id === $contrat->parent_id && $contrat->status_id === 1) {
             Contrat::where('id', $id)->delete();
-            return back()->with('success', 'Le contrat a bien été supprimé');
+            return back()->with('success', $this->_messages['suppression']);
         } else {
-            return back()->with('message', "Désolé mais ce contrat n'existe pas");
+            return back()->with('message', $this->messages['erreur_page']);
         }
     }
 
@@ -214,10 +223,10 @@ class ContratController extends Controller
         if (Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status_id === 1) {
             $this->update($id, 2);
             return back()
-                ->with('success', 'Le contrat a bien été validé');
+                ->with('success', $this->_messages['validation']);
         } else {
             return back()
-                ->with('message', "Désolé mais ce contrat n'existe pas");
+                ->with('message', $this->messages['erreur']);
         }
     }
 
@@ -235,10 +244,10 @@ class ContratController extends Controller
         if (Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status_id === 1) {
             $this->update($id, 3);
             return back()
-                ->with('success', 'Le contrat a bien été refusé');
+                ->with('success', $this->_messages['refus']);
         } else {
             return back()
-                ->with('message', "Désolé mais ce contrat n'existe pas");
+                ->with('message', $this->messages['erreur']);
         }
     }
 
@@ -260,10 +269,10 @@ class ContratController extends Controller
         if ($status === true) {
             $this->update($id, 4);
             return back()
-                ->with('success', 'Le contrat a bien été clôturé');
+                ->with('success', $this->_messages['clos']);
         } else {
             return back()
-                ->with('message', "Désolé, cette page cette opération n'est pas autorisé !");
+                ->with('message', $this->messages['erreur']);
         }
     }
 
