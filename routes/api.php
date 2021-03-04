@@ -53,6 +53,7 @@ Route::get('/planning/{id}', [PlanningAPI::class, 'index']);
 
 Route::post('recommandation/note', [RecommandationsAPI::class, 'store']);
 Route::get('avis/{id}', [RecommandationsAPI::class, 'index']);
+Route::get('avis/{id}/filtre={filtre}', [RecommandationsAPI::class, 'show']);
 
 
 

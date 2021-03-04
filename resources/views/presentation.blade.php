@@ -159,7 +159,17 @@
             <div class="d-flex justify-content-center m-3 p-3">
                 <div class="spinner-border" role="status"></div>
             </div>
-            <div id='liste_avis' class="visually-hidden">
+            <form class="d-flex flex-wrap align-items-center my-3 border-bottom pb-3">
+                <label class="mx-2" for="filtre">Filtre : </label>
+                <select name="filtre" id="filtre" class=" w-75 form-select form-select-sm" aria-label="Filtre de selection" value="{{old('filtre')}}">
+                    <option value="aucun" selected disabled>Selectionnez</option>
+                    <option value="note_desc">Note : + vers -</option>
+                    <option value="note_asc">Note :  - vers + </option>
+                    <option value="avis_desc">Avis : Récents vers anciens</option>
+                    <option value="avis_asc">Avis : Anciens vers récents</option>
+                </select>
+            </form>
+            <div id='liste_avis' data-nounou-id="{{ $renseignements->categorie_id }}" class="visually-hidden">
                 <div id="messages_avis">
                 </div>
                 <div id="pagination_avis" class="text-center">
@@ -167,113 +177,4 @@
             </div>
         </div>
     </article>
-<script>
-    const nounouId = document.querySelector('.favoris input').getAttribute('data-nounou-id');
-    const pagination = document.querySelector('#pagination_avis');
-    const messages = document.querySelector('#messages_avis');
-    const noteMax = document.querySelectorAll('.note').length;
-
-
-    function creationMessage(message){
-
-        let p = document.createElement('p');
-        p.classList.add('avis');
-        let avisDate = document.createElement('span');
-        avisDate.classList.add('avis_date')
-        let avisNote = document.createElement('span');
-        avisNote.classList.add('avis_note');
-        let avisMessage = document.createElement('span');
-        avisMessage.classList.add('avis_message');
-
-        avisDate.innerHTML = `Le ${new Date(message.updated_at).toLocaleDateString('fr-FR')} par ${message.nom} ${message.prenom}`;
-        avisNote.innerHTML = (message.note !== null) ? `Note : ${message.note}/${noteMax} ` : `aucune note`;
-        avisMessage.innerHTML = `${message.avis}`;
-
-        messages.appendChild(p);
-        p.appendChild(avisDate);
-        p.appendChild(avisNote);
-        p.appendChild(avisMessage);
-
-    }
-    function loader(){
-        document.querySelector('.spinner-border').parentNode.classList.toggle('visually-hidden');
-        document.querySelector('#liste_avis').classList.toggle('visually-hidden');
-    }
-    function resetMessages(){
-        let deleteMessages = Array.from(messages.children);
-        deleteMessages.forEach(message => {
-            message.remove();
-        })
-    }
-    function creationPagination(link){
-        let a = document.createElement('a');
-        a.href = link.url;
-        a.innerHTML = link.label;
-        a.classList.add(`page_number${link.label}`);
-        a.style.padding = '10px';
-        pagination.appendChild(a);
-        if(link.active){
-            a.classList.add('page_current');
-        }
-
-
-        //Evenemement sur le click d'une page
-        a.addEventListener('click', async function(e){
-            e.preventDefault();
-
-            loader();
-
-            document.querySelector('.page_current').classList.remove('page_current');
-
-            fetch(`${window.origin}/api/avis/${nounouId}?page=${link.label}`).then((element) => {
-                loader();
-                resetMessages();
-                element.json().then((response) => {
-
-                    document.querySelector(`.page_number${response.avis.current_page}`).classList.add('page_current');
-
-                    response.avis.data.forEach(message => {
-                        creationMessage(message)
-                    })
-                })
-            })
-        })
-    }
-
-    window.addEventListener('load', function(){
-
-        // Récupère l'ensemble des messages d'une assistante-maternelle
-        fetch(`${window.origin}/api/avis/${nounouId}`).then((response) => {
-
-            if(response.ok){
-
-                loader();
-
-                // Récupère la promesse
-                response.json().then((element) => {
-
-                    if(element.avis.data.length !== 0){
-                        // Boucle pour les messages
-                        element.avis.data.forEach(message => {
-                            creationMessage(message)
-                        })
-
-                        // Boucle pour les liens de pagination
-                        element.avis.links.forEach(link => {
-
-                            if(link.label !== 'Suivant &raquo;' && link.label !== '&laquo; Précédent'){
-                                creationPagination(link);
-                            }
-                        })
-                    }else{
-                        messages.innerHTML = 'Aucun avis';
-                    }
-
-
-                })
-            }
-
-        })
-    })
-</script>
 @endsection

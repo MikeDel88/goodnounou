@@ -44,6 +44,8 @@ class AssistantesMaternelleController extends Controller
         $this->_data['role'] = 'parents';
         $this->_data['js'][] = 'favoris';
         $this->_data['js'][] = 'recommandation';
+        $this->_data['js'][] = 'avis';
+
 
         $criteres = DB::table('criteres')
             ->select('*')

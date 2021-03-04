@@ -8,14 +8,18 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
+
+
 class UserFactory extends Factory
 {
+
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
     protected $model = User::class;
+
 
     /**
      * Define the model's default state.
@@ -24,9 +28,9 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $array = ['App\Models\AssistantesMaternelles', 'App\Models\Parents'];
-        $categorie = Arr::random($array);
-        
+
+        $categorie = $this->faker->boolean(75) ? 'App\Models\AssistantesMaternelles' : 'App\Models\Parents';
+
         return [
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
@@ -34,8 +38,8 @@ class UserFactory extends Factory
             'categorie_id' => $categorie::factory(),
             'password' => Hash::make('test1988'), // password
             'remember_token' => Str::random(10),
-            'nom' => Str::random(10),
-            'prenom' => Str::random(10),
+            'nom' => $this->faker->lastName,
+            'prenom' => $this->faker->firstName,
         ];
     }
 }

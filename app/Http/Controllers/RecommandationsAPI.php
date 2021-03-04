@@ -25,7 +25,6 @@ class RecommandationsAPI extends Controller
             ->where('assistante_maternelle_id', $id)
             ->whereNotNull('avis')
             ->orderByDesc('recommandations.updated_at')
-            ->limit(100)
             ->paginate(10);
 
         return response()->json(['avis' => $avis]);
@@ -60,9 +59,22 @@ class RecommandationsAPI extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $filtres)
     {
-        //
+        $filtre = explode('_', $filtres);
+
+        $filtre[0] = ($filtre[0] === 'avis') ? 'recommandations.updated_at' : 'recommandations.note';
+
+        $avis = Recommandations::join('users', 'users.categorie_id', '=', 'parent_id')
+            ->select('users.nom', 'users.prenom', 'recommandations.updated_at', 'recommandations.note', 'recommandations.avis')
+            ->where('users.categorie_type', 'App\\Models\\Parents')
+            ->where('assistante_maternelle_id', $id)
+            ->whereNotNull($filtre[0])
+            ->orderBy($filtre[0], $filtre[1])
+            ->paginate(10);
+
+            return response()->json(['avis' => $avis]);
+
     }
 
     /**

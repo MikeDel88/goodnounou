@@ -45,6 +45,7 @@ Route::middleware(['verified', 'parents'])->group(function () {
         Route::get('/fiche/enfant/{id}', [EnfantController::class, 'edit']);
         Route::delete('/fiche/enfant/{id}', [EnfantController::class, 'destroy']);
         Route::put('/fiche/enfant/{id}', [EnfantController::class, 'update']);
+        Route::get('fiche/assistante-maternelle/{id}', [AssistantesMaternelleController::class, 'showCard']);
         Route::get('recherche', [RechercheController::class, 'index'])->name('recherche');
         Route::post('/contrats/creation', [ContratController::class, 'store'])->name('contrat_creation');
         Route::get('/contrat/{id}/supprimer', [ContratController::class, 'destroy'])->name('contrat_supprimer');
@@ -77,7 +78,6 @@ Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
 
 // Route accessible pour un utilisateur vérifié
 Route::middleware(['verified'])->group(function () {
-    Route::get('fiche/assistante-maternelle/{id}', [AssistantesMaternelleController::class, 'showCard']);
     Route::get('contrats', [ContratController::class, 'index'])->name('contrats');
     Route::get('/planning/{id}', [PlanningController::class, 'show']);
 });

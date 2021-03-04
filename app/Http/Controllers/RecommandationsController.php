@@ -73,6 +73,7 @@ class RecommandationsController extends Controller
 
             }
 
+            $this->_data['js'][] = 'avis';
             return view('recommandations', $this->_data);
 
         } else {
