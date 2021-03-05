@@ -55,9 +55,12 @@
         </div>
         <div class="identite">
             <figure>
+                @php
+                    $userId = Auth::user()->id;
+                @endphp
                 {{-- Mettre en place une condition pour afficher la photo de profil si elle existe --}}
-                @if (Auth::user()->photo !== null)
-                    <img src="{{ Auth::user()->photo }}" alt=" photo identite">
+                @if (Auth::user()->getFirstMediaUrl("avatar-$userId", 'thumb'))
+                    <img src="{{ Auth::user()->getFirstMediaUrl("avatar-$userId", 'thumb') }}" alt=" photo identite">
                 @else
                     <img src="{{ URL::asset('assets/images/photo_vide.jpg') }}" alt="Photo d'identité vide">
                 @endif

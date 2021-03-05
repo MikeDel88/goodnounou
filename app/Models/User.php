@@ -8,15 +8,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Events\Registered;
 use App\Models\AssistanteMaternelle;
+use Spatie\MediaLibrary\HasMedia;
 use App\Models\Parents;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+
 
 /**
  * User
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
     use HasFactory;
     use Notifiable;
+    use InteractsWithMedia;
+
 
 
     /**
@@ -51,6 +58,38 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * RegisterMediaCollections
+     *
+     * @return void
+     */
+    public function registerMediaCollections(): void
+    {
+
+        $this
+            ->addMediaCollection("avatar-$this->id")
+            ->singleFile();
+    }
+
+    /**
+     * RegisterMediaConversions
+     *
+     * @param mixed $media Media Conversion
+     *
+     * @return void
+     */
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(300)
+            ->height(300)
+            ->nonOptimized()
+            ->sharpen(10);
+    }
+
+
+
+
+    /**
      * Categorie
      * Relation polymorphe d'un objet utilisateur en deux catégories (parent ou assistante-maternelle)
      *
@@ -70,4 +109,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return "$this->adresse  $this->code_postal  $this->ville";
     }
+
+
 }

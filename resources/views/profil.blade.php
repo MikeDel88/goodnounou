@@ -12,16 +12,16 @@
             </div>
             <div class="informations">
                 <ul>
-                    <li><span>Nom</span><span>{{ Auth::user()->nom ?? 'non renseigné' }}</span></li>
-                    <li><span>Prénom</span><span>{{ Auth::user()->prenom ?? 'non renseigné' }}</span></li>
-                    <li><span>Date de naissance</span><span>{{ date('d-m-Y', strtotime(Auth::user()->date_naissance)) ?? 'non renseigné' }}</span></li>
-                    <li><span>Adresse</span><span>{{ Auth::user()->adresse ?? 'non renseigné' }} {{ Auth::user()->code_postal }} {{ ucFirst(Auth::user()->ville) ?? '' }} </span></li>
-                    <li><span>Téléphone</span><span>{{ Auth::user()->telephone ?? 'non renseigné' }}</span></li>
-                    <li><span>Email</span><span>{{ Auth::user()->email_contact ?? 'non renseigné' }}</span></li>
+                    <li><span class="fw-bold">Nom</span><span>{{ Auth::user()->nom ?? 'non renseigné' }}</span></li>
+                    <li><span class="fw-bold">Prénom</span><span>{{ Auth::user()->prenom ?? 'non renseigné' }}</span></li>
+                    <li><span class="fw-bold">Date de naissance</span><span>{{ date('d-m-Y', strtotime(Auth::user()->date_naissance)) ?? 'non renseigné' }}</span></li>
+                    <li><span class="fw-bold">Adresse</span><span>{{ Auth::user()->adresse ?? 'non renseigné' }} {{ Auth::user()->code_postal }} {{ ucFirst(Auth::user()->ville) ?? '' }} </span></li>
+                    <li><span class="fw-bold">Téléphone</span><span>{{ Auth::user()->telephone ?? 'non renseigné' }}</span></li>
+                    <li><span class="fw-bold">Email</span><span>{{ Auth::user()->email_contact ?? 'non renseigné' }}</span></li>
                 </ul>
                 @if ($role === 'parents')
                     <div>
-                        <span>Mes enfants:</span>
+                        <span class="fw-bold">Mes enfants:</span>
                         <ol>
                             @foreach ($enfants as $enfant)
                             <li>{{ $enfant->nom }} {{ $enfant->prenom }}</li>

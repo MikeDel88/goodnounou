@@ -94,16 +94,16 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request Requête
-     * @param int                      $user    Id
+     * @param int                      $id      Id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
+    public function update(Request $request, $id)
     {
         /**
          * Vérifie si l'utilisateur demandé est bien celui connecté
          */
-        if (intval($user) === Auth::user()->id) {
+        if (intval($id) === Auth::user()->id) {
             Validator::make(
                 $request->input(),
                 [
@@ -125,16 +125,14 @@ class UserController extends Controller
              */
             if ($request->file('photo') !== null) {
                 $request->validate(['photo' => 'image|mimes:jpeg,png,jpg|max:800']);
+                $user = User::findOrFail($id);
+                $user->addMediaFromRequest('photo')
+                    ->usingFileName("avatar-$id.jpg")
+                    ->toMediaCollection("avatar-$id");
 
-                $extension  = $request->file('photo')->extension();
-                $path       = $request->file('photo')->storeAs("public/images/$user", "avatar.$extension");
-                $url        = Storage::url($path);
-
-                User::where('id', $user)
-                ->update(['photo' => $url]);
             }
 
-            User::where('id', $user)
+            User::where('id', $id)
                 ->update(
                     [
                     'nom'             =>  ucFirst($request->input('nom')),
