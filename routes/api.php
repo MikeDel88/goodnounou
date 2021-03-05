@@ -25,35 +25,29 @@ use App\Http\Controllers\RecommandationsAPI;
 |
 */
 
-// Route::middleware('auth')->get('/user', function () {
-//     return response()->json([
-//         'status' => 'ok'
-//     ]);
-// });
+    Route::get('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'show']);
+    Route::put('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'update']);
+    Route::delete('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'update']);
 
-Route::get('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'show']);
-Route::put('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'update']);
-Route::delete('/assistante-maternelle/fiche/{id}', [AssistantesMaternellesAPI::class, 'update']);
+    Route::put('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
+    Route::delete('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
 
-Route::put('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
-Route::delete('/assistante-maternelle/critere/{id}', [CritereAPI::class, 'update']);
+    Route::post('/recherche', [RechercheAPI::class, 'show']);
 
-Route::post('/recherche', [RechercheAPI::class, 'show']);
+    Route::post('/api/favoris', [FavorisAPI::class, 'update']);
 
-Route::post('/favoris', [FavorisAPI::class, 'update']);
+    Route::get('/horaires/{contrat}/{mois}/{annee}', [HorairesAPI::class, 'show']);
+    Route::delete('/horaire/supprimer', [HorairesAPI::class, 'destroy']);
 
-Route::get('/horaires/{contrat}/{mois}/{annee}', [HorairesAPI::class, 'show']);
-Route::delete('/horaire/supprimer', [HorairesAPI::class, 'destroy']);
+    Route::delete('/supprimer-message', [MessagesAPI::class, 'destroy']);
+    Route::get('/messages/{assMatId}/{enfantId}', [MessagesAPI::class, 'show']);
+    Route::get('/consulter/{idParent}/{id}', [MessagesAPI::class, 'index']);
 
-Route::delete('/supprimer-message', [MessagesAPI::class, 'destroy']);
-Route::get('/messages/{assMatId}/{enfantId}', [MessagesAPI::class, 'show']);
-Route::get('/consulter/{idParent}/{id}', [MessagesAPI::class, 'index']);
+    Route::get('/planning/{id}', [PlanningAPI::class, 'index']);
 
-Route::get('/planning/{id}', [PlanningAPI::class, 'index']);
-
-Route::post('recommandation/note', [RecommandationsAPI::class, 'store']);
-Route::get('avis/{id}', [RecommandationsAPI::class, 'index']);
-Route::get('avis/{id}/filtre={filtre}', [RecommandationsAPI::class, 'show']);
+    Route::post('recommandation/note', [RecommandationsAPI::class, 'store']);
+    Route::get('avis/{id}', [RecommandationsAPI::class, 'index']);
+    Route::get('avis/{id}/filtre={filtre}', [RecommandationsAPI::class, 'show']);
 
 
 

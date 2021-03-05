@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             hearth = false
         }
 
-        let response = await fetch(
+        await fetch(
 
             `${window.origin}/api/favoris`, {
             method: 'POST',
@@ -31,8 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }),
         }
         );
-        let msg = await response.json();
-        console.log(msg.status)
 
     })
 })
