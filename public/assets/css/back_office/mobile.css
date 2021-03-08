@@ -48,5 +48,12 @@
   main section .box-lg footer a {
     margin: 10px;
   }
+  .fc-header-toolbar {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .fc-toolbar-chunk {
+    margin: 10px 0;
+  }
 }
 /*# sourceMappingURL=mobile.css.map */

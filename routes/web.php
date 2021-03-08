@@ -31,14 +31,19 @@ use App\Http\Controllers\RecommandationsController;
 // Route général du homepage
 Route::get('/', [AccueilController::class, 'index'])->name('home');
 
-// Menu général si l'utilisateur est authentifié et vérifier par email
-Route::get('profile', [UserController::class, 'index'])->middleware(['auth','verified'])->name('profile');
+// Route accessible pour un utilisateur vérifié
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('users', UserController::class);
+    Route::get('profile', [UserController::class, 'index'])->name('profile');
+    Route::get('contrats', [ContratController::class, 'index'])->name('contrats');
+    Route::get('/planning/{id}', [PlanningController::class, 'show']);
+});
 
-// Cela crée des routes prédéfinies CRUD pour les utilisateurs
-Route::resource('users', UserController::Class)->middleware(['auth', 'verified']);
+// Génère un PDF pour les horaires de garde
+Route::get('pdf/horaires/{contrat}/{mois}/{annee}', [PDFController::class, 'generatePDF']);
 
 // Route accessible si l'utilisateur est authentifié et appartient à la catégorie parents
-Route::middleware(['verified', 'parents'])->group(function () {
+Route::middleware(['auth', 'verified', 'parents'])->group(function () {
     Route::name('parent.')->group(function(){
         Route::get('liste/enfants', [EnfantController::class, 'index'])->name('enfants');
         Route::post('liste/enfants', [EnfantController::class, 'store']);
@@ -62,7 +67,7 @@ Route::middleware(['verified', 'parents'])->group(function () {
 });
 
 // Route accessible si l'utilisateur est authentifié et appartient à la catégorie assistante-maternelle
-Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
+Route::middleware(['auth', 'verified', 'assistante-maternelle'])->group(function () {
     Route::name('assistante-maternelle.')->group(function(){
         Route::get('fiche/{id}', [AssistantesMaternelleController::class, 'editCard'])->name('fiche');
         Route::post('fiche/{id}', [AssistantesMaternelleController::class, 'updateCard']);
@@ -78,13 +83,5 @@ Route::middleware(['verified', 'assistante-maternelle'])->group(function () {
     });
 });
 
-// Route accessible pour un utilisateur vérifié
-Route::middleware(['verified'])->group(function () {
-    Route::get('contrats', [ContratController::class, 'index'])->name('contrats');
-    Route::get('/planning/{id}', [PlanningController::class, 'show']);
-});
 
-
-// Génère un PDF pour les horaires de garde
-Route::get('pdf/horaires/{contrat}/{mois}/{annee}', [PDFController::class, 'generatePDF']);
 

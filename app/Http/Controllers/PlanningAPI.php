@@ -20,6 +20,7 @@ class PlanningAPI extends Controller
     {
         $user = User::findOrFail(intval($id));
         $contrats = $user->categorie->contrats;
+        $horaires = [];
 
         foreach ($contrats as $contrat) {
             if ($contrat->status_id === 2) {
