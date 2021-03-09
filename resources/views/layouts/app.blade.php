@@ -21,15 +21,18 @@
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/19f71f9368.js" crossorigin="anonymous"></script>
 
-    <title>GoodNounou | {{ $title ?? '' }}</title>
+    <!--  Titre du site  -->
+    <title>{{ env('APP_NAME')}} | {{ $title ?? '' }}</title>
 
     <!-- Styles -->
     @isset($bootstrap)
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     @endisset
     @isset($css)
+        <!-- Fichiers CSS -->
         @foreach ($css as $file)
-            <link rel="stylesheet" href="{{ URL::asset("assets/css/front_office/$file.css") }}">
+            <link rel="stylesheet" href="{{ URL::asset("assets/css/front-office/$file.css") }}">
         @endforeach
     @endisset
 </head>
@@ -61,7 +64,7 @@
                     </ul>
                 </div>
             </nav>
-            <h1 class="titre">Good Nounou</h1>
+            <h1 class="titre">{{env('APP_NAME')}}</h1>
             {{-- Menu pour l'ecran de bureau --}}
             <nav id="navigation" role="navigation" class="menu-desktop">
                 <ul>
@@ -130,9 +133,11 @@
     </div>
     <!-- Scripts -->
     @isset($bootstrap)
+        <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     @endisset
     @isset($js)
+        <!-- Fichiers JS -->
         @foreach ($js as $file)
             <script src="{{ URL::asset("assets/js/front_office/$file.js") }}"></script>
         @endforeach

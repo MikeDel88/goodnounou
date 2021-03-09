@@ -1,178 +1,182 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Roboto:wght@300;400&display=swap');
 
-$color-main: #99B4F9;
-$color-main-more: #4D7AEB;
 $color-white: #FFFF;
 $color-bg:#F0F0F0;
 $color-shadow: #D6D2D2;
 $color-grey: #4B4B4B;
 $color-red: #CC4747;
+$color-modal: #0000006d;
 $ff1 : 'Indie Flower',
 cursive;
 $ff2: 'Roboto',
 sans-serif;
+$fs-xxl : 3.5rem;
+$fs-xl : 2.5rem;
+$fs-lg : 1.9rem;
+$fs-md : 1.5rem;
+$fs-sm : 1.3rem;
+$fw-light : 300;
+$fw-bold : 600;
+
+
+@import 'reset';
+
 
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: $ff2;
-  font-weight: 300;
-  background-color: $color-bg;
   display: flex;
+  padding: 0;
+  background-color: $color-bg;
+  font-size: $fs-md;
+  font-family: $ff2;
+  font-weight: $fw-light;
+
 
   .flex {
     display: flex;
     flex-wrap: wrap-reverse;
   }
 
-  .fond {
+  .background-modal {
     display: none;
-    background-color: rgba(0, 0, 0, 0.427);
     position: fixed;
+    width: 100%;
     top: 0;
     bottom: 0;
-    width: 100%;
     z-index: 1;
+    background-color: $color-modal;
   }
+  .is-open{
+    display:block;
+  }
+  .is-hidden{
+    display:none;
+  }
+
+  .menu-mobile__principal,
+  .menu-mobile__secondaire {
+    color: $color-main;
+  }
+
 }
 
-h1,
-h2,
-h3,
-h4,
-figure {
-  margin: 0;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-.menu-mobile {
-  display: none;
-}
-
-aside {
-  min-height: 100vh;
+.barre-navigation {
   width: 270px;
+  min-height: 100vh;
+  z-index: 100;
   background-color: $color-main;
   box-shadow: 2px 1px 5px $color-shadow;
 
-  .menu-one {
+  &__titre {
     display: flex;
+    min-height: 120px;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     background-color: $color-main;
-    min-height: 120px;
-
-    h1 {
-      font-size: 25px;
-      font-family: $ff1;
-      color: $color-bg;
-    }
+    font-size: $fs-xl;
+    font-family: $ff1;
+    color: $color-bg;
 
     i {
       color: $color-white;
     }
   }
 
-  .identite {
+  &__identite {
     display: flex;
+    min-height: 120px;
+    flex-direction: row-reverse;
     justify-content: space-around;
     align-items: center;
-    min-height: 120px;
     padding-bottom: 30px;
     border-bottom: 1px solid $color-main-more;
 
-    figure {
+    &--photo {
       img {
         width: 150px;
         height: 110px;
-        border-radius: 50%;
         padding: 0 20px;
+        border-radius: 50%;
       }
     }
 
-    h3 {
-      font-size: 25px;
+    &--nom {
+      padding-left: 20px;
+      font-size: $fs-xl;
       font-family: $ff1;
       color: $color-bg;
-      padding-left: 20px;
     }
   }
 
-  .menu-two {
-    a {
-      height: 64px;
+  &__menu {
+    &--lien {
       display: flex;
+      height: 64px;
       align-items: center;
+      font-size: $fs-lg;
       color: $color-white;
-      font-size: 20px;
 
       &:hover {
         background-color: $color-main-more;
       }
+    }
 
-      i {
-        width: 20px;
-        height: auto;
-        padding: 0 20px;
-      }
+    &--icone {
+      width: 20px;
+      height: auto;
+      padding: 0 20px;
+    }
 
-      span {
-        padding-left: 20px;
-      }
+    &--texte {
+      padding-left: 20px;
     }
   }
 }
 
-main {
+
+.contenu-principal {
   width: calc(100% - 270px);
   min-width: 885px;
 
-  header {
-    min-height: 120px;
-    width: 100%;
+  &__header {
     display: flex;
+    width: 100%;
+    min-height: 120px;
     justify-content: space-between;
     align-items: center;
-    color: $color-main-more;
-    width: 100%;
+    color: $color-main;
     box-shadow: 4px 3px 6px $color-shadow;
     background-color: $color-white;
 
-    h2 {
-      font-family: $ff1;
-      font-size: 35px;
+    &--titre {
       padding-left: 20px;
+      font-family: $ff1;
+      font-size: $fs-xxl;
     }
 
-    a {
-      font-size: 20px;
-      color: $color-main-more;
-      padding: 8px 15px;
-    }
+    &--navigation {
+      .lien {
+        padding: 8px 15px;
+        font-size: $fs-lg;
+        color: $color-main;
 
-    a:nth-child(2) {
-      border-right: 1px solid $color-main;
-    }
+        &:hover {
+          color: $color-main-more;
+        }
+      }
 
-    a:nth-child(3) {
-      display: inline-block;
-      margin-left: 15px;
-    }
+      .lien:nth-child(2) {
+        border-right: 1px solid $color-main;
+      }
 
+      .lien:nth-child(3) {
+        display: inline-block;
+        margin-left: 15px;
+      }
+    }
   }
 
-  section {
+  &__page {
     width: 100%;
 
     article {
@@ -182,7 +186,7 @@ main {
 
       form {
         .form-check-input:checked {
-          background-color: $color-main-more !important;
+          background-color: $color-main !important;
         }
 
         input:required {
@@ -193,10 +197,9 @@ main {
           background-color: $color-main-more;
           border: 2px solid $color-main-more;
           color: $color-bg;
-          border-radius: 1rem;
+          border-radius: $fs-md;
 
           &:hover {
-            background-color: $color-bg;
             color: $color-main-more;
           }
         }
@@ -204,13 +207,12 @@ main {
 
       #messages {
         li {
-          background-color: $color-main;
-          padding: 10px 8px;
           position: relative;
-          border-radius: 10px;
           min-height: 70px;
-          box-shadow: 0px 1px 6px #0000005e;
           margin: 40px 0;
+          padding: 10px 8px;
+          border-radius: $fs-sm;
+          box-shadow: 0px 1px 6px #0000005e;
 
           .enfant {
             position: absolute;
@@ -218,16 +220,17 @@ main {
             left: 10px;
             color: $color-white;
             text-transform: capitalize;
-            font-weight: 600;
+            font-weight: $fw-bold;
           }
 
           .message {
+            display: block;
+            width: 80% !important;
             padding-top: 20px;
             padding-left: 20px;
-            font-size: 14px;
+            font-size: $fs-sm;
             font-style: italic;
-            display: block;
-            width: 80%;
+            color: rgb(67, 66, 66);
             word-break: break-all;
           }
 
@@ -235,66 +238,59 @@ main {
             position: absolute;
             bottom: 5px;
             right: 5px;
-            font-size: 13px;
+            font-size: $fs-sm;
             color: $color-bg;
             letter-spacing: 1px;
           }
 
-          .edit {
+          li::before {
+            content: '';
             position: absolute;
-            top: -20px;
-            right: 0;
-            font-size: 14px;
+            display: block;
+            width: 15px;
+            height: 15px;
+            background-color: inherit;
+            bottom: -7px;
+            left: 20px;
+            box-shadow: 6px 5px 7px #0000001a;
+            transform: rotate(48deg)
           }
-        }
-
-        li::before {
-          content: '';
-          position: absolute;
-          display: block;
-          width: 15px;
-          height: 15px;
-          background-color: inherit;
-          bottom: -7px;
-          right: 20px;
-          box-shadow: 6px 5px 7px #0000001a;
-          transform: rotate(48deg)
         }
       }
 
       .avis {
-        border: 1px solid $color-main;
         position: relative;
-        padding: 10px;
+        min-height: 100px;
         margin: 30px 0;
+        padding: 10px;
+        border: 1px solid $color-main;
         background-color: $color-bg;
         color: $color-grey;
-        min-height: 100px;
         box-shadow: 1px 5px 5px $color-shadow;
-        border-radius: 10px;
+        border-radius: $fs-sm;
 
         .avis_date {
           position: absolute;
-          color: $color-main-more;
           top: 5px;
           left: 5px;
-          font-size: 15px;
+          color: $color-main-more;
+          font-size: $fs-md;
           text-decoration: underline;
         }
 
         .avis_note {
           position: absolute;
-          color: $color-main-more;
           top: 5px;
           right: 5px;
-          font-size: 15px;
+          color: $color-main-more;
+          font-size: $fs-md;
         }
 
         .avis_message {
           display: inline-block;
           padding: 30px 0;
           hyphens: auto;
-          font-size: 18px;
+          font-size: $fs-lg;
         }
       }
 
@@ -338,33 +334,34 @@ main {
         padding: 10px 10px 6px 30px;
 
         .date-inscription {
-          width: 100%;
           display: flex;
+          width: 100%;
           justify-content: flex-end;
-          font-size: 16px;
+          font-size: $fs-md;
         }
 
         .informations {
           display: flex;
-          justify-content: flex-start;
-          flex-wrap: wrap;
           min-height: 320px;
           padding-top: 30px;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+
 
           ul {
             width: 59%;
             border-right: 1px solid $color-shadow;
 
             li {
-              width: 100%;
               display: flex;
+              width: 100%;
+              padding: 10px 0;
               justify-content: flex-start;
               flex-wrap: wrap;
-              padding: 10px 0;
 
               span:nth-child(1) {
                 width: 30%;
-                font-weight: 600;
+                font-weight: $fw-bold;
               }
 
               span:nth-child(2),
@@ -384,19 +381,19 @@ main {
 
       footer {
         display: flex;
-        justify-content: flex-end;
         padding: 10px;
+        justify-content: flex-end;
         overflow: hidden;
 
         a {
           display: inline-block;
           margin: 0 15px;
           padding: 7px 14px;
-          border-radius: 2rem;
+          border-radius: $fs-lg;
           cursor: pointer;
           border: none;
           color: $color-white;
-          font-size: 14px;
+          font-size: $fs-sm;
 
           &:hover {
             background-color: $color-white;
@@ -414,12 +411,12 @@ main {
           background-color: $color-red;
         }
       }
-
     }
 
     .box-sm {
-      max-height: 345px;
       min-width: 477px;
+      max-width: 30%;
+      max-height: 345px;
       align-self: flex-end;
       overflow: hidden;
     }

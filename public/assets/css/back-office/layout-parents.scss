@@ -1,0 +1,98 @@
+$color-main: #265D87;
+$color-main-more: #0D4671;
+$color-star: #ffcc00;
+
+
+@import 'commun';
+
+.contenu-principal {
+
+  &__page {
+    ol {
+      list-style-type: none;
+    }
+
+    ol>li::before {
+      content: ' ';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background-color: $color-grey;
+      margin-right: 5px;
+    }
+
+    button {
+      &:hover {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  #messages {
+    li {
+      background-color: $color-main;
+
+      .message {
+        color: $color-grey;
+      }
+
+      .delete {
+        display: inline-block;
+        position: absolute;
+        bottom: -25px;
+        right: 0;
+        font-size: $fs-sm;
+        color: $color-red;
+      }
+    }
+  }
+
+  .liste_enfants {
+    ul {
+      margin: 15px;
+
+      li {
+        a {
+          display: block;
+          margin: 10px 0;
+          padding: 10px 5px;
+          transition: all 500ms ease;
+          background-color: $color-main;
+          color: $color-white;
+          font-weight: $fw-bold;
+
+          &:hover {
+            transform: scale(1.03);
+            background-color: $color-main-more;
+            box-shadow: 3px 4px 3px $color-shadow;
+          }
+        }
+      }
+    }
+  }
+
+  .note {
+    cursor: pointer;
+    color: $color-star;
+  }
+
+  .noteCheck {
+    color: $color-star;
+  }
+
+
+  .box-lg {
+
+    .fa-heart {
+      transition: transform 300ms ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.3);
+      }
+    }
+  }
+}
+
+
+

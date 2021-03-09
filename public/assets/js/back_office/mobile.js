@@ -1,37 +1,31 @@
-let mainMenu = document.querySelector('.menu_principal_mobile');
-let secondaryMenu = document.querySelector('.menu_secondaire_mobile');
-let fond = document.querySelector('.fond');
+const MENU_MOBILE_PRINCIPAL = document.querySelector('.menu-mobile__principal');
+const MENU_MOBILE_SECONDAIRE = document.querySelector('.menu-mobile__secondaire');
 
-mainMenu.addEventListener('click', function () {
-    let menu = document.querySelector('aside');
-    menu.style.display = 'block';
-    menu.style.position = 'fixed';
-    menu.style.top = '0';
-    menu.style.width = '70%';
-    menu.style.bottom = '0';
-    menu.style.boxShadow = '2px 1px 5px rgb(0 0 0 / 25%)'
-    document.querySelector('.fond').style.display = 'block';
+const MENU = {
+  'principal': document.querySelector('#js-barre-navigation'),
+  'secondaire': document.querySelector('#js-menu-secondaire'),
+  'modal': document.querySelector('.background-modal'),
+}
+
+MENU_MOBILE_PRINCIPAL.addEventListener('click', function () {
+  // Ouvrir la modal et le menu Principal
+  MENU.principal.classList.add('is-open');
+  MENU.principal.classList.add('menuPrincipalMobile');
+  MENU.modal.classList.add('is-open');
 })
 
-fond.addEventListener('click', function () {
-    let menu = document.querySelector('aside');
-    let menu2 = document.querySelector('main header nav');
-    menu.style.display = 'none';
-    menu2.style.display = 'none';
-    this.style.display = 'none'
+MENU.modal.addEventListener('click', function () {
+  // Fermer la modal, et les deux menus
+  this.classList.remove('is-open');
+  MENU.principal.classList.remove('is-open');
+  MENU.principal.classList.remove('menuPrincipalMobile');
+  MENU.secondaire.classList.remove('d-flex');
+  MENU.secondaire.classList.remove('menuSecondaireMobile');
 })
 
-secondaryMenu.addEventListener('click', function () {
-    document.querySelector('.fond').style.display = 'block';
-    let menu = document.querySelector('main header nav');
-    menu.style.display = 'flex';
-    menu.style.justifyContent = 'center'
-    menu.style.alignItems = 'center'
-    menu.style.position = 'fixed';
-    menu.style.top = "0"
-    menu.style.left = "0";
-    menu.style.right = "0";
-    menu.style.minHeight = "120px"
-    menu.style.zIndex = '100';
-    menu.style.backgroundColor = "white"
+MENU_MOBILE_SECONDAIRE.addEventListener('click', function () {
+  // Ouvrir la modal et le menu Secondaire
+  MENU.modal.classList.add('is-open');
+  MENU.secondaire.classList.add('d-flex');
+  MENU.secondaire.classList.add('menuSecondaireMobile');
 })
