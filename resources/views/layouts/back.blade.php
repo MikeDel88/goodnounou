@@ -24,7 +24,7 @@
     <script src="https://kit.fontawesome.com/19f71f9368.js" crossorigin="anonymous"></script>
 
     <!-- Titre du site + espace personnel -->
-    <title>{{ env('APP_NAME') }} | Espace Personnel</title>
+    <title>{{ env('APP_NAME') }} : Espace Personnel</title>
 
 
     <!-- Bootstrap v5 -->
@@ -81,19 +81,19 @@
         <!-- Menu de navigation principal -->
         <nav class="barre-navigation__menu" role="navigation">
             <ul>
-                <li><a class="barre-navigation__menu--lien" href="{{ route('profile') }}"><i class="barre-navigation__menu--icone fas fa-home"></i><span class="barre-navigation__menu--texte">Accueil</span></a></li>
+                <li><a class="barre-navigation__menu--lien @if(Request::path() === 'profile') is-current @endif" href="{{ route('profile') }}"><i class="barre-navigation__menu--icone fas fa-home"></i><span class="barre-navigation__menu--texte">Accueil</span></a></li>
                 {{-- Condition si l'utilisateur est dans la catégorie parent ou assMat --}}
                 @if ($role === 'parents')
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('parent.recherche') }}"><i class="barre-navigation__menu--icone fas fa-map-marker-alt"></i><span class="barre-navigation__menu--texte">Rechercher</span></a></li>
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('contrats') }}"><i class="barre-navigation__menu--icone far fa-folder-open"></i><span class="barre-navigation__menu--texte">Mes contrats</span></a></li>
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('parent.enfants') }}"><i class="barre-navigation__menu--icone fas fa-users"></i><span class="barre-navigation__menu--texte">Famille</span></a></li>
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('parent.favoris') }}"><i class="barre-navigation__menu--icone fas fa-star"></i><span class="barre-navigation__menu--texte">Mes favoris</span></a></li>
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('parent.carnet_consultation') }}"><i class="barre-navigation__menu--icone fas fa-book"></i><span class="barre-navigation__menu--texte">Carnet de bord</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(Request::path() === 'recherche') is-current @endif" href="{{ route('parent.recherche') }}"><i class="barre-navigation__menu--icone fas fa-map-marker-alt"></i><span class="barre-navigation__menu--texte">Rechercher</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(Request::path() === 'contrats') is-current @endif" href="{{ route('contrats') }}"><i class="barre-navigation__menu--icone far fa-folder-open"></i><span class="barre-navigation__menu--texte">Mes contrats</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(Request::path() === 'liste/enfants') is-current @endif" href="{{ route('parent.enfants') }}"><i class="barre-navigation__menu--icone fas fa-users"></i><span class="barre-navigation__menu--texte">Famille</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(Request::path() === 'favoris') is-current @endif" href="{{ route('parent.favoris') }}"><i class="barre-navigation__menu--icone fas fa-star"></i><span class="barre-navigation__menu--texte">Mes favoris</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(Request::path() === 'carnet-de-bord/consulter') is-current @endif" href="{{ route('parent.carnet_consultation') }}"><i class="barre-navigation__menu--icone fas fa-book"></i><span class="barre-navigation__menu--texte">Carnet de bord</span></a></li>
                 @else
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('assistante-maternelle.fiche', ['id' => Auth::user()->categorie_id]) }}"><i class="barre-navigation__menu--icone fas fa-inbox"></i><span class="barre-navigation__menu--texte">Ma fiche</span></a></li>
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('contrats') }}"><i class="barre-navigation__menu--icone far fa-folder-open"></i><span class="barre-navigation__menu--texte">Mes contrats</span></a></li>
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('assistante-maternelle.recommandations')}}"><i class="barre-navigation__menu--icone fas fa-star-half-alt"></i><span class="barre-navigation__menu--texte">Recommandations</span></a></li>
-                    <li><a class="barre-navigation__menu--lien" href="{{ route('assistante-maternelle.carnet') }}"><i class="barre-navigation__menu--icone fas fa-book"></i><span class="barre-navigation__menu--texte">Carnet de bord</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(\Route::current()->getName() === 'assistante-maternelle.fiche') is-current @endif" href="{{ route('assistante-maternelle.fiche', ['id' => Auth::user()->categorie_id]) }}"><i class="barre-navigation__menu--icone fas fa-inbox"></i><span class="barre-navigation__menu--texte">Ma fiche</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(Request::path() === 'contrats') is-current @endif" href="{{ route('contrats') }}"><i class="barre-navigation__menu--icone far fa-folder-open"></i><span class="barre-navigation__menu--texte">Mes contrats</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(Request::path() === 'recommandations') is-current @endif" href="{{ route('assistante-maternelle.recommandations')}}"><i class="barre-navigation__menu--icone fas fa-star-half-alt"></i><span class="barre-navigation__menu--texte">Recommandations</span></a></li>
+                    <li><a class="barre-navigation__menu--lien @if(Request::path() === 'carnet-de-bord') is-current @endif" href="{{ route('assistante-maternelle.carnet') }}"><i class="barre-navigation__menu--icone fas fa-book"></i><span class="barre-navigation__menu--texte">Carnet de bord</span></a></li>
                 @endif
             </ul>
         </nav>
@@ -155,12 +155,12 @@
         <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
         <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
     @endisset
-    <script src="{{ URL::asset('assets/js/back_office/box.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/back_office/form.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/back_office/mobile.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/back-office/box.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/back-office/form.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/back-office/mobile.js') }}"></script>
     @isset($js)
         @foreach ($js as $file)
-            <script src="{{ URL::asset("assets/js/back_office/$file.js") }}"></script>
+            <script src="{{ URL::asset("assets/js/back_-office/$file.js") }}"></script>
         @endforeach
     @endisset
 

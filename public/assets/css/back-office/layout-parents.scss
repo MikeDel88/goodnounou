@@ -8,44 +8,59 @@ $color-star: #ffcc00;
 .contenu-principal {
 
   &__page {
-    ol {
-      list-style-type: none;
-    }
+    .box {
+      &__contenu {
 
-    ol>li::before {
-      content: ' ';
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      background-color: $color-grey;
-      margin-right: 5px;
-    }
+        &--liste-enfants {
+          width: 40%;
+          margin-left: 10px;
 
-    button {
-      &:hover {
-        background-color: $color-white;
+          h5 {
+            font-size: $fs-md;
+          }
+
+          ol {
+            list-style-type: none;
+          }
+
+          ol>li::before {
+            content: ' ';
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background-color: $color-grey;
+            margin-right: 5px;
+          }
+        }
+
+        &--liste-messages {
+          .items {
+
+            .item-message {
+              color: $color-bg;
+            }
+
+            .delete {
+              display: inline-block;
+              position: absolute;
+              bottom: -25px;
+              right: 0;
+              font-size: $fs-sm;
+              color: $color-red;
+            }
+          }
+        }
       }
     }
   }
 
-  #messages {
-    li {
-      background-color: $color-main;
+// button {
+//   &:hover {
+//     background-color: $color-white;
+//   }
+// }
 
-      .message {
-        color: $color-grey;
-      }
 
-      .delete {
-        display: inline-block;
-        position: absolute;
-        bottom: -25px;
-        right: 0;
-        font-size: $fs-sm;
-        color: $color-red;
-      }
-    }
-  }
 
   .liste_enfants {
     ul {
@@ -93,6 +108,3 @@ $color-star: #ffcc00;
     }
   }
 }
-
-
-

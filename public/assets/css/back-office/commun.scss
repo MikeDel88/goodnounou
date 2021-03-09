@@ -45,11 +45,13 @@ body {
     z-index: 1;
     background-color: $color-modal;
   }
-  .is-open{
-    display:block;
+
+  .is-open {
+    display: block;
   }
-  .is-hidden{
-    display:none;
+
+  .is-hidden {
+    display: none;
   }
 
   .menu-mobile__principal,
@@ -58,7 +60,9 @@ body {
   }
 
 }
-
+.is-current {
+  background-color: $color-main-more;
+}
 .barre-navigation {
   width: 270px;
   min-height: 100vh;
@@ -118,6 +122,7 @@ body {
 
       &:hover {
         background-color: $color-main-more;
+        color:$color-white;
       }
     }
 
@@ -179,71 +184,106 @@ body {
   &__page {
     width: 100%;
 
-    article {
+    .box {
       margin: 40px;
       background-color: $color-white;
       box-shadow: 4px 3px 6px $color-shadow;
+      overflow: hidden;
 
-      form {
-        .form-check-input:checked {
-          background-color: $color-main !important;
+      &__header {
+        display: flex;
+        min-height: 60px;
+        padding: 0 20px;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: none;
+        border-bottom: 1px solid $color-shadow;
+        flex-wrap: wrap-reverse;
+
+        &--titre,
+        &--close {
+          color: $color-grey;
         }
 
-        input:required {
-          border: 1px solid $color-main-more;
-        }
-
-        button {
-          background-color: $color-main-more;
-          border: 2px solid $color-main-more;
-          color: $color-bg;
-          border-radius: $fs-md;
-
-          &:hover {
-            color: $color-main-more;
-          }
+        &--close:hover {
+          cursor: pointer;
         }
       }
 
-      #messages {
-        li {
-          position: relative;
-          min-height: 70px;
-          margin: 40px 0;
-          padding: 10px 8px;
-          border-radius: $fs-sm;
-          box-shadow: 0px 1px 6px #0000005e;
+      &__contenu {
+        padding: 10px 10px 6px 30px;
 
-          .enfant {
-            position: absolute;
-            top: 2px;
-            left: 10px;
-            color: $color-white;
-            text-transform: capitalize;
-            font-weight: $fw-bold;
+        &--inscription {
+          font-size: $fs-md;
+          font-weight: $fw-light;
+        }
+
+        &--informations {
+          min-height: 320px;
+          padding-top: 30px;
+        }
+
+        &--liste-identite {
+          width: 59%;
+          border-right: 1px solid $color-shadow;
+
+          .item {
+            padding: 10px 0;
+
+            span:nth-child(1) {
+              width: 30%;
+              font-weight: $fw-bold;
+            }
+
+            span:nth-child(2),
+            a {
+              display: inline-block;
+              margin-left: 10px;
+            }
+          }
+        }
+
+        &--liste-messages {
+          .items {
+            position: relative;
+            min-height: 70px;
+            margin: 40px 0;
+            padding: 10px 8px;
+            border-radius: $fs-sm;
+            box-shadow: 0px 1px 6px #0000005e;
+            background-color: $color-main;
+
+            .item-date {
+              position: absolute;
+              bottom: 5px;
+              right: 5px;
+              font-size: $fs-sm;
+              color: $color-bg;
+              letter-spacing: 1px;
+            }
+
+            .item-enfant {
+              position: absolute;
+              top: 2px;
+              left: 10px;
+              color: $color-white;
+              text-transform: capitalize;
+              font-weight: $fw-bold;
+            }
+
+            .item-message {
+              display: block;
+              width: 80% !important;
+              padding-top: 20px;
+              padding-left: 20px;
+              font-size: $fs-sm;
+              font-style: italic;
+              color: rgb(67, 66, 66);
+              word-break: break-all;
+            }
           }
 
-          .message {
-            display: block;
-            width: 80% !important;
-            padding-top: 20px;
-            padding-left: 20px;
-            font-size: $fs-sm;
-            font-style: italic;
-            color: rgb(67, 66, 66);
-            word-break: break-all;
-          }
-
-          .date {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            font-size: $fs-sm;
-            color: $color-bg;
-            letter-spacing: 1px;
-          }
-
-          li::before {
+          .items::before {
             content: '';
             position: absolute;
             display: block;
@@ -256,136 +296,14 @@ body {
             transform: rotate(48deg)
           }
         }
+
       }
 
-      .avis {
-        position: relative;
-        min-height: 100px;
-        margin: 30px 0;
+      &__footer {
         padding: 10px;
-        border: 1px solid $color-main;
-        background-color: $color-bg;
-        color: $color-grey;
-        box-shadow: 1px 5px 5px $color-shadow;
-        border-radius: $fs-sm;
-
-        .avis_date {
-          position: absolute;
-          top: 5px;
-          left: 5px;
-          color: $color-main-more;
-          font-size: $fs-md;
-          text-decoration: underline;
-        }
-
-        .avis_note {
-          position: absolute;
-          top: 5px;
-          right: 5px;
-          color: $color-main-more;
-          font-size: $fs-md;
-        }
-
-        .avis_message {
-          display: inline-block;
-          padding: 30px 0;
-          hyphens: auto;
-          font-size: $fs-lg;
-        }
-      }
-
-      #pagination_avis {
-        margin: 10px 0;
-
-        .page_current {
-          background-color: $color-main-more;
-          color: $color-bg;
-        }
-      }
-    }
-
-    .box {
-      overflow: hidden;
-
-      header {
-        box-shadow: none;
-        min-height: 60px;
-        border-bottom: 1px solid $color-shadow;
-        flex-wrap: wrap-reverse;
-
-        h4,
-        .close {
-          padding: 0 20px;
-          color: $color-grey;
-        }
-
-        .close:hover {
-          cursor: pointer;
-        }
-      }
-    }
-
-    .box-lg {
-      width: calc(100% - 80px);
-      min-width: 845px;
-      overflow: hidden;
-
-      .contenu {
-        padding: 10px 10px 6px 30px;
-
-        .date-inscription {
-          display: flex;
-          width: 100%;
-          justify-content: flex-end;
-          font-size: $fs-md;
-        }
-
-        .informations {
-          display: flex;
-          min-height: 320px;
-          padding-top: 30px;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-
-
-          ul {
-            width: 59%;
-            border-right: 1px solid $color-shadow;
-
-            li {
-              display: flex;
-              width: 100%;
-              padding: 10px 0;
-              justify-content: flex-start;
-              flex-wrap: wrap;
-
-              span:nth-child(1) {
-                width: 30%;
-                font-weight: $fw-bold;
-              }
-
-              span:nth-child(2),
-              a {
-                display: inline-block;
-                margin-left: 10px;
-              }
-            }
-          }
-
-          div {
-            width: 40%;
-            margin-left: 10px;
-          }
-        }
-      }
-
-      footer {
-        display: flex;
-        padding: 10px;
-        justify-content: flex-end;
         overflow: hidden;
 
-        a {
+        &--lien {
           display: inline-block;
           margin: 0 15px;
           padding: 7px 14px;
@@ -401,32 +319,104 @@ body {
           }
         }
 
-        .modifier {
+        &--modifier {
           border: 2px solid $color-grey;
           background-color: $color-grey;
         }
 
-        .supprimer {
+        &--supprimer {
           border: 2px solid $color-red;
           background-color: $color-red;
         }
+
       }
+
+
+    }
+
+    .box-lg {
+      width: calc(100% - 80px);
+      min-width: 845px;
     }
 
     .box-sm {
       min-width: 477px;
       max-width: 30%;
-      max-height: 345px;
       align-self: flex-end;
       overflow: hidden;
     }
 
     .box-md {
       width: calc(100% - 637px);
-      min-width: 845px;
-      max-height: 345px;
+      min-width: 500px;
       align-self: flex-end;
       overflow: hidden;
     }
+  }
+}
+
+form {
+  .form-check-input:checked {
+    background-color: $color-main !important;
+  }
+
+  input:required {
+    border: 1px solid $color-main-more;
+  }
+
+  button {
+    background-color: $color-main-more;
+    border: 2px solid $color-main-more;
+    color: $color-bg;
+    border-radius: $fs-md;
+
+    &:hover {
+      color: $color-main-more;
+    }
+  }
+}
+
+.avis {
+  position: relative;
+  min-height: 100px;
+  margin: 30px 0;
+  padding: 10px;
+  border: 1px solid $color-main;
+  background-color: $color-bg;
+  color: $color-grey;
+  box-shadow: 1px 5px 5px $color-shadow;
+  border-radius: $fs-sm;
+
+  .avis_date {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: $color-main-more;
+    font-size: $fs-md;
+    text-decoration: underline;
+  }
+
+  .avis_note {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: $color-main-more;
+    font-size: $fs-md;
+  }
+
+  .avis_message {
+    display: inline-block;
+    padding: 30px 0;
+    hyphens: auto;
+    font-size: $fs-lg;
+  }
+}
+
+#pagination_avis {
+  margin: 10px 0;
+
+  .page_current {
+    background-color: $color-main-more;
+    color: $color-bg;
   }
 }

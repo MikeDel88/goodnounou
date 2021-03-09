@@ -15,9 +15,8 @@ contenu-principal {
     }
 
 
-    #messages {
-      li {
-        background-color: $color-main;
+    &--liste-messages {
+      .items {
 
         .edit {
           position: absolute;

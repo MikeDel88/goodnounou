@@ -22,7 +22,7 @@
     <script src="https://kit.fontawesome.com/19f71f9368.js" crossorigin="anonymous"></script>
 
     <!--  Titre du site  -->
-    <title>{{ env('APP_NAME')}} | {{ $title ?? '' }}</title>
+    <title>{{ env('APP_NAME')}} : {{ $title ?? '' }}</title>
 
     <!-- Styles -->
     @isset($bootstrap)

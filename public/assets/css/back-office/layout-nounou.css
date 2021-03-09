@@ -12,7 +12,7 @@ h2,
 h3,
 h4,
 figure,
-ul {
+ul, p {
   margin: 0;
 }
 
@@ -69,6 +69,10 @@ body .is-hidden {
 body .menu-mobile__principal,
 body .menu-mobile__secondaire {
   color: #99B4F9;
+}
+
+.is-current {
+  background-color: #4D7AEB;
 }
 
 .barre-navigation {
@@ -148,6 +152,7 @@ body .menu-mobile__secondaire {
 
 .barre-navigation__menu--lien:hover {
   background-color: #4D7AEB;
+  color: #FFFF;
 }
 
 .barre-navigation__menu--icone {
@@ -212,33 +217,76 @@ body .menu-mobile__secondaire {
   width: 100%;
 }
 
-.contenu-principal__page article {
+.contenu-principal__page .box {
   margin: 40px;
   background-color: #FFFF;
   -webkit-box-shadow: 4px 3px 6px #D6D2D2;
           box-shadow: 4px 3px 6px #D6D2D2;
+  overflow: hidden;
 }
 
-.contenu-principal__page article form .form-check-input:checked {
-  background-color: #99B4F9 !important;
+.contenu-principal__page .box__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 60px;
+  padding: 0 20px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-bottom: 1px solid #D6D2D2;
+  -ms-flex-wrap: wrap-reverse;
+      flex-wrap: wrap-reverse;
 }
 
-.contenu-principal__page article form input:required {
-  border: 1px solid #4D7AEB;
+.contenu-principal__page .box__header--titre, .contenu-principal__page .box__header--close {
+  color: #4B4B4B;
 }
 
-.contenu-principal__page article form button {
-  background-color: #4D7AEB;
-  border: 2px solid #4D7AEB;
-  color: #F0F0F0;
-  border-radius: 1.5rem;
+.contenu-principal__page .box__header--close:hover {
+  cursor: pointer;
 }
 
-.contenu-principal__page article form button:hover {
-  color: #4D7AEB;
+.contenu-principal__page .box__contenu {
+  padding: 10px 10px 6px 30px;
 }
 
-.contenu-principal__page article #messages li {
+.contenu-principal__page .box__contenu--inscription {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.contenu-principal__page .box__contenu--informations {
+  min-height: 320px;
+  padding-top: 30px;
+}
+
+.contenu-principal__page .box__contenu--liste-identite {
+  width: 59%;
+  border-right: 1px solid #D6D2D2;
+}
+
+.contenu-principal__page .box__contenu--liste-identite .item {
+  padding: 10px 0;
+}
+
+.contenu-principal__page .box__contenu--liste-identite .item span:nth-child(1) {
+  width: 30%;
+  font-weight: 600;
+}
+
+.contenu-principal__page .box__contenu--liste-identite .item span:nth-child(2),
+.contenu-principal__page .box__contenu--liste-identite .item a {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.contenu-principal__page .box__contenu--liste-messages .items {
   position: relative;
   min-height: 70px;
   margin: 40px 0;
@@ -246,9 +294,19 @@ body .menu-mobile__secondaire {
   border-radius: 1.3rem;
   -webkit-box-shadow: 0px 1px 6px #0000005e;
           box-shadow: 0px 1px 6px #0000005e;
+  background-color: #99B4F9;
 }
 
-.contenu-principal__page article #messages li .enfant {
+.contenu-principal__page .box__contenu--liste-messages .items .item-date {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 1.3rem;
+  color: #F0F0F0;
+  letter-spacing: 1px;
+}
+
+.contenu-principal__page .box__contenu--liste-messages .items .item-enfant {
   position: absolute;
   top: 2px;
   left: 10px;
@@ -257,7 +315,7 @@ body .menu-mobile__secondaire {
   font-weight: 600;
 }
 
-.contenu-principal__page article #messages li .message {
+.contenu-principal__page .box__contenu--liste-messages .items .item-message {
   display: block;
   width: 80% !important;
   padding-top: 20px;
@@ -268,16 +326,7 @@ body .menu-mobile__secondaire {
   word-break: break-all;
 }
 
-.contenu-principal__page article #messages li .date {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  font-size: 1.3rem;
-  color: #F0F0F0;
-  letter-spacing: 1px;
-}
-
-.contenu-principal__page article #messages li li::before {
+.contenu-principal__page .box__contenu--liste-messages .items::before {
   content: '';
   position: absolute;
   display: block;
@@ -292,7 +341,78 @@ body .menu-mobile__secondaire {
           transform: rotate(48deg);
 }
 
-.contenu-principal__page article .avis {
+.contenu-principal__page .box__footer {
+  padding: 10px;
+  overflow: hidden;
+}
+
+.contenu-principal__page .box__footer--lien {
+  display: inline-block;
+  margin: 0 15px;
+  padding: 7px 14px;
+  border-radius: 1.9rem;
+  cursor: pointer;
+  border: none;
+  color: #FFFF;
+  font-size: 1.3rem;
+}
+
+.contenu-principal__page .box__footer--lien:hover {
+  background-color: #FFFF;
+  color: #4B4B4B;
+}
+
+.contenu-principal__page .box__footer--modifier {
+  border: 2px solid #4B4B4B;
+  background-color: #4B4B4B;
+}
+
+.contenu-principal__page .box__footer--supprimer {
+  border: 2px solid #CC4747;
+  background-color: #CC4747;
+}
+
+.contenu-principal__page .box-lg {
+  width: calc(100% - 80px);
+  min-width: 845px;
+}
+
+.contenu-principal__page .box-sm {
+  min-width: 477px;
+  max-width: 30%;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  overflow: hidden;
+}
+
+.contenu-principal__page .box-md {
+  width: calc(100% - 637px);
+  min-width: 500px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  overflow: hidden;
+}
+
+form .form-check-input:checked {
+  background-color: #99B4F9 !important;
+}
+
+form input:required {
+  border: 1px solid #4D7AEB;
+}
+
+form button {
+  background-color: #4D7AEB;
+  border: 2px solid #4D7AEB;
+  color: #F0F0F0;
+  border-radius: 1.5rem;
+}
+
+form button:hover {
+  color: #4D7AEB;
+}
+
+.avis {
   position: relative;
   min-height: 100px;
   margin: 30px 0;
@@ -305,7 +425,7 @@ body .menu-mobile__secondaire {
   border-radius: 1.3rem;
 }
 
-.contenu-principal__page article .avis .avis_date {
+.avis .avis_date {
   position: absolute;
   top: 5px;
   left: 5px;
@@ -314,7 +434,7 @@ body .menu-mobile__secondaire {
   text-decoration: underline;
 }
 
-.contenu-principal__page article .avis .avis_note {
+.avis .avis_note {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -322,7 +442,7 @@ body .menu-mobile__secondaire {
   font-size: 1.5rem;
 }
 
-.contenu-principal__page article .avis .avis_message {
+.avis .avis_message {
   display: inline-block;
   padding: 30px 0;
   -webkit-hyphens: auto;
@@ -331,170 +451,20 @@ body .menu-mobile__secondaire {
   font-size: 1.9rem;
 }
 
-.contenu-principal__page article #pagination_avis {
+#pagination_avis {
   margin: 10px 0;
 }
 
-.contenu-principal__page article #pagination_avis .page_current {
+#pagination_avis .page_current {
   background-color: #4D7AEB;
   color: #F0F0F0;
-}
-
-.contenu-principal__page .box {
-  overflow: hidden;
-}
-
-.contenu-principal__page .box header {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  min-height: 60px;
-  border-bottom: 1px solid #D6D2D2;
-  -ms-flex-wrap: wrap-reverse;
-      flex-wrap: wrap-reverse;
-}
-
-.contenu-principal__page .box header h4,
-.contenu-principal__page .box header .close {
-  padding: 0 20px;
-  color: #4B4B4B;
-}
-
-.contenu-principal__page .box header .close:hover {
-  cursor: pointer;
-}
-
-.contenu-principal__page .box-lg {
-  width: calc(100% - 80px);
-  min-width: 845px;
-  overflow: hidden;
-}
-
-.contenu-principal__page .box-lg .contenu {
-  padding: 10px 10px 6px 30px;
-}
-
-.contenu-principal__page .box-lg .contenu .date-inscription {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  font-size: 1.5rem;
-}
-
-.contenu-principal__page .box-lg .contenu .informations {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  min-height: 320px;
-  padding-top: 30px;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-.contenu-principal__page .box-lg .contenu .informations ul {
-  width: 59%;
-  border-right: 1px solid #D6D2D2;
-}
-
-.contenu-principal__page .box-lg .contenu .informations ul li {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  padding: 10px 0;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-.contenu-principal__page .box-lg .contenu .informations ul li span:nth-child(1) {
-  width: 30%;
-  font-weight: 600;
-}
-
-.contenu-principal__page .box-lg .contenu .informations ul li span:nth-child(2),
-.contenu-principal__page .box-lg .contenu .informations ul li a {
-  display: inline-block;
-  margin-left: 10px;
-}
-
-.contenu-principal__page .box-lg .contenu .informations div {
-  width: 40%;
-  margin-left: 10px;
-}
-
-.contenu-principal__page .box-lg footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 10px;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  overflow: hidden;
-}
-
-.contenu-principal__page .box-lg footer a {
-  display: inline-block;
-  margin: 0 15px;
-  padding: 7px 14px;
-  border-radius: 1.9rem;
-  cursor: pointer;
-  border: none;
-  color: #FFFF;
-  font-size: 1.3rem;
-}
-
-.contenu-principal__page .box-lg footer a:hover {
-  background-color: #FFFF;
-  color: #4B4B4B;
-}
-
-.contenu-principal__page .box-lg footer .modifier {
-  border: 2px solid #4B4B4B;
-  background-color: #4B4B4B;
-}
-
-.contenu-principal__page .box-lg footer .supprimer {
-  border: 2px solid #CC4747;
-  background-color: #CC4747;
-}
-
-.contenu-principal__page .box-sm {
-  min-width: 477px;
-  max-width: 30%;
-  max-height: 345px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  overflow: hidden;
-}
-
-.contenu-principal__page .box-md {
-  width: calc(100% - 637px);
-  min-width: 845px;
-  max-height: 345px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  overflow: hidden;
 }
 
 contenu-principal__page button:hover {
   background-color: #F0F0F0;
 }
 
-contenu-principal__page #messages li {
-  background-color: #99B4F9;
-}
-
-contenu-principal__page #messages li .edit {
+contenu-principal__page--liste-messages .items .edit {
   position: absolute;
   top: -20px;
   right: 0;
