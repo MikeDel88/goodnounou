@@ -64,6 +64,9 @@ body {
 .is-current {
   background-color: $color-main-more;
   color: $color-white;
+  &:hover{
+    color: $color-white;
+  }
 }
 
 .toast{

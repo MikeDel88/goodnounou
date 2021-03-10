@@ -57,7 +57,7 @@ function creationPagination(link) {
   a.style.padding = '10px';
   PAGINATION.appendChild(a);
   if (link.active) {
-    a.classList.add('is_current');
+    a.classList.add('is-current');
   }
 
 
@@ -67,7 +67,7 @@ function creationPagination(link) {
 
     loader();
 
-    document.querySelector('.is_current').classList.remove('is_current');
+    document.querySelector('.is-current').classList.remove('is-current');
     if (FILTRE.value !== 'aucun') {
       url = `${window.origin}/api/avis/${nounou_id}/filtre=${FILTRE.value}?page=${link.label}`;
     } else {
@@ -78,7 +78,7 @@ function creationPagination(link) {
       resetMessages();
       element.json().then((response) => {
 
-        document.querySelector(`.page_number${response.avis.current_page}`).classList.add('is_current');
+        document.querySelector(`.page_number${response.avis.current_page}`).classList.add('is-current');
 
         response.avis.data.forEach(message => {
           creationMessage(message)

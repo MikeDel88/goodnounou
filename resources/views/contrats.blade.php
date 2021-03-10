@@ -55,7 +55,7 @@
                                 <input id="debut-contrat" type="date" class="form-control" aria-label="début contrat" aria-describedby="début contrat" value="{{ date('Y-m-d') }}" name="date_debut" required>
                             </div>
                         </div>
-                        <footer>
+                        <footer class="text-end">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
                         </footer>
                     </form>

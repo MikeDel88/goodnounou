@@ -76,6 +76,10 @@ body .menu-mobile__secondaire {
   color: #FFFF;
 }
 
+.is-current:hover {
+  color: #FFFF;
+}
+
 .toast {
   background-color: #265D87;
   top: 20%;
