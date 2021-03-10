@@ -1,11 +1,12 @@
 @extends('layouts.back')
 
 @section('content')
+    <!-- Informations sur le profil de connexion utilisateur -->
     <article class="box box-lg">
-        <header>
-            <h4>Mes informations de connexion</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Mes informations de connexion</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <ul>
                 <li><span>Dernière mise à jour du profil : </span><span>{{ Auth::user()->updated_at->translatedFormat('j F Y à H:i') }}</span></li>
                 <li><span>Email de connexion : </span><span>{{ Auth::user()->email }}</span></li>
@@ -13,11 +14,12 @@
             </ul>
         </div>
     </article>
+    <!-- Modification du profil utilisateur -->
     <article class="box box-lg">
-        <header>
-            <h4>Mon profil</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Mon profil</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <form action="/users/{{ Auth::user()->id }}" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
                 @method('PUT')
                 @csrf

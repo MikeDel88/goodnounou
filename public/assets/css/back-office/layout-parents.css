@@ -73,6 +73,14 @@ body .menu-mobile__secondaire {
 
 .is-current {
   background-color: #0D4671;
+  color: #FFFF;
+}
+
+.toast {
+  background-color: #265D87;
+  top: 20%;
+  right: 30px;
+  font-size: 1.3rem;
 }
 
 .barre-navigation {
@@ -252,6 +260,10 @@ body .menu-mobile__secondaire {
   cursor: pointer;
 }
 
+.contenu-principal__page .box__header button {
+  font-size: 1.5rem;
+}
+
 .contenu-principal__page .box__contenu {
   padding: 10px 10px 6px 30px;
 }
@@ -341,6 +353,81 @@ body .menu-mobile__secondaire {
           transform: rotate(48deg);
 }
 
+.contenu-principal__page .box__contenu--avis {
+  position: relative;
+  min-height: 100px;
+  margin: 30px 0;
+  padding: 10px;
+  border: 1px solid #265D87;
+  background-color: #F0F0F0;
+  color: #4B4B4B;
+  -webkit-box-shadow: 1px 5px 5px #D6D2D2;
+          box-shadow: 1px 5px 5px #D6D2D2;
+  border-radius: 1.3rem;
+}
+
+.contenu-principal__page .box__contenu--avis-date {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: #0D4671;
+  font-size: 1.5rem;
+  text-decoration: underline;
+}
+
+.contenu-principal__page .box__contenu--avis-note {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #0D4671;
+  font-size: 1.5rem;
+}
+
+.contenu-principal__page .box__contenu--avis-message {
+  display: inline-block;
+  padding: 30px 0;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+  font-size: 1.5rem;
+}
+
+.contenu-principal__page .box__contenu--lien, .contenu-principal__page .box__contenu--select {
+  font-size: 1.5rem;
+}
+
+.contenu-principal__page .box__contenu form .form-check-input:checked {
+  background-color: #265D87;
+}
+
+.contenu-principal__page .box__contenu form input,
+.contenu-principal__page .box__contenu form select,
+.contenu-principal__page .box__contenu form label,
+.contenu-principal__page .box__contenu form textarea {
+  font-size: 1.5rem;
+}
+
+.contenu-principal__page .box__contenu form input:required {
+  border: 1px solid #0D4671;
+}
+
+.contenu-principal__page .box__contenu form textarea {
+  min-height: 80px;
+}
+
+.contenu-principal__page .box__contenu form button {
+  background-color: #0D4671;
+  border: 2px solid #0D4671;
+  color: #F0F0F0;
+  border-radius: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.contenu-principal__page .box__contenu form button:hover {
+  background-color: #FFFF;
+  color: #0D4671;
+}
+
 .contenu-principal__page .box__footer {
   padding: 10px;
   overflow: hidden;
@@ -354,7 +441,7 @@ body .menu-mobile__secondaire {
   cursor: pointer;
   border: none;
   color: #FFFF;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 .contenu-principal__page .box__footer--lien:hover {
@@ -370,6 +457,16 @@ body .menu-mobile__secondaire {
 .contenu-principal__page .box__footer--supprimer {
   border: 2px solid #CC4747;
   background-color: #CC4747;
+}
+
+.contenu-principal__page .box__calendar .fc-header-toolbar {
+  font-size: 1.5rem;
+}
+
+.contenu-principal__page .box__calendar .fc-toolbar-chunk button {
+  font-size: 1.5rem;
+  background-color: #265D87;
+  border: 1px solid #265D87;
 }
 
 .contenu-principal__page .box-lg {
@@ -393,71 +490,20 @@ body .menu-mobile__secondaire {
   overflow: hidden;
 }
 
-form .form-check-input:checked {
-  background-color: #265D87 !important;
-}
-
-form input:required {
-  border: 1px solid #0D4671;
-}
-
-form button {
-  background-color: #0D4671;
-  border: 2px solid #0D4671;
-  color: #F0F0F0;
-  border-radius: 1.5rem;
-}
-
-form button:hover {
-  color: #0D4671;
-}
-
-.avis {
-  position: relative;
-  min-height: 100px;
-  margin: 30px 0;
-  padding: 10px;
-  border: 1px solid #265D87;
-  background-color: #F0F0F0;
-  color: #4B4B4B;
-  -webkit-box-shadow: 1px 5px 5px #D6D2D2;
-          box-shadow: 1px 5px 5px #D6D2D2;
-  border-radius: 1.3rem;
-}
-
-.avis .avis_date {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  color: #0D4671;
-  font-size: 1.5rem;
-  text-decoration: underline;
-}
-
-.avis .avis_note {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  color: #0D4671;
-  font-size: 1.5rem;
-}
-
-.avis .avis_message {
-  display: inline-block;
-  padding: 30px 0;
-  -webkit-hyphens: auto;
-      -ms-hyphens: auto;
-          hyphens: auto;
-  font-size: 1.9rem;
-}
-
 #pagination_avis {
   margin: 10px 0;
 }
 
-#pagination_avis .page_current {
-  background-color: #0D4671;
-  color: #F0F0F0;
+.map {
+  width: 700px;
+  margin: 40px;
+  height: 500px;
+  z-index: 1;
+}
+
+.contenu-principal__page .box__contenu--presentation-titre, .contenu-principal__page .box__contenu--presentation-message {
+  font-size: 1.5rem;
+  color: #4B4B4B;
 }
 
 .contenu-principal__page .box__contenu--liste-enfants {
@@ -486,7 +532,11 @@ form button:hover {
   color: #F0F0F0;
 }
 
-.contenu-principal__page .box__contenu--liste-messages .items .delete {
+.contenu-principal__page .box__contenu--liste-messages .items .item-auteur {
+  color: #FFFF;
+}
+
+.contenu-principal__page .box__contenu--liste-messages .items .item-delete {
   display: inline-block;
   position: absolute;
   bottom: -25px;
@@ -495,11 +545,11 @@ form button:hover {
   color: #CC4747;
 }
 
-.contenu-principal .liste_enfants ul {
+.contenu-principal__page .box__contenu--fiches-enfants {
   margin: 15px;
 }
 
-.contenu-principal .liste_enfants ul li a {
+.contenu-principal__page .box__contenu--fiches-enfants .item .lien {
   display: block;
   margin: 10px 0;
   padding: 10px 5px;
@@ -510,7 +560,7 @@ form button:hover {
   font-weight: 600;
 }
 
-.contenu-principal .liste_enfants ul li a:hover {
+.contenu-principal__page .box__contenu--fiches-enfants .item .lien:hover {
   -webkit-transform: scale(1.03);
           transform: scale(1.03);
   background-color: #0D4671;
@@ -518,16 +568,7 @@ form button:hover {
           box-shadow: 3px 4px 3px #D6D2D2;
 }
 
-.contenu-principal .note {
-  cursor: pointer;
-  color: #ffcc00;
-}
-
-.contenu-principal .noteCheck {
-  color: #ffcc00;
-}
-
-.contenu-principal .box-lg .fa-heart {
+.contenu-principal__page .box__contenu .fa-heart {
   -webkit-transition: -webkit-transform 300ms ease;
   transition: -webkit-transform 300ms ease;
   transition: transform 300ms ease;
@@ -535,8 +576,17 @@ form button:hover {
   cursor: pointer;
 }
 
-.contenu-principal .box-lg .fa-heart:hover {
+.contenu-principal__page .box__contenu .fa-heart:hover {
   -webkit-transform: scale(1.3);
           transform: scale(1.3);
+}
+
+.contenu-principal__page .box__contenu .note {
+  cursor: pointer;
+  color: #ffcc00;
+}
+
+.contenu-principal__page .box__contenu .note-check {
+  color: #ffcc00;
 }
 /*# sourceMappingURL=layout-parents.css.map */

@@ -34,7 +34,7 @@ use App\Http\Controllers\RecommandationsAPI;
 
     Route::post('/recherche', [RechercheAPI::class, 'show']);
 
-    Route::post('/api/favoris', [FavorisAPI::class, 'update']);
+    Route::post('/favoris', [FavorisAPI::class, 'update']);
 
     Route::get('/horaires/{contrat}/{mois}/{annee}', [HorairesAPI::class, 'show']);
     Route::delete('/horaire/supprimer', [HorairesAPI::class, 'destroy']);

@@ -57,7 +57,7 @@ class Box {
         if (that.heightBox <= that.heightHeader) {
             clearInterval(anim)
         } else {
-            that.heightBox -= 20;
+            that.heightBox -= 10;
             that.box.style.height = `${that.heightBox}px`;
         }
     }, 1)
@@ -68,7 +68,7 @@ class Box {
       if (that.heightBox >= that.heightBoxDefault) {
             clearInterval(anim)
       } else {
-            that.heightBox += 20;
+            that.heightBox += 10;
             that.box.style.height = `${that.heightBox}px`;
         }
     }, 1)

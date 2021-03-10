@@ -264,6 +264,9 @@ class ContratController extends Controller
 
         foreach (Auth::user()->categorie->contrats as $contrat) {
             $status = ($contrat->id === intval($id)) ? true : false;
+            if ($status === true) {
+                break;
+            }
         }
 
         if ($status === true) {

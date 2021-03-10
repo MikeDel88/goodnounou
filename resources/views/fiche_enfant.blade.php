@@ -1,20 +1,20 @@
 @extends('layouts.back')
 @section('content')
     <article class="box box-lg">
-        <header>
-            <h4>{{ $enfant->nom }} {{ $enfant->prenom }}</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">{{ $enfant->nom }} {{ $enfant->prenom }}</h4>
             <div>
                 <a href="#supprimer_enfant" class="col-md-2 text-danger" data-bs-toggle="modal"><i class="fas fa-trash"></i></a>
             </div>
         </header>
-        <div class="contenu row">
+        <div class="box__contenu row">
             <div class="col-md-6 my-3">
                 <form action="/fiche/enfant/{{ $enfant->id }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row mb-3">
                         <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" value="{{ $enfant->nom ?? old('nom') }}" name="nom" required>
+                        <input autofocus type="text" class="form-control" id="nom" value="{{ $enfant->nom ?? old('nom') }}" name="nom" required>
                     </div>
                     <div class="row mb-3">
                         <label for="prenom" class="form-label">Prénom</label>
@@ -38,23 +38,21 @@
                     </div>
                 @endif
             </div>
-            <div class="col-md-4 my-3">
-                <ul>
-                    <li>Crée le : {{ Carbon\Carbon::parse($enfant->created_at)->translatedFormat('j F Y') }}</li>
-                    <li>Dernière modification le : {{ Carbon\Carbon::parse($enfant->updated_at)->translatedFormat('j F Y à H:i') }}</li>
-                </ul>
-            </div>
+            <ul class="col-md-4 my-3">
+                <li>Crée le : {{ Carbon\Carbon::parse($enfant->created_at)->translatedFormat('j F Y') }}</li>
+                <li>Dernière modification le : {{ Carbon\Carbon::parse($enfant->updated_at)->translatedFormat('j F Y à H:i') }}</li>
+            </ul>
         </div>
-        <footer>
-            <a href="{{ route('parent.enfants') }}" class="bg-dark text-light px-3">Retour</a>
+        <footer class="box__footer">
+            <a href="{{ route('parent.enfants') }}" class="bg-dark text-light px-3 box__footer--lien">Retour</a>
         </footer>
     </article>
 
-    <div class="modal fade show" id="supprimer_enfant" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-modal="true" role="dialog">
+    <div class="modal fade show" id="supprimer_enfant" tabindex="-1" aria-labelledby="modalSuppressionEnfant" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalScrollableTitle">Suppression de l'enfant</h5>
+                    <h5 class="modal-title" id="modalSuppressionEnfant">Suppression de l'enfant</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

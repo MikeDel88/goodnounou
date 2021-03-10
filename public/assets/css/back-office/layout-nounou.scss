@@ -4,27 +4,22 @@ $color-main-more: #4D7AEB;
 
 @import 'commun';
 
-contenu-principal {
+.contenu-principal {
 
   &__page {
 
-    button {
-      &:hover {
-        background-color: $color-bg;
-      }
-    }
-
-
-    &--liste-messages {
-      .items {
-
-        .edit {
-          position: absolute;
-          top: -20px;
-          right: 0;
-          font-size: $fs-sm;
+    .box{
+      &__contenu{
+        select{
+          font-size: $fs-md;
         }
       }
     }
   }
+}
+.item-edit {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  font-size: $fs-sm;
 }

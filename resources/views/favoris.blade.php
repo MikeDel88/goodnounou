@@ -1,10 +1,10 @@
 @extends('layouts.back')
 @section('content')
     <article class="box box-lg">
-        <header>
-            <h4>Liste des favoris</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Liste des favoris</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <ul class="list-group">
                 @foreach (Auth::user()->categorie->favoris as $favoris)
                     <li class="list-group-item">

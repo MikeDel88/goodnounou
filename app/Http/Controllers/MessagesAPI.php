@@ -36,7 +36,13 @@ class MessagesAPI extends Controller
                 $infos->date = $message->jour_garde;
                 $data[] = $infos;
             }
-            return response()->json(['messages' => $data]);
+            if (!empty($data)) {
+                return response()->json(['messages' => $data]);
+            } else {
+                return response()->json(['messages' => false]);
+
+            }
+
         }
     }
 

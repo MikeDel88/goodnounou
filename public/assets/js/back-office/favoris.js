@@ -2,7 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const favoris = document.querySelector('.fa-heart')
     const nounou = document.querySelector('input[name="favoris"]').getAttribute('data-nounou-id')
     const parent = document.querySelector('input[name="favoris"]').getAttribute('data-parent-id')
-    let hearth;
+  let hearth;
+
+  var toastEl = document.querySelector('.toast');
+  let toastBody = document.querySelector('.toast-body');
+  let favorisInformations = new bootstrap.Toast(toastEl, {'delay': 2000});
+
 
     favoris.addEventListener('click', async function () {
 
@@ -16,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             hearth = false
         }
 
-        await fetch(
+        let response =await fetch(
 
             `${window.origin}/api/favoris`, {
             method: 'POST',
@@ -29,8 +34,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 parent: parent,
                 favoris: hearth
             }),
-        }
+          }
         );
+      let informations = await response.json();
+      if (informations.status === 'ajoute') {
+        toastBody.innerHTML = 'Favoris bien ajouté'
+      } else {
+        toastBody.innerHTML = 'Favoris bien supprimé'
+      }
+      favorisInformations.show();
 
     })
 })

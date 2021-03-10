@@ -5,11 +5,27 @@ $color-star: #ffcc00;
 
 @import 'commun';
 
+.map {
+  width: 700px;
+  margin: 40px;
+  height: 500px;
+  z-index: 1
+}
+
 .contenu-principal {
 
   &__page {
     .box {
       &__contenu {
+
+        &--presentation {
+
+          &-titre,
+          &-message {
+            font-size: $fs-md;
+            color: $color-grey;
+          }
+        }
 
         &--liste-enfants {
           width: 40%;
@@ -40,7 +56,11 @@ $color-star: #ffcc00;
               color: $color-bg;
             }
 
-            .delete {
+            .item-auteur {
+              color: $color-white;
+            }
+
+            .item-delete {
               display: inline-block;
               position: absolute;
               bottom: -25px;
@@ -50,61 +70,50 @@ $color-star: #ffcc00;
             }
           }
         }
-      }
-    }
-  }
 
-// button {
-//   &:hover {
-//     background-color: $color-white;
-//   }
-// }
+        &--fiches-enfants {
+          margin: 15px;
 
+          .item {
+            .lien {
+              display: block;
+              margin: 10px 0;
+              padding: 10px 5px;
+              transition: all 500ms ease;
+              background-color: $color-main;
+              color: $color-white;
+              font-weight: $fw-bold;
 
+              &:hover {
+                transform: scale(1.03);
+                background-color: $color-main-more;
+                box-shadow: 3px 4px 3px $color-shadow;
+              }
+            }
+          }
 
-  .liste_enfants {
-    ul {
-      margin: 15px;
+        }
 
-      li {
-        a {
-          display: block;
-          margin: 10px 0;
-          padding: 10px 5px;
-          transition: all 500ms ease;
-          background-color: $color-main;
-          color: $color-white;
-          font-weight: $fw-bold;
+        .fa-heart {
+          transition: transform 300ms ease;
+          cursor: pointer;
 
           &:hover {
-            transform: scale(1.03);
-            background-color: $color-main-more;
-            box-shadow: 3px 4px 3px $color-shadow;
+            transform: scale(1.3);
           }
+        }
+
+        .note {
+          cursor: pointer;
+          color: $color-star;
+        }
+
+        .note-check {
+          color: $color-star;
         }
       }
     }
   }
-
-  .note {
-    cursor: pointer;
-    color: $color-star;
-  }
-
-  .noteCheck {
-    color: $color-star;
-  }
-
-
-  .box-lg {
-
-    .fa-heart {
-      transition: transform 300ms ease;
-      cursor: pointer;
-
-      &:hover {
-        transform: scale(1.3);
-      }
-    }
-  }
 }
+
+

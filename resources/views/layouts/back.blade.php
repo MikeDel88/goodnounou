@@ -160,7 +160,7 @@
     <script src="{{ URL::asset('assets/js/back-office/mobile.js') }}"></script>
     @isset($js)
         @foreach ($js as $file)
-            <script src="{{ URL::asset("assets/js/back_-office/$file.js") }}"></script>
+            <script src="{{ URL::asset("assets/js/back-office/$file.js") }}"></script>
         @endforeach
     @endisset
 

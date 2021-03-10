@@ -1,10 +1,10 @@
 @extends('layouts.back')
 @section('content')
     <article class="box box-lg">
-        <header>
-            <h4>Créer un message</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Créer un message</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <form method="POST" action="message/ajouter">
                 @csrf
                 <div class="row d-flex flex-wrap">
@@ -39,10 +39,10 @@
             </form>
     </article>
     <article class="box box-lg">
-        <header>
-            <h4>Voir les messages</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Voir les messages</h4>
         </header>
-        <div id="messages" class="contenu">
+        <div id="messages" class="box__contenu">
             <input type="hidden" id="assistante_maternelle_id" value="{{ Auth::user()->categorie->id }}">
             <select id="messages_enfant" class="form-select" aria-label="enfants" required>
                 <option value="#" disabled selected>Selectionnez un enfant</option>

@@ -60,9 +60,26 @@ body {
   }
 
 }
+
 .is-current {
   background-color: $color-main-more;
+  color: $color-white;
 }
+
+.toast{
+  background-color: $color-main;
+  top:20%;
+  right:30px;
+  font-size: $fs-sm;
+}
+
+.modal-dialog{
+  h5, button, textarea{
+font-size: $fs-md !important;
+  }
+
+}
+
 .barre-navigation {
   width: 270px;
   min-height: 100vh;
@@ -122,7 +139,7 @@ body {
 
       &:hover {
         background-color: $color-main-more;
-        color:$color-white;
+        color: $color-white;
       }
     }
 
@@ -207,6 +224,10 @@ body {
 
         &--close:hover {
           cursor: pointer;
+        }
+
+        button {
+          font-size: $fs-md;
         }
       }
 
@@ -297,6 +318,82 @@ body {
           }
         }
 
+        &--avis {
+          position: relative;
+          min-height: 100px;
+          margin: 30px 0;
+          padding: 10px;
+          border: 1px solid $color-main;
+          background-color: $color-bg;
+          color: $color-grey;
+          box-shadow: 1px 5px 5px $color-shadow;
+          border-radius: $fs-sm;
+
+          &-date {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            color: $color-main-more;
+            font-size: $fs-md;
+            text-decoration: underline;
+          }
+
+          &-note {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: $color-main-more;
+            font-size: $fs-md;
+          }
+
+          &-message {
+            display: inline-block;
+            padding: 30px 0;
+            hyphens: auto;
+            font-size: $fs-md;
+          }
+        }
+
+        &--lien,
+        &--select {
+          font-size: $fs-md;
+        }
+
+        form {
+
+          .form-check-input:checked {
+            background-color: $color-main;
+          }
+
+          input,
+          select,
+          label,
+          textarea {
+            font-size: $fs-md;
+          }
+
+          input:required {
+            border: 1px solid $color-main-more;
+          }
+
+          textarea {
+            min-height: 80px;
+          }
+
+          button {
+            background-color: $color-main-more;
+            border: 2px solid $color-main-more;
+            color: $color-bg;
+            border-radius: $fs-md;
+            font-size: $fs-md;
+
+            &:hover {
+              background-color: $color-white;
+              color: $color-main-more;
+            }
+          }
+        }
+
       }
 
       &__footer {
@@ -311,7 +408,7 @@ body {
           cursor: pointer;
           border: none;
           color: $color-white;
-          font-size: $fs-sm;
+          font-size: $fs-md;
 
           &:hover {
             background-color: $color-white;
@@ -329,6 +426,21 @@ body {
           background-color: $color-red;
         }
 
+      }
+
+      &__calendar {
+
+        .fc-header-toolbar {
+          font-size: $fs-md;
+        }
+
+        .fc-toolbar-chunk {
+          button {
+            font-size: $fs-md;
+            background-color: $color-main;
+            border: 1px solid $color-main;
+          }
+        }
       }
 
 
@@ -355,68 +467,7 @@ body {
   }
 }
 
-form {
-  .form-check-input:checked {
-    background-color: $color-main !important;
-  }
-
-  input:required {
-    border: 1px solid $color-main-more;
-  }
-
-  button {
-    background-color: $color-main-more;
-    border: 2px solid $color-main-more;
-    color: $color-bg;
-    border-radius: $fs-md;
-
-    &:hover {
-      color: $color-main-more;
-    }
-  }
-}
-
-.avis {
-  position: relative;
-  min-height: 100px;
-  margin: 30px 0;
-  padding: 10px;
-  border: 1px solid $color-main;
-  background-color: $color-bg;
-  color: $color-grey;
-  box-shadow: 1px 5px 5px $color-shadow;
-  border-radius: $fs-sm;
-
-  .avis_date {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    color: $color-main-more;
-    font-size: $fs-md;
-    text-decoration: underline;
-  }
-
-  .avis_note {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    color: $color-main-more;
-    font-size: $fs-md;
-  }
-
-  .avis_message {
-    display: inline-block;
-    padding: 30px 0;
-    hyphens: auto;
-    font-size: $fs-lg;
-  }
-}
 
 #pagination_avis {
   margin: 10px 0;
-
-  .page_current {
-    background-color: $color-main-more;
-    color: $color-bg;
-  }
 }

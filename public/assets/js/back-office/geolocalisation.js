@@ -14,16 +14,17 @@ window.onload = () => {
         view;
 
         constructor(posLat, posLng, view) {
-            this.posLat = posLat;
-            this.posLng = posLng;
-            this.view = view;
-            this.initMap();
-            this.mymap.on('click', (e) => this.mapClickListen(e));
-            this.marqueurs = L.markerClusterGroup();
-            document.querySelector('button[type="submit"]').addEventListener('click', (e) => this.getSearch(
-                e))
+          this.posLat = posLat; // Latitude
+          this.posLng = posLng; // Longitude
+          this.view = view; // Hauteur de la view
+          this.initMap(); // Initiation de la carte
+          this.mymap.on('click', (e) => this.mapClickListen(e)); // Evenement sur le clique de la carte
+          this.marqueurs = L.markerClusterGroup(); // Marqueurs de groupe
+            document.querySelector('.js-search-submit').addEventListener('click', (e) => this.getSearch(
+            e)); // Evenement sur la recherche
         }
 
+        // Initialisation de la carte
         initMap() {
             this.mymap = L.map("detailsMap").setView([this.posLat, this.posLng], this.view);
             this.layer = L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
@@ -33,11 +34,11 @@ window.onload = () => {
             }).addTo(this.mymap)
         }
 
+        // Evenement sur le clique de la carte pour récupérer l'adresse
         async mapClickListen(e) {
 
             // Récupère les coordonnées du clic
             let pos = e.latlng
-            console.log(pos)
 
             this.lat = pos.lat
             this.lng = pos.lng
@@ -51,6 +52,7 @@ window.onload = () => {
 
         }
 
+        // Ajout d'un marqueur sur la carte avec drag and drop
         async addMarker(pos) {
 
             // Reset du marqueur
@@ -74,6 +76,7 @@ window.onload = () => {
             this.marqueur.addTo(this.mymap)
         }
 
+        // Récupère l'adresse sur l'API
         async getAdresse(lat, lng) {
             let response = await fetch(
                 `https://nominatim.openstreetmap.org/reverse.php?lat=${lat}&lon=${lng}&zoom=18&format=jsonv2`
@@ -82,10 +85,12 @@ window.onload = () => {
             return json
         }
 
+        // Execution de la recherche sur l'API
         async getSearch(e) {
 
             e.preventDefault();
 
+            // Reset des marqueurs
             if (this.cercle != undefined) {
                 this.mymap.removeLayer(this.cercle);
 
@@ -98,10 +103,10 @@ window.onload = () => {
                 this.marqueurs.clearLayers()
             }
 
-
-            let recherche = encodeURI(document.querySelector('#search').value);
-            let distance = document.querySelector('#rangeDistance').value;
-            let criteres = document.querySelectorAll('.form-check-input');
+            // Récupération des données dans le DOM pour la recherche et la distance et les critères
+            let recherche = encodeURI(document.querySelector("#search").value);
+            let distance = document.querySelector('.js-distance').value;
+            let criteres = document.querySelectorAll('.js-criteres');
             let criteresSelectionnes = [];
 
             criteres.forEach(critere => {
@@ -112,8 +117,7 @@ window.onload = () => {
 
             let rayon = distance * 1000
 
-            // J'effectue ma recherche en fonction du filtre envoyé
-
+            // Recherche sur l'API en fonction du filtre envoyé
             let response = await fetch(
                 `https://nominatim.openstreetmap.org/search?q=${recherche}&format=json&polygon_svg=1`
             )
@@ -123,7 +127,7 @@ window.onload = () => {
             this.lng = this.json[0].lon
             let pos = [this.lat, this.lng]
 
-            // Je dessine un cercle autour de la recherche sur un rayon défini par l'utilisateur
+            // Dessin d'un cercle autour de la recherche sur un rayon défini par l'utilisateur
             this.cercle = L.circle([this.lat, this.lng], {
                 color: 'blue',
                 fillColor: 'blue',
@@ -149,12 +153,13 @@ window.onload = () => {
             });
             let clients = await searchClients.json()
 
+            // Création du marquage sur la carte avec les résultats obtenus
             if (clients.length > 0) {
                 clients.forEach(client => {
                     pos = [client.lat, client.lng]
                     this.marqueur = L.marker(pos)
                     this.marqueur.bindPopup(
-                        `<a href="fiche/assistante-maternelle/${client.id}" target="_blank">${client.nom} ${client.prenom}</a>`
+                        `<a href="fiche/assistante-maternelle/${client.id}" target="_blank" rel="noopener noreferrer">${client.nom} ${client.prenom} <i class="fas fa-external-link-alt"></i></a>`
                     )
                     this.marqueurs.addLayer(this.marqueur)
                     this.tableauMarqueurs.push(this.marqueur)
@@ -170,7 +175,7 @@ window.onload = () => {
 
 
 
-    // Chargement de la carte
+    // Demande de geolocalisation par le navigateur et création des objets
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function (position) {
             posLat = position.coords.latitude;
@@ -188,9 +193,10 @@ window.onload = () => {
         new Map(46.14939437647686, 2.1972656250000004, 6)
     }
 
-    let range = document.querySelector('#rangeDistance');
+    // Inscription dans le DOM du nombre des kilomètres
+    let range = document.querySelector('.js-distance');
     range.addEventListener('change', function () {
-        let distance = document.querySelector('#distance');
+        let distance = document.querySelector('.js-distance-label');
         distance.innerHTML = `${this.value} km`
     })
 

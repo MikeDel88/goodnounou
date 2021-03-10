@@ -26,6 +26,7 @@ class FavorisAPI extends Controller
                         ->insert(
                             ['parent_id' => $request->parent, 'assistante_maternelle_id' => $request->nounou]
                         );
+                    return response()->json(['status' => 'ajoute']);
                 } catch (\Illuminate\Database\QueryException $e) {
                     $errorCode = $e->errorInfo[1];
                     if ($errorCode == 1062) {
@@ -37,6 +38,7 @@ class FavorisAPI extends Controller
                     ->where('parent_id', $request->parent)
                     ->where('assistante_maternelle_id', $request->nounou)
                     ->delete();
+                return response()->json(['status' => 'supprime']);
             }
         }
     }

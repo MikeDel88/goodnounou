@@ -1,14 +1,14 @@
 @extends('layouts.back')
 @section('content')
     <article class="box box-lg">
-        <header>
-            <h4>Ma fiche de renseignement</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Ma fiche de renseignement</h4>
             <div class="form-check form-switch">
                 <input class="form-check-input visibilite" data-client-id="{{ Auth::user()->categorie->id }}" type="checkbox" id="flexSwitchCheckDefault" name="visible" @if (Auth::user()->categorie->visible === 1) checked="checked" @endif>
                 <label class="form-check-label" for="flexSwitchCheckDefault">Visible</label>
             </div>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <ul>
                 <li>Identité : {{ Auth::user()->nom }} {{ Auth::user()->prenom }} ({{ Carbon\Carbon::parse(Auth::user()->date_naissance)->age }} ans)</li>
                 <li>Téléphone : {{ Auth::user()->telephone ?? 'non renseigné' }}</li>
@@ -23,14 +23,14 @@
     </article>
     <section>
         <article class="box box-lg">
-            <header>
-                <h4>Mes informations professionnelles</h4>
+            <header class="box__header">
+                <h4 class="box__header--titre">Mes informations professionnelles</h4>
                 <div class="form-check form-switch">
                     <input class="form-check-input disponible" type="checkbox" data-client-id="{{ Auth::user()->categorie->id }}" id="flexSwitchCheckChecked" @if (Auth::user()->categorie->disponible === 1) checked="checked" @endif>
                     <label class="form-check-label" for="flexSwitchCheckChecked">Disponible</label>
                 </div>
             </header>
-            <div class="contenu p-4">
+            <div class="box__contenu p-4">
                 <form action="/fiche/{{ Auth::user()->categorie->id }}" method="POST">
                     @csrf
                     <div class="row my-2">
@@ -115,10 +115,10 @@
             </div>
         </article>
         <article class="box box-md">
-            <header>
-                <h4>Mes critères</h4>
+            <header class="box__header">
+                <h4 class="box__header--titre">Mes critères</h4>
             </header>
-            <div class="contenu p-4">
+            <div class="box__contenu p-4">
                 <div class="row">
                     <div class="col-6">
                         <input type="hidden" class="user" value="{{ Auth::user()->categorie->id }}">
