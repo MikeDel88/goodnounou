@@ -8,9 +8,9 @@
         </header>
         <div class="box__contenu">
             <ul>
-                <li><span>Dernière mise à jour du profil : </span><span>{{ Auth::user()->updated_at->translatedFormat('j F Y à H:i') }}</span></li>
-                <li><span>Email de connexion : </span><span>{{ Auth::user()->email }}</span></li>
-                <li><span>Ma catégorie : </span><span>{{ ucFirst($role) }}</span></li>
+                <li><span class="fw-bold">Dernière mise à jour du profil : </span><span>{{ Auth::user()->updated_at->translatedFormat('j F Y à H:i') }}</span></li>
+                <li><span class="fw-bold">Email de connexion : </span><span>{{ Auth::user()->email }}</span></li>
+                <li><span class="fw-bold">Ma catégorie : </span><span>{{ ucFirst($role) }}</span></li>
             </ul>
         </div>
     </article>

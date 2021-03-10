@@ -223,10 +223,12 @@ font-size: $fs-md !important;
         &--titre,
         &--close {
           color: $color-grey;
+          transition: transform 1s ease;
         }
 
         &--close:hover {
           cursor: pointer;
+          transform: rotate(180deg);
         }
 
         button {
@@ -389,10 +391,12 @@ font-size: $fs-md !important;
             color: $color-bg;
             border-radius: $fs-md;
             font-size: $fs-md;
+            transition: all 500ms ease;
 
             &:hover {
               background-color: $color-white;
               color: $color-main-more;
+              transform: scale(0.9);
             }
           }
         }
@@ -412,10 +416,12 @@ font-size: $fs-md !important;
           border: none;
           color: $color-white;
           font-size: $fs-md;
+          transition: all 500ms ease;
 
           &:hover {
             background-color: $color-white;
             color: $color-grey;
+            transform: scale(0.9);
           }
         }
 

@@ -262,10 +262,16 @@ body .menu-mobile__secondaire {
 
 .contenu-principal__page .box__header--titre, .contenu-principal__page .box__header--close {
   color: #4B4B4B;
+  -webkit-transition: -webkit-transform 1s ease;
+  transition: -webkit-transform 1s ease;
+  transition: transform 1s ease;
+  transition: transform 1s ease, -webkit-transform 1s ease;
 }
 
 .contenu-principal__page .box__header--close:hover {
   cursor: pointer;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 
 .contenu-principal__page .box__header button {
@@ -429,11 +435,15 @@ body .menu-mobile__secondaire {
   color: #F0F0F0;
   border-radius: 1.5rem;
   font-size: 1.5rem;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
 }
 
 .contenu-principal__page .box__contenu form button:hover {
   background-color: #FFFF;
   color: #0D4671;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 
 .contenu-principal__page .box__footer {
@@ -450,11 +460,15 @@ body .menu-mobile__secondaire {
   border: none;
   color: #FFFF;
   font-size: 1.5rem;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
 }
 
 .contenu-principal__page .box__footer--lien:hover {
   background-color: #FFFF;
   color: #4B4B4B;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 
 .contenu-principal__page .box__footer--modifier {
