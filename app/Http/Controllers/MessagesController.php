@@ -154,7 +154,7 @@ class MessagesController extends Controller
                 $message->contenu = $request->input('contenu');
                 $message->save();
 
-                return back()->with('success', $this->_messages['modifications']);
+                return back()->with('success', $this->_messages['modification']);
             } catch (\Illuminate\Database\QueryException $e) {
                 $errorCode = $e->errorInfo[1];
                 if ($errorCode == 1062) {

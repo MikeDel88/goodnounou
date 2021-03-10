@@ -83,6 +83,10 @@ body .menu-mobile__secondaire {
   font-size: 1.3rem;
 }
 
+.modal-dialog h5, .modal-dialog button, .modal-dialog textarea {
+  font-size: 1.5rem !important;
+}
+
 .barre-navigation {
   width: 270px;
   min-height: 100vh;

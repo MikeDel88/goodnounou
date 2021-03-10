@@ -11,7 +11,7 @@ listeEnfants.addEventListener('change', async function () {
   let listeMessages = await response.json();
   await messages(listeMessages.messages)
 
-  let update = document.querySelectorAll('.edit')
+  let update = document.querySelectorAll('.item-edit')
   if (update) {
     update.forEach(message => {
       message.addEventListener('click', editMessage)

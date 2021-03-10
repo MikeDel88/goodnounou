@@ -1,5 +1,6 @@
 @extends('layouts.back')
 @section('content')
+    <!-- Création d'un message pour un enfant -->
     <article class="box box-lg">
         <header class="box__header">
             <h4 class="box__header--titre">Créer un message</h4>
@@ -38,6 +39,7 @@
                 @endif
             </form>
     </article>
+    <!-- Modification d'un mesage existant -->
     <article class="box box-lg">
         <header class="box__header">
             <h4 class="box__header--titre">Voir les messages</h4>
