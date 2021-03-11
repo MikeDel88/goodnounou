@@ -1,4 +1,5 @@
 @import '_base.scss';
+@import '_animations.scss';
 
 @media (max-width: 600px){
     @import '_inscription-mobile.scss';
@@ -17,8 +18,17 @@ h3{
 
 #en-tete{
     margin-top: 20px;
+    img + div{
+      display:none;
+    }
     img:hover{
-        cursor: pointer !important;
+      cursor: pointer !important;
+    }
+    img:hover + div{
+        top:0;
+        left:25%;
+        display:block;
+        animation: infoImage 1s ease forwards;
     }
     .img-selected{
         border: 1px solid #265D87;

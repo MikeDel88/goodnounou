@@ -157,6 +157,32 @@ a {
   }
 }
 
+@-webkit-keyframes infoImage {
+  from {
+    opacity: 0;
+    font-size: 0px;
+  }
+  to {
+    opacity: 1;
+    font-size: 18px;
+    -webkit-transform: rotate(-25deg);
+            transform: rotate(-25deg);
+  }
+}
+
+@keyframes infoImage {
+  from {
+    opacity: 0;
+    font-size: 0px;
+  }
+  to {
+    opacity: 1;
+    font-size: 18px;
+    -webkit-transform: rotate(-25deg);
+            transform: rotate(-25deg);
+  }
+}
+
 .animation-menu {
   -webkit-animation-name: animationMenu;
           animation-name: animationMenu;

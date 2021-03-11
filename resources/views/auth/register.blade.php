@@ -6,11 +6,13 @@
                 <h2 class="mb-3 text-center">Inscription</h2>
                 <h3 class="my-3">Selectionnez une catégorie</h3>
             </div>
-            <div class="col-6 order-1">
-                <img src="{{ URL::asset('assets/images/parents.png') }}" loading="lazy" alt="parents" title="parents" data-name="parents">
+            <div class="col-6 order-1 position-relative">
+                <img src="{{ URL::asset('assets/images/parents.png') }}" loading="lazy" alt="choix parents" title="parents" data-name="parents">
+                <div class="position-absolute">Parent</div>
             </div>
-            <div class="col-6 order-1">
-                <img src="{{ URL::asset('assets/images/assistante-maternelle.png') }}" loading="lazy" alt="assistante-maternelle" title="assistante-maternelle" data-name="assistante-maternelle">
+            <div class="col-6 order-1 position-relative">
+                <img src="{{ URL::asset('assets/images/assistante-maternelle.png') }}" loading="lazy" alt="choix assistante-maternelle" title="assistante-maternelle" data-name="assistante-maternelle">
+                <div class="position-absolute">Nounou</div>
             </div>
             @error('categorie')
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -30,7 +32,7 @@
                     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" value="{{ old('email') }}" @error('email') is-invalid @enderror" required placeholder="email@exemple.com" autocomplete="off" name="email">
                     <div id="emailHelp" class="form-text">Une adresse mail valide pour l'envoi de la confirmation</div>
                     <div class="valid-feedback">La saisie est correcte</div>
-                    
+
                     @error('email')
                     <div class="feedback">{{ $message }}</div>
                     @enderror
@@ -42,7 +44,7 @@
                     <input type="password" class="form-control" id="password1" aria-describedby="passwordHelp" minlength="8" maxlength="16" required autocomplete="off" name="password" aria-describedby="inputPassword" @error('password') .invalid @enderror">
                     <div id="passwordHelp" class="form-text">Mot de passe doit être compris entre 8 et 16 caractères.</div>
                     <div class="valid-feedback">Mot de passe correct</div>
-                    
+
                     @error('password')
                     <div id="inputPassword" class="feedback">{{ $message }}</div>
                     @enderror
