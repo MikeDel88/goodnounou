@@ -13,7 +13,7 @@
                         <select name="enfant" id="enfant" class="form-select" aria-label="enfants" required>
                             <option value="#" disabled selected>Selectionnez un enfant</option>
                             @foreach ($contrats as $contrat)
-                            <option value="{{ $contrat->enfant_id }}">{{ ucFirst($contrat->enfant->prenom) }}</option>
+                            <option value="{{ $contrat->enfant_id }}">{{ ucFirst($contrat->enfant->nom) }} {{ ucFirst($contrat->enfant->prenom) }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -49,7 +49,7 @@
             <select id="messages_enfant" class="form-select" aria-label="enfants" required>
                 <option value="#" disabled selected>Selectionnez un enfant</option>
                 @foreach ($contrats as $contrat)
-                <option value="{{ $contrat->enfant_id }}">{{ ucFirst($contrat->enfant->prenom) }}</option>
+                <option value="{{ $contrat->enfant_id }}">{{ ucFirst($contrat->enfant->nom) }} {{ ucFirst($contrat->enfant->prenom) }}</option>
                 @endforeach
             </select>
     </article>

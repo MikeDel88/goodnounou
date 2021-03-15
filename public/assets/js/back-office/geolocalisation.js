@@ -117,7 +117,7 @@ window.onload = () => {
 
             let rayon = distance * 1000
 
-            // Recherche sur l'API en fonction du filtre envoyé
+            // Recherche les coordonnées GPS sur l'API en fonction de l'adresse donnée
             let response = await fetch(
                 `https://nominatim.openstreetmap.org/search?q=${recherche}&format=json&polygon_svg=1`
             )
@@ -151,11 +151,11 @@ window.onload = () => {
                     distance: distance
                 }),
             });
-            let clients = await searchClients.json()
+          let clients = await searchClients.json()
 
             // Création du marquage sur la carte avec les résultats obtenus
-            if (clients.length > 0) {
-                clients.forEach(client => {
+            if (clients.result !== false) {
+                clients.result.forEach(client => {
                     pos = [client.lat, client.lng]
                     this.marqueur = L.marker(pos)
                     this.marqueur.bindPopup(
@@ -169,7 +169,6 @@ window.onload = () => {
                 this.mymap.fitBounds(groupMarqueur.getBounds().pad(0.5));
                 this.mymap.addLayer(this.marqueurs)
             }
-
         }
     }
 

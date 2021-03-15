@@ -75,9 +75,15 @@ class ContratController extends Controller
 
         foreach ($liste_enfants as $enfant) {
             $checkEnfant = ($enfant->id === intval($request->input('enfant'))) ? true : false;
+            if ($checkEnfant) {
+                break;
+            }
         }
         foreach ($liste_favoris as $favoris) {
             $checkFavoris = ($favoris->assistante_maternelle_id === intval($request->input('assistante_maternelle'))) ? true : false;
+            if ($checkFavoris) {
+                break;
+            }
         }
 
         if (isset($checkEnfant) && $checkEnfant === true && isset($checkFavoris) && $checkFavoris === true) {

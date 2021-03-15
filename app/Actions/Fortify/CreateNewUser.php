@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
+/**
+ * CreateNewUser
+ */
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
@@ -18,7 +21,8 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Validate and create a newly registered user.
      *
-     * @param  array  $input
+     * @param array $input Formulaire d'inscription
+     *
      * @return \App\Models\User
      */
     public function create(array $input)
@@ -26,13 +30,15 @@ class CreateNewUser implements CreatesNewUsers
         /**
          * Validation des données renseignées pour l'inscription de l'utilisateur
          */
-        Validator::make($input, [
+        Validator::make(
+            $input, [
             'categorie' => ['bail', 'filled', 'required', Rule::in(['parents', 'assistante-maternelle'])],
             'email' => 'bail|filled|required|email|unique:users',
             'password' => 'bail|filled|required|confirmed|min:8|max:16',
             'password_confirmation' => 'bail|filled|required',
             'acceptCG' => 'accepted',
-        ])->validate();
+            ]
+        )->validate();
 
         /**
          * Enregistrement dans la catégorie selectionné par l'utilisateur
@@ -49,12 +55,14 @@ class CreateNewUser implements CreatesNewUsers
         /**
          * Création de l'utilisateur
          */
-        $user = User::create([
+        $user = User::create(
+            [
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
             'categorie_type' => $model,
             'categorie_id' => $cat->id,
-        ]);
+            ]
+        );
 
         return $user;
     }

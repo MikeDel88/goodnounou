@@ -30,10 +30,8 @@ class DatabaseSeeder extends Seeder
         Status::insert(['nom' => 'refus']);
         Status::insert(['nom' => 'clos']);
         User::factory()->count(100)->create();
-        AssistantesMaternelles::factory(100)->create();
+        $assMat = User::where('categorie_type', 'App\Models\AssistantesMaternelles');
         Recommandations::factory()->count(1500)->create();
-        Critere::factory(100)->create();
-
-
+        Critere::factory($assMat->count())->create();
     }
 }
