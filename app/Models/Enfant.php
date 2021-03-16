@@ -45,8 +45,10 @@ class Enfant extends Model
         $age = Carbon::parse($this->date_naissance)->age;
         if ($age < 1) {
             return date("m", strtotime($this->date_naissance)) - date('m') . " mois";
+        } else if ($age === 1) {
+            return $age . " an";
         } else {
-            return $age . "ans";
+            return $age . " ans";
         }
 
     }
