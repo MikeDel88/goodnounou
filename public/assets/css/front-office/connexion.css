@@ -37,7 +37,7 @@ a {
 
 @media (max-width: 600px) {
   footer {
-    position: relative;
+    position: relative !important;
   }
 }
 
