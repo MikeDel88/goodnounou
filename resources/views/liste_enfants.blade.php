@@ -47,7 +47,7 @@
             <ul class="box__contenu--fiches-enfants">
                 @foreach ($enfants as $enfant)
                     <li class="item">
-                        <a class="lien" href="/fiche/enfant/{{ $enfant->id }}">{{ $enfant->nom }} {{ $enfant->prenom }} ({{ Carbon\Carbon::parse($enfant->date_naissance)->age }} ans)</a>
+                        <a class="lien" href="/fiche/enfant/{{ $enfant->id }}">{{ $enfant->getIdentite() }} ({{ $enfant->getAge() }})</a>
                     </li>
                 @endforeach
             </ul>

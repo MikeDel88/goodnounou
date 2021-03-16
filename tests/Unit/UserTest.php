@@ -25,6 +25,7 @@ class UserTest extends TestCase
      */
     public function testSeeder()
     {
+
         $users = User::all();
         foreach ($users as $user) {
             $this->assertNotNull($user->categorie_type);

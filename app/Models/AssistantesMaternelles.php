@@ -31,6 +31,16 @@ class AssistantesMaternelles extends Model
     protected $table = 'assistantes_maternelles';
 
     /**
+     * AdresseComplete
+     *
+     * @return void
+     */
+    public function adresseProComplete()
+    {
+        return "$this->adresse_pro  $this->code_postal_pro  $this->ville_pro";
+    }
+
+    /**
      * Categorie
      * Relation polymorphe avec l'objet utilisateur
      *

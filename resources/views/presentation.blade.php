@@ -35,11 +35,11 @@
             <ul id="renseignements">
                 <li><span class="fw-bold">Nom :</span> {{ $renseignements->nom ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Prénom :</span> {{ $renseignements->prenom ?? 'non renseigné' }}</li>
-                <li><span class="fw-bold">Age :</span> {{ Carbon\Carbon::parse($renseignements->date_naissance)->age ?? 'non renseigné' }}</li>
+                <li><span class="fw-bold">Age :</span> {{ $renseignements->getAge() ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Exerce depuis :</span> {{ Carbon\Carbon::parse($renseignements->categorie->date_debut)->format('d/m/Y') ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Formation :</span> {{ $renseignements->categorie->formation ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Nombre d'enfants maximum :</span> {{ $renseignements->categorie->nombre_place ?? 'non renseigné' }}</li>
-                <li><span class="fw-bold">Adresse d'excercice :</span> {{ "{$renseignements->categorie->adresse_pro} {$renseignements->categorie->code_postal_pro}, {$renseignements->categorie->ville_pro}" ?? 'non renseigné' }}
+                <li><span class="fw-bold">Adresse d'excercice :</span> {{ $renseignements->categorie->adresseProComplete() ?? 'non renseigné' }}
                 <li><span class="fw-bold">Contacter :</span>
                     @if ($renseignements->telephone !== null)
                         <a href="tel:{{ $renseignements->telephone }}" class="mx-2">

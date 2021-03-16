@@ -15,8 +15,8 @@
                 <ul class="box__contenu--liste-identite">
                     <li class="item d-flex w-100 justify-content-start flex-wrap"><span class="fw-bold">Nom</span><span>{{ Auth::user()->nom ?? 'non renseigné' }}</span></li>
                     <li class="item d-flex w-100 justify-content-start flex-wrap"><span class="fw-bold">Prénom</span><span>{{ Auth::user()->prenom ?? 'non renseigné' }}</span></li>
-                    <li class="item d-flex w-100 justify-content-start flex-wrap"><span class="fw-bold">Date de naissance</span><span>{{ date('d-m-Y', strtotime(Auth::user()->date_naissance)) ?? 'non renseigné' }}</span></li>
-                    <li class="item d-flex w-100 justify-content-start flex-wrap"><span class="fw-bold">Adresse</span><span>{{ Auth::user()->adresse ?? 'non renseigné' }} {{ Auth::user()->code_postal }} {{ ucFirst(Auth::user()->ville) ?? '' }} </span></li>
+                    <li class="item d-flex w-100 justify-content-start flex-wrap"><span class="fw-bold">Date de naissance</span><span>{{ Auth::user()->getDateFr(Auth::user()->date_naissance) ?? 'non renseigné' }}</span></li>
+                    <li class="item d-flex w-100 justify-content-start flex-wrap"><span class="fw-bold">Adresse</span><span>{{ Auth::user()->adresseComplete() ?? 'non renseigné' }}</span></li>
                     <li class="item d-flex w-100 justify-content-start flex-wrap"><span class="fw-bold">Téléphone</span><span>{{ Auth::user()->telephone ?? 'non renseigné' }}</span></li>
                     <li class="item d-flex w-100 justify-content-start flex-wrap"><span class="fw-bold">Email</span><span>{{ Auth::user()->email_contact ?? 'non renseigné' }}</span></li>
                 </ul>
@@ -25,7 +25,7 @@
                     <h5 class="fw-bold">Mes enfants:</h5>
                     <ol>
                         @foreach ($enfants as $enfant)
-                        <li>{{ $enfant->nom }} {{ $enfant->prenom }}</li>
+                        <li>{{ $enfant->getIdentite() }}</li>
                         @endforeach
                     </ol>
                 </div>
@@ -48,7 +48,7 @@
             <article class="box__contenu">
                 <ul class="m-3">
                     @foreach ($contrats as $contrat)
-                    <li>{{ "{$contrat->enfant->nom} {$contrat->enfant->prenom}" }} depuis le {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}</li>
+                    <li>{{ $contrat->enfant->getIdentite() }} depuis le {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}</li>
                     @endforeach
                 </ul>
             </article>
@@ -68,7 +68,7 @@
                         <li class="items">
                             <span class="item-date">{{ Carbon\Carbon::parse($message->jour_garde)->translatedFormat('d/m/Y') }}</span>
                             <span class="item-enfant">{{ $message->enfant->prenom }}</span>
-                            <span class="item-message">{{ Str::limit($message->contenu, 50) }}</span>
+                            <span class="item-message">{{ $message->getExtrait() }}</span>
                         </li>
                         @endif
                     @endforeach

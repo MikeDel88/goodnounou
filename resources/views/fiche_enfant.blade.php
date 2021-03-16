@@ -2,7 +2,7 @@
 @section('content')
     <article class="box box-lg">
         <header class="box__header">
-            <h4 class="box__header--titre">{{ $enfant->nom }} {{ $enfant->prenom }}</h4>
+            <h4 class="box__header--titre">{{ $enfant->getIdentite() }}</h4>
             <div>
                 <a href="#supprimer_enfant" class="col-md-2 text-danger" data-bs-toggle="modal"><i class="fas fa-trash"></i></a>
             </div>

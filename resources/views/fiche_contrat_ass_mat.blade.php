@@ -11,14 +11,14 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <h3 class="h4">Identité du titulaire du contrat</h3>
-                    <span>{{ "{$contrat->parent->categorie->nom} {$contrat->parent->categorie->prenom}" }}</span>
+                    <span>{{ $contrat->parent->categorie->getIdentite() }}</span>
                 </li>
                 <li class="list-group-item">
                     <h3 class="h4">Informations de l'enfant</h3>
                     <ul>
                         <li>Nom : {{ $contrat->enfant->nom }}</li>
                         <li>Prénom : {{ $contrat->enfant->prenom }}</li>
-                        <li>Age : {{ Carbon\Carbon::parse($contrat->enfant->date_naissance)->age }}</li>
+                        <li>Age : {{ $contrat->enfant->getAge() }}</li>
                     </ul>
                 </li>
                 <li class="list-group-item">

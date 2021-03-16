@@ -10,12 +10,13 @@
         </header>
         <article class="box__contenu d-flex justify-content-start flex-wrap">
             <ul class="p-2">
-                <li>Identité assistante maternelle : {{ "{$contrat->assistanteMaternelle->categorie->nom} {$contrat->assistanteMaternelle->categorie->prenom}" }}</li>
+                <li>Identité assistante maternelle : {{ $contrat->assistanteMaternelle->categorie->getIdentite() }}</li>
                 <li>Enfant : {{ $contrat->enfant->prenom }}</li>
                 <li>Nombre d'heures prévu par semaine: {{ $contrat->nombre_heures }}h</li>
                 <li>Nombre de semaines prévu (hors 5 semaines de congés de l'assistante maternelle) sur l'année : {{ $contrat->nombre_semaines }}</li>
                 <li>Nombre d'heures lissés par mois : {{ $nombre_heures_lisse }}h</li>
                 <li>Fériés : @if ($contrat->assistanteMaternelle->criteres->ferie === 0) non travaillé @else possible @endif</li>
+                <li>Week-end : @if ($contrat->assistanteMaternelle->criteres->week_end === 0) non travaillé @else possible @endif</li>
             </ul>
             <ul class="p-2">
                 <li>Taux horaires net : {{ $contrat->taux_horaire }}€</li>

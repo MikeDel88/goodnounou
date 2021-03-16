@@ -10,7 +10,7 @@
         </header>
         <div class="box__contenu">
             <ul>
-                <li>Identité : {{ Auth::user()->nom }} {{ Auth::user()->prenom }} ({{ Carbon\Carbon::parse(Auth::user()->date_naissance)->age }} ans)</li>
+                <li>Identité : {{ Auth::user()->getIdentite() }} ({{ Auth::user()->getAge() }})</li>
                 <li>Téléphone : {{ Auth::user()->telephone ?? 'non renseigné' }}</li>
                 <li>Email : {{ Auth::user()->email_contact ?? 'non renseigné ' }}</li>
                 <li>Adresse personnelle : <span id="adresse-perso">{{Auth::user()->adresse}}</span> <span id='code-postal-perso'>{{Auth::user()->code_postal}}</span> <span id="ville-perso">{{Auth::user()->ville}}</span></li>

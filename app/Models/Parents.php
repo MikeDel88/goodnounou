@@ -18,6 +18,7 @@ class Parents extends Model
 
     protected $table = 'parents';
 
+
     /**
      * Categorie
      * Relation polymorphe avec l'objet utilisateur

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Events\Registered;
 use App\Models\AssistanteMaternelle;
 use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Support\Carbon;
 use App\Models\Parents;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -108,7 +109,44 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     public function adresseComplete()
     {
-        return "$this->adresse  $this->code_postal  $this->ville";
+        if ($this->adresse && $this->code_postal && $this->ville) {
+            return "$this->adresse  $this->code_postal  $this->ville";
+        } else {
+            return "non renseigné";
+        }
+
+    }
+
+    /**
+     * GetIdentite
+     *
+     * @return void
+     */
+    public function getIdentite()
+    {
+        return "$this->nom $this->prenom";
+    }
+
+    /**
+     * GetAge
+     *
+     * @return void
+     */
+    public function getAge()
+    {
+        return Carbon::parse($this->date_naissance)->age . " ans";
+    }
+
+    /**
+     * GetDateFr
+     *
+     * @param mixed $attr Attribut de l'objet
+     *
+     * @return void
+     */
+    public function getDateFr($attr)
+    {
+        return date('d-m-Y', strtotime($this->$attr));
     }
 
 

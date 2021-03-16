@@ -6,6 +6,8 @@ use App\Models\AssistantesMaternelles;
 use App\Models\Enfant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 /**
  * Messages
@@ -33,6 +35,16 @@ class Messages extends Model
         'contenu',
         'jour_garde',
     ];
+
+    /**
+     * GetExtrait
+     *
+     * @return void
+     */
+    public function getExtrait()
+    {
+        return Str::limit($this->contenu, 50);
+    }
 
     /**
      * AssistanteMaternelle

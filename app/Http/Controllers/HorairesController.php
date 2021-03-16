@@ -42,12 +42,15 @@ class HorairesController extends Controller
             // Récupère la liste des contrats de l'utilisateur parent connecté
             $listeContrats = Contrats::where('parent_id', Auth::user()->categorie->id)->get();
             $listeIdContrats = [];
+
             foreach ($listeContrats as $contrat) {
                 // Met dans un tableau tous les id des contrats appartenant à l'utilisateur parent connecté
                 $listeIdContrats[] = $contrat->id;
 
-                // Permettra de vérifier si la date renseigné et postérieur ou égal à la date du contrat
-                $date_debut = (intval($request->input('contrat_id')) === $contrat->id) ? $contrat->date_debut : $date_debut = date('Y-m-d');
+                // Permettra de vérifier si la date renseigné est postérieur ou égal à la date du contrat
+                if (intval($request->input('contrat_id')) === $contrat->id) {
+                    $date_debut = $contrat->date_debut;
+                }
             }
 
             /**
@@ -58,7 +61,7 @@ class HorairesController extends Controller
                 'contrat_id' => ['required', Rule::in($listeIdContrats)],
                 'jour_garde' => "after_or_equal:$date_debut|required",
                 'nombre_heures' => 'string|bail|required',
-                'debut_contrat' => 'date_format:"Y-m-d"|required',
+                'debut_contrat' => "date_format:$date_debut|required",
                 'heure_debut' => 'date_format:H:i',
                 'depose_par' => 'string|nullable',
                 'heure_fin' => 'date_format:H:i|after:heure_debut',
