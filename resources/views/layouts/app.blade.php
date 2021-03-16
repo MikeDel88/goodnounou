@@ -64,7 +64,7 @@
                     </ul>
                 </div>
             </nav>
-            <h1 class="titre">{{env('APP_NAME')}}</h1>
+            <h1 class="titre">GoodNounou</h1>
             {{-- Menu pour l'ecran de bureau --}}
             <nav id="navigation" role="navigation" class="menu-desktop">
                 <ul>
