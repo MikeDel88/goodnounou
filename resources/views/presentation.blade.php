@@ -12,7 +12,7 @@
                     <span class="fs-7">({{$nombreNote}} notes et {{$nombreAvis}} avis)</span>
             </h4>
             <div>
-                @if ($renseignements->categorie->disponible === 1)
+                @if (intval($renseignements->categorie->disponible) === 1)
                     <span class="text-success mx-1">Disponible</span>
                 @else
                     <span class="text-danger mx-1">Disponible à partir du :
@@ -90,7 +90,7 @@
             <ul>
                 @foreach ($criteres as $critere => $valeur)
                     @if ($critere !== 'id' && $critere !== 'assistante_maternelle_id' && $critere !== 'created_at' && $critere !== 'updated_at')
-                        @if ($valeur === 1)
+                        @if (intval($valeur) === 1)
                             <li>
                                 <i alt="critère accepté" class="fas fa-check-square text-success mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
                             </li>
