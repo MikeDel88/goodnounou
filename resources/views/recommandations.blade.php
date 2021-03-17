@@ -23,9 +23,6 @@
             <h4 class="box__header--titre">Tous les avis</h4>
         </header>
         <div class="box__contenu">
-            <div class="d-flex justify-content-center m-3 p-3">
-                <div class="spinner-border" role="status"></div>
-            </div>
             <form class="d-flex flex-wrap align-items-center my-3 border-bottom pb-3">
                 <label class="mx-2" for="filtre">Filtre : </label>
                 <select name="filtre" id="filtre" class=" w-75 form-select form-select-sm" aria-label="Filtre de selection" value="{{old('filtre')}}">
@@ -36,6 +33,9 @@
                     <option value="avis_asc">Avis : Anciens vers récents</option>
                 </select>
             </form>
+            <div class="d-flex justify-content-center m-3 p-3">
+                <div class="spinner-border" role="status"></div>
+            </div>
             <div id='liste_avis' data-nounou-id="{{Auth::user()->categorie_id}}" class="visually-hidden">
                 <div id="messages_avis">
                 </div>
