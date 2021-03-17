@@ -9,7 +9,7 @@
         </header>
         <div class="box__contenu row">
             <div class="col-md-6 my-3">
-                <form action="/fiche/enfant/{{ $enfant->id }}" method="POST">
+                <form action="/fiche/enfant/{{ $enfant->id }}/update" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row mb-3">
