@@ -31,5 +31,4 @@ MENU_MOBILE_SECONDAIRE.addEventListener('click', function () {
   MENU.modal.classList.add('is-open');
   MENU.secondaire.classList.add('d-flex');
   MENU.secondaire.classList.add('menuSecondaireMobile');
-  MENU.main.style.position = 'fixed';
 })
