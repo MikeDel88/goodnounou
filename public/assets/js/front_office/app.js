@@ -12,7 +12,7 @@ document.querySelector('#to-top').addEventListener('click', () => {
 /**
  * Permet de mettre en évidence la page accueil
  */
-let title = document.querySelector('title').innerHTML.split('|');
+let title = document.querySelector('title').innerHTML.split(':');
 let pageCurrent = title[1].trim().toLowerCase();
 let current = document.querySelectorAll(`.${pageCurrent}`);
 current.forEach(element => {

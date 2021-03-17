@@ -146,7 +146,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
      */
     public function getDateFr($attr)
     {
-        return date('d-m-Y', strtotime($this->$attr));
+        return date('d-m-Y', strtotime($attr));
     }
 
 

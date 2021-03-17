@@ -35,6 +35,12 @@ a {
   text-decoration: none;
 }
 
+@media (max-width: 600px) {
+  footer {
+    position: relative !important;
+  }
+}
+
 h2 {
   font-size: 25px !important;
 }

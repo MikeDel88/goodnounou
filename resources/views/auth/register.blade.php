@@ -8,7 +8,7 @@
             </div>
             <div class="col-6 order-1 position-relative">
                 <img src="{{ URL::asset('assets/images/parents.png') }}" loading="lazy" alt="choix parents" title="parents" data-name="parents">
-                <div class="position-absolute">Parent</div>
+                <div class="position-absolute">Parents</div>
             </div>
             <div class="col-6 order-1 position-relative">
                 <img src="{{ URL::asset('assets/images/assistante-maternelle.png') }}" loading="lazy" alt="choix assistante-maternelle" title="assistante-maternelle" data-name="assistante-maternelle">

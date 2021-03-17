@@ -24,7 +24,7 @@
     <script src="https://kit.fontawesome.com/19f71f9368.js" crossorigin="anonymous"></script>
 
     <!-- Titre du site + espace personnel -->
-    <title>{{ env('APP_NAME') }} : Espace Personnel</title>
+    <title>GoodNounou : Espace Personnel</title>
 
 
     <!-- Bootstrap v5 -->
@@ -54,13 +54,10 @@
 </head>
 
 <body>
-    {{-- Affiche un fond style modal pour l'apparition des menus en mode mobile --}}
-    <div id="js-modal" class="background-modal"></div>
-
     <!-- Barre de navigation -->
     <aside id="js-barre-navigation" class="barre-navigation" role="complementary">
         <!--  Titre du site -->
-        <h1 class="barre-navigation__titre" aria-label="titre-site">{{ env('APP_NAME') }}</h1>
+        <h1 class="barre-navigation__titre" aria-label="titre-site">GoodNounou</h1>
         <!--  Contenu d'identité -->
         <article class="barre-navigation__identite">
             <!-- Nom -->
@@ -146,6 +143,8 @@
             @yield('content')
         </section>
     </main>
+    {{-- Affiche un fond style modal pour l'apparition des menus en mode mobile --}}
+    <div id="js-modal" class="background-modal"></div>
 
     <!-- Bootstrap v5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">

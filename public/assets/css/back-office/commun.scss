@@ -42,8 +42,8 @@ body {
     width: 100%;
     top: 0;
     bottom: 0;
-    z-index: 1;
     background-color: $color-modal;
+    z-index:1;
   }
 
   .is-open {

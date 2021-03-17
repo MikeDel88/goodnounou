@@ -74,13 +74,13 @@ class ContratController extends Controller
         $liste_favoris = Parents::findOrFail(Auth::user()->categorie_id)->favoris;
 
         foreach ($liste_enfants as $enfant) {
-            $checkEnfant = ($enfant->id === intval($request->input('enfant'))) ? true : false;
+            $checkEnfant = (intval($enfant->id) === intval($request->input('enfant'))) ? true : false;
             if ($checkEnfant) {
                 break;
             }
         }
         foreach ($liste_favoris as $favoris) {
-            $checkFavoris = ($favoris->assistante_maternelle_id === intval($request->input('assistante_maternelle'))) ? true : false;
+            $checkFavoris = (intval($favoris->assistante_maternelle_id) === intval($request->input('assistante_maternelle'))) ? true : false;
             if ($checkFavoris) {
                 break;
             }
@@ -148,7 +148,7 @@ class ContratController extends Controller
         $contrat = Contrat::findOrFail(intval($id));
         $this->data['role'] = $this->role();
 
-        if ($this->data['role'] === 'assistante-maternelle' && Auth::user()->categorie->id === $contrat->assistante_maternelle_id) {
+        if ($this->data['role'] === 'assistante-maternelle' && Auth::user()->categorie->id === intval($contrat->assistante_maternelle_id)) {
             $this->data['contrat'] = $contrat;
             $this->data['salaire_mensuel'] = round((($contrat->taux_horaire * $contrat->nombre_heures * $contrat->nombre_semaines) / 12), 2);
             $this->data['nombre_heures_mois'] = ceil((($contrat->nombre_heures * $contrat->nombre_semaines) / 12));
@@ -171,7 +171,7 @@ class ContratController extends Controller
         $contrat = Contrat::findOrFail(intval($id));
         $this->data['role'] = $this->role();
 
-        if ($this->data['role'] === 'parents' && Auth::user()->categorie->id === $contrat->parent_id) {
+        if ($this->data['role'] === 'parents' && Auth::user()->categorie->id === intval($contrat->parent_id)) {
             $this->data['js'][] = 'horaires';
             $this->data['contrat'] = $contrat;
             $this->data['mois'] = [
@@ -207,7 +207,7 @@ class ContratController extends Controller
     public function destroy($id)
     {
         $contrat = Contrat::findOrFail(intval($id));
-        if (Auth::user()->categorie->id === $contrat->parent_id && $contrat->status_id === 3 || Auth::user()->categorie->id === $contrat->parent_id && $contrat->status_id === 1) {
+        if (intval(Auth::user()->categorie->id) === intval($contrat->parent_id) && intval($contrat->status_id) === 3 || intval(Auth::user()->categorie->id) === intval($contrat->parent_id) && intval($contrat->status_id) === 1) {
             Contrat::where('id', $id)->delete();
             return back()->with('success', $this->_messages['suppression']);
         } else {
@@ -226,7 +226,7 @@ class ContratController extends Controller
     public function validation($id)
     {
         $contrat = Contrat::findOrFail(intval($id));
-        if (Auth::user()->categorie->id === $contrat->assistante_maternelle_id && $contrat->status_id === 1) {
+        if (intval(Auth::user()->categorie->id) === intval($contrat->assistante_maternelle_id) && intval($contrat->status_id) === 1) {
             $this->update($id, 2);
             return back()
                 ->with('success', $this->_messages['validation']);
@@ -269,7 +269,7 @@ class ContratController extends Controller
     {
 
         foreach (Auth::user()->categorie->contrats as $contrat) {
-            $status = ($contrat->id === intval($id)) ? true : false;
+            $status = (intval($contrat->id) === intval($id)) ? true : false;
             if ($status === true) {
                 break;
             }

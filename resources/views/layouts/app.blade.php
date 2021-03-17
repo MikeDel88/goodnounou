@@ -22,7 +22,7 @@
     <script src="https://kit.fontawesome.com/19f71f9368.js" crossorigin="anonymous"></script>
 
     <!--  Titre du site  -->
-    <title>{{ env('APP_NAME')}} : {{ $title ?? '' }}</title>
+    <title>GoodNounou : {{ $title ?? '' }}</title>
 
     <!-- Styles -->
     @isset($bootstrap)
@@ -64,7 +64,7 @@
                     </ul>
                 </div>
             </nav>
-            <h1 class="titre">{{env('APP_NAME')}}</h1>
+            <h1 class="titre">GoodNounou</h1>
             {{-- Menu pour l'ecran de bureau --}}
             <nav id="navigation" role="navigation" class="menu-desktop">
                 <ul>

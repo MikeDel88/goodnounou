@@ -1,5 +1,9 @@
 @import '_base.scss';
 
+@media (max-width: 600px) {
+  @import '_connexion-mobile.scss';
+}
+
 h2{
     font-size:25px !important;
 }

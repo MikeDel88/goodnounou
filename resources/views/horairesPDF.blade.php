@@ -122,7 +122,7 @@
         </section>
     </main>
     <footer>
-        <small>Généré le {{ date('d/m/Y') }} - &copy; {{ env('APP_NAME')}} {{ date('Y') }}</small>
+        <small>Généré le {{ date('d/m/Y') }} - &copy; GoodNounou {{ date('Y') }}</small>
     </footer>
 </body>
 

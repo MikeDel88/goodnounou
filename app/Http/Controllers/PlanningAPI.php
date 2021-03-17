@@ -23,7 +23,7 @@ class PlanningAPI extends Controller
         $horaires = [];
 
         foreach ($contrats as $contrat) {
-            if ($contrat->status_id === 2) {
+            if (intval($contrat->status_id) === 2) {
                 $horaires[] = [
                     'enfant' => $contrat->enfant->prenom,
                     'horaires' => $contrat->horaire,

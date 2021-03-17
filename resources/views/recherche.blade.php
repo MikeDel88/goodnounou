@@ -34,7 +34,13 @@
                     @foreach ($criteres as $critere)
                         <li class="form-check">
                             <input class="form-check-input js-criteres" type="checkbox" name="{{ $critere }}" id="{{ $critere }}">
+                            @if($critere === 'pas_animaux')
+                            <label class="form-check-label" for="{{ $critere }}">Pas d'animaux</label>
+                            @elseif($critere === 'pas_deplacements')
+                            <label class="form-check-label" for="{{ $critere }}">Pas de déplacement</label>
+                            @else
                             <label class="form-check-label" for="{{ $critere }}">{{ ucFirst(str_replace('_', ' ', $critere)) }}</label>
+                            @endif
                         </li>
                     @endforeach
                 </ul>
