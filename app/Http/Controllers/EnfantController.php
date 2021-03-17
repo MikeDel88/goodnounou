@@ -97,7 +97,8 @@ class EnfantController extends Controller
      */
     public function edit($id)
     {
-
+        echo "OK";
+        exit();
         $enfant = Enfant::findOrFail(intval($id));
 
         /**
