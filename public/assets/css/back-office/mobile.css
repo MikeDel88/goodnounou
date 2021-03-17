@@ -86,5 +86,8 @@
   .fc-toolbar-chunk {
     margin: 10px 0;
   }
+  .fc .fc-daygrid-week-number {
+    font-size: 8px;
+  }
 }
 /*# sourceMappingURL=mobile.css.map */
