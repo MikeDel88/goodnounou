@@ -30,6 +30,7 @@ inputVisibilite.addEventListener('change', async function () {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
         body: JSON.stringify({
             id: clientId,
@@ -68,6 +69,7 @@ inputDisponible.addEventListener('change', async function () {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
         body: JSON.stringify({
             id: clientId,
@@ -102,6 +104,7 @@ criteres.forEach(critere => {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
                 id: clientId,

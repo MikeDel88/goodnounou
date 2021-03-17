@@ -10,17 +10,6 @@ use Illuminate\Http\Request;
  */
 class AssistantesMaternellesAPI extends Controller
 {
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id Id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return response()->json(['status' => intval($id),]);
-    }
 
     /**
      * Update the specified resource in storage.
