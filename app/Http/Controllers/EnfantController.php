@@ -99,7 +99,8 @@ class EnfantController extends Controller
     {
 
         $enfant = Enfant::findOrFail(intval($id));
-
+        echo $enfant->parent_id;
+        echo Auth::user()->categorie->id;
         /**
          * Vérifie si le parent de l'enfant est bien l'utilisateur connecté
          */
