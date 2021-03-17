@@ -99,6 +99,7 @@ class EnfantController extends Controller
     {
         $enfant = Enfant::findOrFail(intval($id));
         echo $enfant->prenom;
+        exit();
 
         /**
          * Vérifie si le parent de l'enfant est bien l'utilisateur connecté
@@ -106,12 +107,11 @@ class EnfantController extends Controller
         if ($enfant->parent_id === Auth::user()->categorie->id) {
             $this->_data['enfant'] = $enfant;
             echo "ok";
-            exit();
+
             return view('fiche_enfant', $this->_data);
         } else {
             return back()->with('error403', $this->messages['erreur']);
         }
-        exit();
     }
 
     /**
