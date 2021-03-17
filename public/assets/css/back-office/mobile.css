@@ -19,7 +19,7 @@
     left: 0;
     right: 0;
     min-height: 120px;
-    z-index: 101;
+    z-index: 100;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
