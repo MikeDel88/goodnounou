@@ -99,19 +99,14 @@ class EnfantController extends Controller
     {
 
         $enfant = Enfant::findOrFail(intval($id));
-        dump($enfant->parent_id);
-        dump(Auth::user()->categorie->id);
+
         /**
          * Vérifie si le parent de l'enfant est bien l'utilisateur connecté
          */
-        if ($enfant->parent_id === Auth::user()->categorie->id) {
+        if (intval($enfant->parent_id) === intval(Auth::user()->categorie->id)) {
             $this->_data['enfant'] = $enfant;
-            echo "ok";
-            exit();
             return view('fiche_enfant', $this->_data);
         } else {
-            echo "ko";
-            exit();
             return back()->with('error403', $this->messages['erreur']);
         }
     }
