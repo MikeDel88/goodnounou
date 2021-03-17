@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
             event.horaires.forEach(horaire => {
 
                 let depose = (horaire.depose_par === null) ? 'non renseigné' :
-                    `Déposé par  ${horaire.depose_par}`;
+                    `${horaire.depose_par}`;
                 let recupere = (horaire.recupere_par === null) ?
                     'non renseigné' :
-                    `Récupéré par ${horaire.recupere_par}`;
+                    `${horaire.recupere_par}`;
 
                 let calendarEventStart = {
                     title: `${nomEnfant} (arrivé)`,
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     borderColor: "#47A0AD",
                     start: `${horaire.jour_garde} ${horaire.heure_debut}`,
                     extendedProps: {
-                        parent: `${depose}`,
+                        parent: `Déposé par : ${depose}`,
                         nbrHeures: horaire.nombre_heures
                     },
                 }
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     borderColor: "#234F80",
                     start: `${horaire.jour_garde} ${horaire.heure_fin}`,
                     extendedProps: {
-                        parent: `${recupere}`,
+                        parent: ` Récupéré par : ${recupere}`,
                         nbrHeures: horaire.nombre_heures
                     },
                 }
