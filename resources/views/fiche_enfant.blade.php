@@ -61,7 +61,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non Merci</button>
-                    <form id="delete-form" action="/fiche/enfant/{{ $enfant->id }}" method="POST">
+                    <form id="delete-form" action="/fiche/enfant/{{ $enfant->id }}/supprimer" method="POST">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type="submit">Confirmer</button>

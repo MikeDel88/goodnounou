@@ -164,7 +164,7 @@ class EnfantController extends Controller
         /**
          * Vérifie si le parent de l'enfant est bien l'utilisateur connecté
          */
-        if ($enfant->parent_id === Auth::user()->categorie->id) {
+        if (intval($enfant->parent_id) === intval(Auth::user()->categorie->id)) {
             Enfant::where('id', $enfant->id)->delete();
             return redirect('/liste/enfants')->with('success', $this->_messages['suppression']);
         } else {
