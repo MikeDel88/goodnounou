@@ -5,7 +5,6 @@ const MENU = {
   'principal': document.querySelector('#js-barre-navigation'),
   'secondaire': document.querySelector('#js-menu-secondaire'),
   'modal': document.querySelector('.background-modal'),
-  'main' : document.querySelector('.contenu-principal'),
 }
 
 MENU_MOBILE_PRINCIPAL.addEventListener('click', function () {
@@ -13,7 +12,6 @@ MENU_MOBILE_PRINCIPAL.addEventListener('click', function () {
   MENU.principal.classList.add('is-open');
   MENU.principal.classList.add('menuPrincipalMobile');
   MENU.modal.classList.add('is-open');
-  MENU.main.style.position = 'fixed';
 })
 
 MENU.modal.addEventListener('click', function () {
@@ -23,7 +21,6 @@ MENU.modal.addEventListener('click', function () {
   MENU.principal.classList.remove('menuPrincipalMobile');
   MENU.secondaire.classList.remove('d-flex');
   MENU.secondaire.classList.remove('menuSecondaireMobile');
-  MENU.main.style.position = 'relative';
 })
 
 MENU_MOBILE_SECONDAIRE.addEventListener('click', function () {
