@@ -10,19 +10,19 @@
         </header>
         <article class="box__contenu d-flex justify-content-start flex-wrap">
             <ul class="p-2">
-                <li>Identité assistante maternelle : {{ $contrat->assistanteMaternelle->categorie->getIdentite() }}</li>
-                <li>Enfant : {{ $contrat->enfant->prenom }}</li>
-                <li>Nombre d'heures prévu par semaine: {{ $contrat->nombre_heures }}h</li>
-                <li>Nombre de semaines prévu (hors 5 semaines de congés de l'assistante maternelle) sur l'année : {{ $contrat->nombre_semaines }}</li>
-                <li>Nombre d'heures lissés par mois : {{ $nombre_heures_lisse }}h</li>
-                <li>Fériés : @if ($contrat->assistanteMaternelle->criteres->ferie === 0) non travaillé @else possible @endif</li>
-                <li>Week-end : @if ($contrat->assistanteMaternelle->criteres->week_end === 0) non travaillé @else possible @endif</li>
+                <li><span class="fw-bold">Identité assistante maternelle :</span> {{ $contrat->assistanteMaternelle->categorie->getIdentite() }}</li>
+                <li><span class="fw-bold">Enfant : </span>{{ $contrat->enfant->prenom }}</li>
+                <li><span class="fw-bold">Nombre d'heures prévu par semaine: </span>{{ $contrat->nombre_heures }}h</li>
+                <li><span class="fw-bold">Nombre de semaines prévu (hors 5 semaines de congés de l'assistante maternelle) sur l'année : </span>{{ $contrat->nombre_semaines }}</li>
+                <li><span class="fw-bold">Nombre d'heures lissés par mois : </span>{{ $nombre_heures_lisse }}h</li>
+                <li><span class="fw-bold">Fériés : </span>@if ($contrat->assistanteMaternelle->criteres->ferie === 0) non travaillé @else possible @endif</li>
+                <li><span class="fw-bold">Week-end : </span>@if ($contrat->assistanteMaternelle->criteres->week_end === 0) non travaillé @else possible @endif</li>
             </ul>
             <ul class="p-2">
-                <li>Taux horaires net : {{ $contrat->taux_horaire }}€</li>
-                <li>Taux d'entretien par jour : {{ $contrat->taux_entretien }}€</li>
-                <li>Frais repas par jour (si pris en charge):{{ "$contrat->frais_repas € " ?? 'non pris en charge' }}</li>
-                <li>Salaire mensuel moyen à verser (hors heures supplémentaires) : {{ $salaire_mensuel }}€</li>
+                <li><span class="fw-bold">Taux horaires net : </span>{{ $contrat->taux_horaire }}€</li>
+                <li><span class="fw-bold">Taux d'entretien par jour : </span>{{ $contrat->taux_entretien }}€</li>
+                <li><span class="fw-bold">Frais repas par jour (si pris en charge): </span>{{ "$contrat->frais_repas € " ?? 'non pris en charge' }}</li>
+                <li><span class="fw-bold">Salaire mensuel moyen à verser (hors heures supplémentaires) : </span>{{ $salaire_mensuel }}€</li>
             </ul>
         </article>
 
