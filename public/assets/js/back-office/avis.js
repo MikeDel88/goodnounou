@@ -21,7 +21,7 @@ function creationMessage(message) {
 
   avisDate.innerHTML = `Le ${new Date(message.updated_at).toLocaleDateString('fr-FR')} par ${identite}`;
   avisNote.innerHTML = (message.note !== null) ? `Note : ${message.note}/${NOTE_MAX} ` : `aucune note`;
-  avisMessage.innerHTML = `${message.avis}`;
+  avisMessage.innerHTML = (message.avis !== null) ? `${message.avis}` : 'aucun avis';
 
   MESSAGES.appendChild(p);
   p.appendChild(avisDate);
