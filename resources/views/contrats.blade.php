@@ -32,7 +32,7 @@
                         <select class="form-select my-2" aria-label="Liste des asistantes maternelles favorites" name="assistante_maternelle" required>
                             <option selected disabled>Liste de mes assistantes maternelles favorites</option>
                             @foreach ($liste_favoris as $favoris)
-                                @if ($favoris->assistanteMaternelle->disponible === 1 && $favoris->assistanteMaternelle->nombre_place > 0)
+                                @if (intval($favoris->assistanteMaternelle->disponible) === 1 && intval($favoris->assistanteMaternelle->nombre_place) > 0)
                                     <option value="{{ $favoris->assistante_maternelle_id }}">{{ $favoris->assistanteMaternelle->categorie->getIdentite() }}</option>
                                 @endif
                             @endforeach
@@ -74,7 +74,7 @@
                     <ul class="list-group list-group-flush">
                         {{-- Liste des contrats avec le status en attente --}}
                         @foreach ($contrats as $contrat)
-                            @if ($contrat->status_id === 1)
+                            @if (intval($contrat->status_id) === 1)
                                 <li class="d-flex justify-content-between list-group-item">
                                     <a href="contrat/{{ $contrat->id }}">{{ $contrat->parent->categorie->getIdentite() }} pour {{ $contrat->enfant->prenom }}</a>
                                     <div>
@@ -97,15 +97,15 @@
         <div class="box__contenu">
             <ul class="list-group list-group-flush">
                 @foreach ($contrats as $contrat)
-                    @if ($contrat->status_id === 2 && $role === 'assistante-maternelle')
+                    @if (intval($contrat->status_id) === 2 && $role === 'assistante-maternelle')
                         <li class="d-flex justify-content-between list-group-item">
                             <span>Famille {{ $contrat->parent->categorie->getIdentite() }} pour {{ $contrat->enfant->getIdentite() }} du {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}</span>
                             <a href="{{ route('assistante-maternelle.contrat_show', ['id' => $contrat->id]) }}" class="btn btn-dark box__contenu--lien">Consulter</a>
                         </li>
-                    @elseif($role === 'parents' && $contrat->status_id !== 4)
+                    @elseif($role === 'parents' && intval($contrat->status_id) !== 4)
                         <li class="d-flex justify-content-between list-group-item">
                             <span>{{ $contrat->enfant->getIdentite() }} avec {{ $contrat->assistanteMaternelle->categorie->getIdentite() }} du {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }} ({{ $contrat->status->nom }})</span>
-                            @if ($contrat->status_id === 3 || $contrat->status_id === 1)
+                            @if (intval($contrat->status_id) === 3 || intval($contrat->status_id) === 1)
                                 <a href="{{ route('parent.contrat_supprimer', ['id' => $contrat->id]) }}" title="supprimer contrat" class="box__contenu--lien"><i class="fas fa-trash fa-lg text-danger"></i></a>
                             @else
                                 <a href="{{ route('parent.contrat_edit', ['id' => $contrat->id]) }}" class="btn btn-dark box__contenu--lien">Consulter</a>
@@ -124,7 +124,7 @@
         <div class="box__contenu">
             <ul class="list-group list-group-flush">
                 @foreach ($contrats as $contrat)
-                    @if ($contrat->status_id === 4)
+                    @if (intval($contrat->status_id) === 4)
                         <li class="d-flex justify-content-between list-group-item">
                             <span>
                                 @if ($role === 'parents')
