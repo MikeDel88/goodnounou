@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     `${horaire.recupere_par}`;
 
                 let calendarEventStart = {
-                    title: `${nomEnfant} (arrivé)`,
+                    title: `${nomEnfant} (arrivée)`,
                     backgroundColor: "#47A0AD",
                     borderColor: "#47A0AD",
                     start: `${horaire.jour_garde} ${horaire.heure_debut}`,
