@@ -92,9 +92,7 @@
                     <div class="row">
                         <div class="contenu p-2">
                             <div class="form-floating">
-                                <textarea class="form-control my-2" placeholder="Leave a comment here" id="floatingTextarea2" name="description" style="height: 100px">
-                                    {{ Auth::user()->categorie->description ?? old('description') }}
-                                </textarea>
+                                <textarea class="form-control my-2" placeholder="Leave a comment here" id="floatingTextarea2" name="description" style="height: 100px">{{ Auth::user()->categorie->description ?? old('description') }}</textarea>
                                 <label for="floatingTextarea2">Précisez comment vous travaillez, les activitées que vous faites avec les enfants...</label>
                             </div>
                         </div>

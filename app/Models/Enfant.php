@@ -46,7 +46,7 @@ class Enfant extends Model
         if ($age < 1) {
             return date("m", strtotime($this->date_naissance)) - date('m') . " mois";
         } else {
-            return $age . "ans";
+            return $age . " ans";
         }
 
     }
