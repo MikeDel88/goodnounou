@@ -46,8 +46,11 @@
         <div class="box__contenu">
             <ul class="box__contenu--fiches-enfants">
                 @foreach ($enfants as $enfant)
-                    <li class="item">
-                        <a class="lien" href="/fiche/enfant/{{ $enfant->id }}">{{ $enfant->getIdentite() }} ({{ $enfant->getAge() }})</a>
+                    <li class="item d-flex justify-content-between">
+                        <a class="lien" href="/fiche/enfant/{{ $enfant->id }}">
+                            <span>{{ $enfant->getIdentite() }} ({{ $enfant->getAge() }})</span>
+                            <span><i class="fas fa-edit"></i></span>
+                        </a>
                     </li>
                 @endforeach
             </ul>
