@@ -13,7 +13,9 @@
                         <select name="enfant" id="enfant" class="form-select" aria-label="enfants" required>
                             <option value="#" disabled selected>Selectionnez un enfant</option>
                             @foreach ($contrats as $contrat)
-                            <option value="{{ $contrat->enfant_id }}">{{ $contrat->enfant->getIdentite() }}</option>
+                            @if(intval($contrat->status_id) === 2)
+                                <option value="{{ $contrat->enfant_id }}">{{ $contrat->enfant->getIdentite() }}</option>
+                            @endif
                             @endforeach
                         </select>
                     </div>
