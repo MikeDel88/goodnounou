@@ -27,7 +27,7 @@
         </article>
 
         <div class="p-3 text-end">
-            @if ($contrat->status_id !== 4)
+            @if (intval($contrat->status_id) !== 4)
                 <a href="cloture" class="btn btn-danger box__contenu--lien">Mettre fin au contrat</a>
             @else
                 <span class="text-danger">Contrat clos le {{ $contrat->updated_at->translatedFormat('j F Y') }}</span>
@@ -35,7 +35,7 @@
         </div>
     </article>
     <!-- Ajouter des horaires au contrat -->
-    @if ($contrat->status_id === 2)
+    @if (intval($contrat->status_id) === 2)
         <article class="box box-lg">
             <header class="box__header">
                 <h4 class="box__header--titre">Ajouter un horaire de garde</h4>
