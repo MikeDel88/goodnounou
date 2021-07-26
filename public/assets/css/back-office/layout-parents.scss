@@ -1,0 +1,119 @@
+$color-main: #265D87;
+$color-main-more: #0D4671;
+$color-star: #ffcc00;
+
+
+@import 'commun';
+
+.map {
+  width: 700px;
+  margin: 40px;
+  height: 500px;
+  z-index: 1
+}
+
+.contenu-principal {
+
+  &__page {
+    .box {
+      &__contenu {
+
+        &--presentation {
+
+          &-titre,
+          &-message {
+            font-size: $fs-md;
+            color: $color-grey;
+          }
+        }
+
+        &--liste-enfants {
+          width: 40%;
+          margin-left: 10px;
+
+          h5 {
+            font-size: $fs-md;
+          }
+
+          ol {
+            list-style-type: none;
+          }
+
+          ol>li::before {
+            content: ' ';
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background-color: $color-grey;
+            margin-right: 5px;
+          }
+        }
+
+        &--liste-messages {
+          .items {
+
+            .item-message {
+              color: $color-bg;
+            }
+
+            .item-auteur {
+              color: $color-white;
+            }
+
+            .item-delete {
+              display: inline-block;
+              position: absolute;
+              bottom: -25px;
+              right: 0;
+              font-size: $fs-sm;
+              color: $color-red;
+            }
+          }
+        }
+
+        &--fiches-enfants {
+          margin: 15px;
+
+          .item {
+            .lien {
+              display: block;
+              margin: 10px 0;
+              padding: 10px 5px;
+              transition: all 500ms ease;
+              background-color: $color-main;
+              color: $color-white;
+              font-weight: $fw-bold;
+
+              &:hover {
+                transform: scale(1.03);
+                background-color: $color-main-more;
+                box-shadow: 3px 4px 3px $color-shadow;
+              }
+            }
+          }
+
+        }
+
+        .fa-heart {
+          transition: transform 300ms ease;
+          cursor: pointer;
+
+          &:hover {
+            transform: scale(1.3);
+          }
+        }
+
+        .note {
+          cursor: pointer;
+          color: $color-star;
+        }
+
+        .note-check {
+          color: $color-star;
+        }
+      }
+    }
+  }
+}
+
+

@@ -34,6 +34,7 @@ class RechercheController extends Controller
      */
     public function index()
     {
+
         $schemaCriteres = Schema::getColumnListing('criteres'); // Sélection de l'ensemble des champs de la table critère
 
         // Pour chaque champs, on ajoute les champs qui pourront être sélectionnés dans un tableau spécifique

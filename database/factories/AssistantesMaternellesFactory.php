@@ -25,13 +25,14 @@ class AssistantesMaternellesFactory extends Factory
     {
         $boolean = [0,1];
         return [
-           'ville_pro' => $this->faker->city,
+            'ville_pro' => $this->faker->city,
             'adresse_pro' => $this->faker->streetAddress,
             'code_postal_pro' => str_replace(' ', '', $this->faker->postcode),
             'lat' => $this->faker->latitude($min = 43, $max = 44),
             'lng' => $this->faker->longitude($min = 1, $max = 2),
             'visible' => 1,
             'disponible' => Arr::random($boolean),
+            'nombre_place' => $this->faker->numberBetween($min = 1, $max = 4)
         ];
     }
 

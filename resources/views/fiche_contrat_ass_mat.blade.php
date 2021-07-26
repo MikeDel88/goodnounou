@@ -1,28 +1,28 @@
 @extends('layouts.back')
 @section('content')
     <article class="box box-lg">
-        <header>
-            <h4>Fiche du contrat n°{{ $contrat->id }} - Début le {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Fiche du contrat n°{{ $contrat->id }} - Début le {{ Carbon\Carbon::parse($contrat->date_debut)->translatedFormat('j F Y') }}</h4>
             <div>
                 <a href="{{ route('contrats') }}" class="px-3"><i class="fas fa-arrow-left"></i></a>
             </div>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <h6>Identité du titulaire du contrat</h6>
-                    <span>{{ "{$contrat->parent->categorie->nom} {$contrat->parent->categorie->prenom}" }}</span>
+                    <h3 class="h4">Identité du titulaire du contrat</h3>
+                    <span>{{ $contrat->parent->categorie->getIdentite() }}</span>
                 </li>
                 <li class="list-group-item">
-                    <h6>Informations de l'enfant</h6>
+                    <h3 class="h4">Informations de l'enfant</h3>
                     <ul>
                         <li>Nom : {{ $contrat->enfant->nom }}</li>
                         <li>Prénom : {{ $contrat->enfant->prenom }}</li>
-                        <li>Age : {{ Carbon\Carbon::parse($contrat->enfant->date_naissance)->age }}</li>
+                        <li>Age : {{ $contrat->enfant->getAge() }}</li>
                     </ul>
                 </li>
                 <li class="list-group-item">
-                    <h6>Informations sur mes frais</h6>
+                    <h3 class="h4">Informations sur mes frais</h3>
                     <ul>
                         <li>Taux horaire : {{ $contrat->taux_horaire }} €</li>
                         <li>Taux d'entretien : {{ $contrat->taux_entretien }} €</li>
@@ -34,7 +34,7 @@
                     </ul>
                 </li>
                 <li class="list-group-item">
-                    <h6>Informations sur les caractéristiques de la garde</h6>
+                    <h3 class="h4">Informations sur les caractéristiques de la garde</h3>
                     <ul>
                         <li>Nombre de semaine sur l'année : {{ $contrat->nombre_semaines }}s</li>
                         <li>Nombre d'heures par semaine : {{ $contrat->nombre_heures }}h</li>

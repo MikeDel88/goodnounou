@@ -1,0 +1,30 @@
+/* Technique pour le calcul des REM ex : 15px = 1.5rem */
+html {
+  font-size: 62.5%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+figure,
+ul, p {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.menu-mobile {
+  display: none;
+}
+/*# sourceMappingURL=reset.css.map */

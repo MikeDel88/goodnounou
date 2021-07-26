@@ -49,22 +49,16 @@ class UserController extends Controller
          * Récupère la liste des enfants de l'utilisateur connecté
          */
         $this->_data['role']     = $this->role();
-        $this->_data['enfants']  = ($this->_data['role'] === 'parents') ? Enfant::where('parent_id', Auth::user()->categorie->id)->get() : '';
-        $this->_data['contrats'] = ($this->_data['role'] === 'parents') ? Contrats::where('parent_id', Auth::user()->categorie->id)->where('status_id', 2)->get() : Contrats::where('assistante_maternelle_id', Auth::user()->categorie->id)->where('status_id', 2)->get();
+        $this->_data['enfants']  = ($this->_data['role'] === 'parents') ? Auth::user()->categorie->enfants : '';
+        $this->_data['contrats'] = Auth::user()->categorie->contrats->where('status_id', 2);
 
         if ($this->_data['role'] === 'assistante-maternelle') {
-            $this->_data['messages'] =  Messages::where('assistante_maternelle_id', Auth::user()->categorie->id)->orderByDesc('jour_garde')
-                ->limit(5)
-                ->get();
+            $this->_data['messages'] =  Auth::user()->categorie->messages;
         } elseif ($this->_data['role'] === 'parents') {
             foreach (Auth::user()->categorie->enfants as $enfant) {
-                $this->_data['messages'] = Messages::where('enfant_id', $enfant->id)
-                    ->orderByDesc('jour_garde')
-                    ->limit(1)
-                    ->get();
+                $this->_data['messages'][] = $enfant->messages->sortByDesc('jour_garde')->first();
             }
         }
-
         $this->_data['title'] = 'Profile utilisateur';
         return view('profil', $this->_data);
     }

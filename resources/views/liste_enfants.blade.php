@@ -1,16 +1,17 @@
 @extends('layouts.back')
 @section('content')
+    <!-- Ajouter des enfants -->
     <article class="box box-lg">
-        <header>
-            <h4>Ajouter un enfant</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Ajouter un enfant</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <form action="/liste/enfants" method="POST">
                 @csrf
                 <div class="row d-flex flex-wrap">
                     <div class="mb-3 col-md-3">
                         <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" value="{{ old('nom') }}" name="nom" required>
+                        <input autofocus type="text" class="form-control" id="nom" value="{{ old('nom') }}" name="nom" required>
                     </div>
                     <div class="mb-3 col-md-3">
                         <label for="prenom" class="form-label">Prénom</label>
@@ -25,6 +26,7 @@
                     </div>
                 </div>
             </form>
+            <!-- Affiche les erreurs -->
             @if ($errors->any())
                 <div class="mt-3 alert alert-danger">
                     <ul>
@@ -36,15 +38,19 @@
             @endif
         </div>
     </article>
+    <!-- Liste des enfants de l'utilisateur -->
     <article class="box box-md">
-        <header>
-            <h4>Liste de mes enfants</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Liste de mes enfants</h4>
         </header>
-        <div class="contenu liste_enfants">
-            <ul>
+        <div class="box__contenu">
+            <ul class="box__contenu--fiches-enfants">
                 @foreach ($enfants as $enfant)
-                    <li>
-                        <a href="/fiche/enfant/{{ $enfant->id }}">{{ $enfant->nom }} {{ $enfant->prenom }} ({{ Carbon\Carbon::parse($enfant->date_naissance)->age }} ans)</a>
+                    <li class="item">
+                        <a class="lien d-flex justify-content-between" href="/fiche/enfant/{{ $enfant->id }}/edit">
+                            <span>{{ $enfant->getIdentite() }} ({{ $enfant->getAge() }})</span>
+                            <span><i class="fas fa-edit"></i></span>
+                        </a>
                     </li>
                 @endforeach
             </ul>

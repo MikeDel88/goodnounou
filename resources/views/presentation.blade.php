@@ -2,17 +2,17 @@
 @section('content')
     {{-- Renseignements générales sur l'assistante maternelle avec ses disponibilités, nombre d'avis, notes et moyenne de note --}}
     <article class="box box-lg">
-        <header>
-            <h4>Renseignements
+        <header class="box__header">
+            <h4 class="box__header--titre">Renseignements
                 @if($moyenne !== null)
                     @for ($i = 1; $i <= $noteMax; $i++)
-                        <i class="fs-6 text-warning @if($i <= $moyenne) fas @else far @endif fa-star"></i>
+                        <i class="fs-7 text-warning @if($i <= $moyenne) fas @else far @endif fa-star"></i>
                     @endfor
                 @endif
-                    <span class="fs-6">({{$nombreNote}} notes et {{$nombreAvis}} avis)</span>
+                    <span class="fs-7">({{$nombreNote}} notes et {{$nombreAvis}} avis)</span>
             </h4>
             <div>
-                @if ($renseignements->categorie->disponible === 1)
+                @if (intval($renseignements->categorie->disponible) === 1)
                     <span class="text-success mx-1">Disponible</span>
                 @else
                     <span class="text-danger mx-1">Disponible à partir du :
@@ -25,7 +25,7 @@
                 @endif
             </div>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <div class="favoris d-flex justify-content-end">
                 <label class="form-check-label" for="favoris">
                     <i alt="ajouter ou retirer des favoris" class="@if ($favoris===true) fas @else far @endif fa-heart text-danger "></i>
@@ -35,11 +35,11 @@
             <ul id="renseignements">
                 <li><span class="fw-bold">Nom :</span> {{ $renseignements->nom ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Prénom :</span> {{ $renseignements->prenom ?? 'non renseigné' }}</li>
-                <li><span class="fw-bold">Age :</span> {{ Carbon\Carbon::parse($renseignements->date_naissance)->age ?? 'non renseigné' }}</li>
+                <li><span class="fw-bold">Age :</span> {{ $renseignements->getAge() ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Exerce depuis :</span> {{ Carbon\Carbon::parse($renseignements->categorie->date_debut)->format('d/m/Y') ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Formation :</span> {{ $renseignements->categorie->formation ?? 'non renseigné' }}</li>
                 <li><span class="fw-bold">Nombre d'enfants maximum :</span> {{ $renseignements->categorie->nombre_place ?? 'non renseigné' }}</li>
-                <li><span class="fw-bold">Adresse d'excercice :</span> {{ "{$renseignements->categorie->adresse_pro} {$renseignements->categorie->code_postal_pro}, {$renseignements->categorie->ville_pro}" ?? 'non renseigné' }}
+                <li><span class="fw-bold">Adresse d'excercice :</span> {{ $renseignements->categorie->adresseProComplete() ?? 'non renseigné' }}
                 <li><span class="fw-bold">Contacter :</span>
                     @if ($renseignements->telephone !== null)
                         <a href="tel:{{ $renseignements->telephone }}" class="mx-2">
@@ -57,16 +57,16 @@
                     @endif
                 </li>
             </ul>
-            <div id="presentation" class="my-3">
-                <h5>Présentation :</h5>
-                <p>{{ $renseignements->categorie->description ?? 'Aucune description' }}</p>
+            <div id="presentation" class="my-3 box__contenu--presentation">
+                <h5 class="box__contenu--presentation-titre">Présentation :</h5>
+                <p class="box__contenu--presentation-message">{{ $renseignements->categorie->description ?? 'Aucune description' }}</p>
             </div>
-            <footer class="d-flex flex-wrap justify-content-between border-top">
+            <footer class="d-flex flex-wrap justify-content-between border-top py-3">
                 <div>
                     <span>
                         Note :
                         @for ($i = 1; $i <= $noteMax; $i++)
-                            <i id="note{{ $i }}" alt="note {{$i}} / {{$noteMax}}" data-note="{{ $i }}" class="@if (isset($recommandation) && $i <=$recommandation->note) fas noteCheck @endif far fa-star note"></i>
+                            <i id="note{{ $i }}" alt="note {{$i}} / {{$noteMax}}" data-note="{{ $i }}" class="@if (isset($recommandation) && $i <=$recommandation->note) fas note-check @endif far fa-star note"></i>
                         @endfor
                     </span>
                     <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#modalAvis">
@@ -83,14 +83,14 @@
     </article>
 {{-- Tous les critères que l'assistantes maternelle accepte ou non --}}
     <article class="box box-lg">
-        <header>
-            <h4>Ses critères</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Ses critères</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <ul>
                 @foreach ($criteres as $critere => $valeur)
                     @if ($critere !== 'id' && $critere !== 'assistante_maternelle_id' && $critere !== 'created_at' && $critere !== 'updated_at')
-                        @if ($valeur === 1)
+                        @if (intval($valeur) === 1)
                             <li>
                                 <i alt="critère accepté" class="fas fa-check-square text-success mx-3"></i><span>{{ ucFirst(strtr($critere, '_', ' ')) }}</span>
                             </li>
@@ -106,10 +106,10 @@
     </article>
 {{-- L'ensemble de ses tarifs --}}
     <article class="box box-lg">
-        <header>
-            <h4>Ses tarifs</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Ses tarifs</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <ul>
                 <li>
                     <span class="fw-bold">Taux horaire :</span> {{ "{$renseignements->categorie->taux_horaire} €" }}
@@ -152,10 +152,10 @@
     </div>
 {{-- Contenu des avis sur l'assistante maternelle --}}
     <article id="avis" class="box box-lg">
-        <header>
-            <h4>Tous les avis</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Tous les avis</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <div class="d-flex justify-content-center m-3 p-3">
                 <div class="spinner-border" role="status"></div>
             </div>
@@ -177,4 +177,11 @@
             </div>
         </div>
     </article>
+{{-- Toast pour vérifier ajout ou suppression favoris --}}
+<section class="toast align-items-center text-white position-absolute border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body"></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</section>
 @endsection

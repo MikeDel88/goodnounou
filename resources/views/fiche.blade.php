@@ -1,16 +1,16 @@
 @extends('layouts.back')
 @section('content')
     <article class="box box-lg">
-        <header>
-            <h4>Ma fiche de renseignement</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Ma fiche de renseignement</h4>
             <div class="form-check form-switch">
-                <input class="form-check-input visibilite" data-client-id="{{ Auth::user()->categorie->id }}" type="checkbox" id="flexSwitchCheckDefault" name="visible" @if (Auth::user()->categorie->visible === 1) checked="checked" @endif>
+                <input class="form-check-input visibilite" data-client-id="{{ Auth::user()->categorie->id }}" type="checkbox" id="flexSwitchCheckDefault" name="visible" @if (intval(Auth::user()->categorie->visible) === 1) checked="checked" @endif>
                 <label class="form-check-label" for="flexSwitchCheckDefault">Visible</label>
             </div>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <ul>
-                <li>Identité : {{ Auth::user()->nom }} {{ Auth::user()->prenom }} ({{ Carbon\Carbon::parse(Auth::user()->date_naissance)->age }} ans)</li>
+                <li>Identité : {{ Auth::user()->getIdentite() }} ({{ Auth::user()->getAge() }})</li>
                 <li>Téléphone : {{ Auth::user()->telephone ?? 'non renseigné' }}</li>
                 <li>Email : {{ Auth::user()->email_contact ?? 'non renseigné ' }}</li>
                 <li>Adresse personnelle : <span id="adresse-perso">{{Auth::user()->adresse}}</span> <span id='code-postal-perso'>{{Auth::user()->code_postal}}</span> <span id="ville-perso">{{Auth::user()->ville}}</span></li>
@@ -23,14 +23,14 @@
     </article>
     <section>
         <article class="box box-lg">
-            <header>
-                <h4>Mes informations professionnelles</h4>
+            <header class="box__header">
+                <h4 class="box__header--titre">Mes informations professionnelles</h4>
                 <div class="form-check form-switch">
-                    <input class="form-check-input disponible" type="checkbox" data-client-id="{{ Auth::user()->categorie->id }}" id="flexSwitchCheckChecked" @if (Auth::user()->categorie->disponible === 1) checked="checked" @endif>
+                    <input class="form-check-input disponible" type="checkbox" data-client-id="{{ Auth::user()->categorie->id }}" id="flexSwitchCheckChecked" @if (intval(Auth::user()->categorie->disponible) === 1) checked="checked" @endif>
                     <label class="form-check-label" for="flexSwitchCheckChecked">Disponible</label>
                 </div>
             </header>
-            <div class="contenu p-4">
+            <div class="box__contenu p-4">
                 <form action="/fiche/{{ Auth::user()->categorie->id }}" method="POST">
                     @csrf
                     <div class="row my-2">
@@ -92,9 +92,7 @@
                     <div class="row">
                         <div class="contenu p-2">
                             <div class="form-floating">
-                                <textarea class="form-control my-2" placeholder="Leave a comment here" id="floatingTextarea2" name="description" style="height: 100px">
-                                    {{ Auth::user()->categorie->description ?? old('description') }}
-                                </textarea>
+                                <textarea class="form-control my-2" placeholder="Leave a comment here" id="floatingTextarea2" name="description" style="height: 100px">{{ Auth::user()->categorie->description ?? old('description') }}</textarea>
                                 <label for="floatingTextarea2">Précisez comment vous travaillez, les activitées que vous faites avec les enfants...</label>
                             </div>
                         </div>
@@ -115,53 +113,53 @@
             </div>
         </article>
         <article class="box box-md">
-            <header>
-                <h4>Mes critères</h4>
+            <header class="box__header">
+                <h4 class="box__header--titre">Mes critères</h4>
             </header>
-            <div class="contenu p-4">
+            <div class="box__contenu p-4">
                 <div class="row">
                     <div class="col-6">
                         <input type="hidden" class="user" value="{{ Auth::user()->categorie->id }}">
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('week_end') }}" id="week_end" name="week_end" @if ($critere->week_end === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('week_end') }}" id="week_end" name="week_end" @if (intval($critere->week_end) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="week_end">Week-end</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('ferie') }}" id="ferie" name="ferie" @if ($critere->ferie === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('ferie') }}" id="ferie" name="ferie" @if (intval($critere->ferie) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="ferie">Jours férié</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('horaires_atypique') }}" id="horaires" name="horaires_atypique" @if ($critere->horaires_atypique === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('horaires_atypique') }}" id="horaires" name="horaires_atypique" @if (intval($critere->horaires_atypique) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="horaires">Horaires atypiques</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('periscolaire') }}" id="periscolaire" name="periscolaire" @if ($critere->periscolaire === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('periscolaire') }}" id="periscolaire" name="periscolaire" @if (intval($critere->periscolaire) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="periscolaire">Périscolaire</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('repas') }}" id="repas" name="repas" @if ($critere->repas === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('repas') }}" id="repas" name="repas" @if (intval($critere->repas) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="repas">Prise en charge des repas</label>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('pas_animaux') }}" id="animaux" name="pas_animaux" @if ($critere->pas_animaux === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('pas_animaux') }}" id="animaux" name="pas_animaux" @if (intval($critere->pas_animaux) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="animaux">Pas d'animaux</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('lait_maternelle') }}" id="lait" name="lait_maternelle" @if ($critere->lait_maternelle === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('lait_maternelle') }}" id="lait" name="lait_maternelle" @if (intval($critere->lait_maternelle) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="lait">Lait maternelle</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('couches_lavable') }}" id="couches" name="couches_lavable" @if ($critere->couches_lavable === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('couches_lavable') }}" id="couches" name="couches_lavable" @if (intval($critere->couches_lavable) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="couches">Couches lavables</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('non_fumeur') }}" id="fumeur" name="non_fumeur" @if ($critere->non_fumeur === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('non_fumeur') }}" id="fumeur" name="non_fumeur" @if (intval($critere->non_fumeur) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="fumeur">Non Fumeur</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input critere" type="checkbox" value="{{ old('deplacements') }}" id="deplacements" name="pas_deplacements" @if ($critere->pas_deplacements === 1) checked="checked" @endif>
+                            <input class="form-check-input critere" type="checkbox" value="{{ old('deplacements') }}" id="deplacements" name="pas_deplacements" @if (intval($critere->pas_deplacements) === 1) checked="checked" @endif>
                             <label class="form-check-label" for="deplacements">Aucun déplacements</label>
                         </div>
                     </div>

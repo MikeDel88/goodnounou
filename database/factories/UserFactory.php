@@ -40,6 +40,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'nom' => $this->faker->lastName,
             'prenom' => $this->faker->firstName,
+            'date_naissance' => $this->faker->date($format = 'Y-m-d', $max = '2005-01-01')
         ];
     }
 }

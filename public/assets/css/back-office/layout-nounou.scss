@@ -1,0 +1,25 @@
+$color-main: #99B4F9;
+$color-main-more: #4D7AEB;
+
+
+@import 'commun';
+
+.contenu-principal {
+
+  &__page {
+
+    .box{
+      &__contenu{
+        select{
+          font-size: $fs-md;
+        }
+      }
+    }
+  }
+}
+.item-edit {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  font-size: $fs-sm;
+}

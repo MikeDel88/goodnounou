@@ -1,0 +1,93 @@
+@media (max-width: 845px) {
+  .menu-mobile {
+    display: block;
+  }
+  .barre-navigation {
+    display: none;
+  }
+  .menuPrincipalMobile {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 70%;
+    -webkit-box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.25);
+            box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.25);
+  }
+  .menuSecondaireMobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 120px;
+    z-index: 100;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #FFFF;
+  }
+  .contenu-principal {
+    min-width: 100%;
+  }
+  .contenu-principal__header {
+    padding: 0 10px;
+  }
+  .contenu-principal__header--titre {
+    font-size: 18px;
+  }
+  .contenu-principal__header--navigation {
+    display: none;
+  }
+  .contenu-principal__page .box {
+    margin: 20px 0;
+  }
+  .contenu-principal__page .box__header {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+  .contenu-principal__page .box__contenu {
+    padding: 0;
+    margin: 5px;
+  }
+  .contenu-principal__page .box__contenu--liste-identite {
+    border-right: 0;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    width: 100%;
+  }
+  .contenu-principal__page .box__contenu--liste-identite li span:nth-child(1) {
+    width: 100% !important;
+  }
+  .contenu-principal__page .box__contenu--liste-enfants {
+    margin: 10px 0;
+  }
+  .contenu-principal__page .box__footer {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 10px;
+  }
+  .contenu-principal__page .box__footer--lien {
+    margin: 10px;
+  }
+  .contenu-principal__page .box-lg,
+  .contenu-principal__page .box-sm,
+  .contenu-principal__page .box-md {
+    min-width: 100%;
+  }
+  .fc-header-toolbar {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .fc-toolbar-chunk {
+    margin: 10px 0;
+  }
+  .fc .fc-daygrid-week-number {
+    font-size: 8px;
+  }
+}
+/*# sourceMappingURL=mobile.css.map */

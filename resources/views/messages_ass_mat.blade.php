@@ -1,10 +1,11 @@
 @extends('layouts.back')
 @section('content')
+    <!-- Création d'un message pour un enfant -->
     <article class="box box-lg">
-        <header>
-            <h4>Créer un message</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Créer un message</h4>
         </header>
-        <div class="contenu">
+        <div class="box__contenu">
             <form method="POST" action="message/ajouter">
                 @csrf
                 <div class="row d-flex flex-wrap">
@@ -12,7 +13,9 @@
                         <select name="enfant" id="enfant" class="form-select" aria-label="enfants" required>
                             <option value="#" disabled selected>Selectionnez un enfant</option>
                             @foreach ($contrats as $contrat)
-                            <option value="{{ $contrat->enfant_id }}">{{ ucFirst($contrat->enfant->prenom) }}</option>
+                            @if(intval($contrat->status_id) === 2)
+                                <option value="{{ $contrat->enfant_id }}">{{ $contrat->enfant->getIdentite() }}</option>
+                            @endif
                             @endforeach
                         </select>
                     </div>
@@ -38,16 +41,17 @@
                 @endif
             </form>
     </article>
+    <!-- Modification d'un mesage existant -->
     <article class="box box-lg">
-        <header>
-            <h4>Voir les messages</h4>
+        <header class="box__header">
+            <h4 class="box__header--titre">Voir les messages</h4>
         </header>
-        <div id="messages" class="contenu">
+        <div id="messages" class="box__contenu">
             <input type="hidden" id="assistante_maternelle_id" value="{{ Auth::user()->categorie->id }}">
             <select id="messages_enfant" class="form-select" aria-label="enfants" required>
                 <option value="#" disabled selected>Selectionnez un enfant</option>
                 @foreach ($contrats as $contrat)
-                <option value="{{ $contrat->enfant_id }}">{{ ucFirst($contrat->enfant->prenom) }}</option>
+                <option value="{{ $contrat->enfant_id }}">{{ $contrat->enfant->getIdentite() }}</option>
                 @endforeach
             </select>
     </article>
